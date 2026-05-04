@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#15803d" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="Gutshof Studio" />
+<title>Gutshof Studio · Instagram Content für Restaurants</title>
+<meta name="description" content="KI-Content-Tool für Gutshof-Restaurants. Foto rein, fertige Caption raus. Mit Wochenplaner und Meta Business Transfer." />
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIj48cmVjdCB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgcng9IjQwIiBmaWxsPSIjMTU4MDNkIi8+PHRleHQgeD0iOTAiIHk9IjEyMiIgZm9udC1mYW1pbHk9IkRNIFNhbnMsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTAwIiBmb250LXdlaWdodD0iNzAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZmIj5HPC90ZXh0Pjwvc3ZnPg==" />
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSIjMTU4MDNkIi8+PHRleHQgeD0iNTAiIHk9IjY4IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSI1NSIgZm9udC13ZWlnaHQ9IjcwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmZiI+RzwvdGV4dD48L3N2Zz4=" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f5f5f4; --surface: #fff; --surface-2: #fafaf9;
+    --border: #e7e5e4; --border-strong: #d6d3d1;
+    --ink: #1c1917; --ink-2: #44403c; --muted: #78716c; --muted-light: #a8a29e;
+    --accent: #15803d; --accent-dark: #166534; --accent-light: #f0fdf4; --accent-soft: #dcfce7;
+    --warning: #b91c1c; --warning-bg: #fef2f2;
+    --info: #1e40af; --info-bg: #eff6ff;
+    --shadow-sm: 0 1px 2px rgba(28,25,23,.04);
+    --shadow: 0 1px 3px rgba(28,25,23,.06), 0 1px 2px rgba(28,25,23,.04);
+    --shadow-lg: 0 10px 30px -10px rgba(28,25,23,.15), 0 2px 8px rgba(28,25,23,.06);
+    --radius: 10px; --radius-lg: 14px; --radius-pill: 999px;
+    --safe-bottom: env(safe-area-inset-bottom);
+    --safe-top: env(safe-area-inset-top);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body { background: var(--bg); color: var(--ink); font-family: 'DM Sans', system-ui, sans-serif; font-size: 15px; line-height: 1.55; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  body { background-image: radial-gradient(circle at 1px 1px, rgba(28,25,23,.04) 1px, transparent 0); background-size: 24px 24px; padding: max(20px, var(--safe-top)) 20px max(20px, var(--safe-bottom)); }
+  @media (max-width: 600px) { body { padding: 16px 14px max(16px, var(--safe-bottom)); background-size: 18px 18px; } }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  /* TABS */
+  .tabs { display: flex; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 4px; margin-bottom: 24px; box-shadow: var(--shadow-sm); width: fit-content; flex-wrap: wrap; max-width: 100%; }
+  .tab { background: transparent; border: none; padding: 10px 18px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--muted); cursor: pointer; border-radius: var(--radius-pill); transition: all .18s ease; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; }
+  .tab:active { transform: scale(0.97); }
+  .tab.active { background: var(--ink); color: white; }
+  .tab .count { background: rgba(255,255,255,.2); color: white; font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 2px 6px; border-radius: 4px; min-width: 18px; text-align: center; }
+  .tab:not(.active) .count { background: var(--surface-2); color: var(--muted); }
+  @media (max-width: 600px) { .tab { padding: 9px 12px; font-size: 12px; } .tab .label-long { display: none; } }
+
+  /* TOP BAR */
+  .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 4px 4px 24px; flex-wrap: wrap; gap: 12px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--ink); }
+  .brand .dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 0 4px rgba(21,128,61,.15); }
+  .brand .ver { color: var(--muted); font-weight: 400; margin-left: 4px; }
+  .status-pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-pill); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-2); }
+  .status-pill .led { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+  @media (max-width: 480px) { .status-pill { display: none; } }
+
+  /* HERO */
+  .hero { margin-bottom: 28px; max-width: 760px; }
+  .hero-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: .15em; text-transform: uppercase; margin-bottom: 12px; font-weight: 500; }
+  h1 { font-size: clamp(30px, 5vw, 52px); font-weight: 600; line-height: 1.05; letter-spacing: -.025em; color: var(--ink); margin-bottom: 12px; }
+  h1 .accent-word { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--accent); }
+  .hero-tag { font-size: 16px; color: var(--ink-2); max-width: 580px; line-height: 1.5; }
+  @media (max-width: 600px) { .hero { margin-bottom: 22px; } .hero-tag { font-size: 14px; } }
+
+  /* INPUTS */
+  .input, select.input, textarea.input { width: 100%; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 11px 14px; font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--ink); transition: all .15s ease; outline: none; min-height: 44px; }
+  .input:focus { border-color: var(--accent); background: white; box-shadow: 0 0 0 3px var(--accent-soft); }
+  textarea.input { resize: vertical; min-height: 80px; line-height: 1.55; font-size: 14px; }
+  select.input { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%2378716c' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px; }
+  input[type="time"].input { padding: 11px 14px; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 18px; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; border: 1px solid transparent; cursor: pointer; transition: all .15s ease; white-space: nowrap; min-height: 44px; }
+  .btn:active { transform: scale(0.97); }
+  .btn-accent { background: var(--accent); color: white; width: 100%; padding: 16px 24px; font-size: 15px; font-weight: 600; margin-top: 4px; }
+  .btn-accent:hover { background: var(--accent-dark); }
+  .btn-accent:disabled { background: var(--border-strong); color: var(--muted); cursor: not-allowed; }
+  .btn-accent.loading { pointer-events: none; }
+  .btn-ghost { background: var(--surface); color: var(--ink-2); border: 1px solid var(--border); }
+  .btn-ghost:hover { background: var(--surface-2); border-color: var(--border-strong); color: var(--ink); }
+  .btn-dark { background: var(--ink); color: white; }
+  .btn-dark:hover { background: var(--ink-2); }
+  .btn-danger { background: var(--surface); color: var(--warning); border: 1px solid #fecaca; }
+  .btn-danger:hover { background: var(--warning-bg); }
+  .btn-large { padding: 18px 24px; font-size: 16px; font-weight: 600; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px; box-shadow: var(--shadow-sm); }
+  @media (max-width: 600px) { .card { padding: 18px; } }
+  .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+  .card-title { font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; font-weight: 500; }
+  .card-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted-light); background: var(--surface-2); padding: 3px 8px; border-radius: 4px; }
+
+  .view { display: none; }
+  .view.active { display: block; animation: fadeIn .3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .main-grid { display: grid; grid-template-columns: 380px 1fr; gap: 18px; margin-bottom: 24px; }
+  @media (max-width: 880px) { .main-grid { grid-template-columns: 1fr; } }
+
+  /* UPLOAD */
+  .upload { border: 1.5px dashed var(--border-strong); background: var(--surface-2); aspect-ratio: 1/1; border-radius: var(--radius); display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: all .2s ease; position: relative; overflow: hidden; margin-bottom: 14px; }
+  .upload:hover { border-color: var(--accent); background: var(--accent-light); }
+  .upload.has-image { border-style: solid; border-color: var(--border); cursor: default; padding: 0; background: var(--surface); }
+  .upload .icon-circle { width: 52px; height: 52px; background: white; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; color: var(--accent); }
+  .upload .upload-text { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+  .upload .upload-sub { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+  .upload img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+  .upload input { display: none; }
+  .upload-actions { position: absolute; bottom: 12px; right: 12px; opacity: 0; transition: opacity .18s; z-index: 2; }
+  .upload.has-image:hover .upload-actions, .upload.has-image:active .upload-actions { opacity: 1; }
+  @media (hover: none) { .upload.has-image .upload-actions { opacity: 1; } }
+
+  .vision-note { display: flex; gap: 8px; padding: 10px 12px; background: var(--accent-light); border: 1px solid var(--accent-soft); border-radius: var(--radius); font-size: 12px; color: var(--accent-dark); line-height: 1.5; }
+  .vision-note .v-icon { flex-shrink: 0; color: var(--accent); margin-top: 1px; }
+
+  .field-group { margin-bottom: 20px; }
+  .field-label { display: flex; align-items: center; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; font-weight: 500; margin-bottom: 8px; }
+  .field-label .req { color: var(--accent); font-size: 9px; }
+  .field-hint { font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { background: var(--surface-2); border: 1px solid var(--border); color: var(--ink-2); padding: 9px 14px; border-radius: var(--radius-pill); font-size: 13px; cursor: pointer; transition: all .15s ease; font-weight: 500; user-select: none; min-height: 36px; display: inline-flex; align-items: center; }
+  .chip:active { transform: scale(0.96); }
+  .chip.active { background: var(--ink); color: white; border-color: var(--ink); }
+  .chip.goal-chip.active { background: var(--accent); border-color: var(--accent); }
+
+  /* STRATEGY CARD */
+  .strategy-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px 12px; margin-bottom: 20px; }
+  .strategy-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+  .strategy-title { font-size: 13px; font-weight: 600; color: var(--ink); display: flex; align-items: center; gap: 6px; }
+  .strategy-title .icon { color: var(--accent); width: 14px; height: 14px; }
+  .strategy-sub { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); }
+  .strategy-hint { font-size: 11px; color: var(--muted); margin-bottom: 14px; line-height: 1.4; }
+  .slider-row { margin-bottom: 14px; }
+  .slider-row:last-child { margin-bottom: 4px; }
+  .slider-label-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+  .slider-label { font-size: 12px; font-weight: 500; color: var(--ink-2); }
+  .slider-value { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); background: var(--accent-light); padding: 2px 8px; border-radius: 4px; font-weight: 500; }
+  .slider { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; background: var(--border); border-radius: 3px; outline: none; margin: 8px 0 4px; cursor: pointer; }
+  .slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 22px; height: 22px; background: var(--accent); border-radius: 50%; cursor: pointer; border: 4px solid white; box-shadow: 0 1px 4px rgba(21,128,61,.3), 0 0 0 1px var(--accent); }
+  .slider::-moz-range-thumb { width: 22px; height: 22px; background: var(--accent); border-radius: 50%; cursor: pointer; border: 4px solid white; box-shadow: 0 1px 4px rgba(21,128,61,.3), 0 0 0 1px var(--accent); }
+  .slider-track-labels { display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted-light); letter-spacing: .05em; text-transform: uppercase; }
+
+  /* COMPACT ROW - now 2x2 grid for clarity */
+  .schedule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+  .compact-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+  @media (max-width: 540px) { .compact-row, .schedule-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 380px) { .compact-row, .schedule-grid { grid-template-columns: 1fr; } }
+
+  .alert { padding: 12px 16px; border-radius: var(--radius); font-size: 13px; margin-bottom: 18px; display: none; line-height: 1.5; }
+  .alert.error { background: var(--warning-bg); border: 1px solid #fecaca; color: var(--warning); }
+  .alert.success { background: var(--accent-light); border: 1px solid var(--accent-soft); color: var(--accent-dark); }
+  .alert.visible { display: block; }
+  .alert strong { font-weight: 600; }
+
+  /* OUTPUT */
+  .output { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); display: none; }
+  .output.visible { display: block; animation: slideUp .4s cubic-bezier(.16,1,.3,1); }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  .output-bar { display: flex; align-items: center; justify-content: space-between; padding: 16px 22px; background: var(--ink); color: white; flex-wrap: wrap; gap: 12px; }
+  .output-bar h2 { font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+  .output-bar h2 .pulse { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 0 3px rgba(21,128,61,.3); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 3px rgba(21,128,61,.3); } 50% { box-shadow: 0 0 0 6px rgba(21,128,61,0); } }
+  .output-meta { display: flex; gap: 6px; flex-wrap: wrap; }
+  .meta-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; background: rgba(255,255,255,.1); color: rgba(255,255,255,.85); padding: 4px 10px; border-radius: var(--radius-pill); letter-spacing: .03em; }
+  .output-section { padding: 20px 22px; border-bottom: 1px solid var(--border); }
+  .output-section:last-child { border-bottom: none; }
+  .out-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; gap: 8px; flex-wrap: wrap; }
+  .out-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+  .out-label .badge { background: var(--accent-light); color: var(--accent-dark); padding: 2px 8px; border-radius: 4px; font-size: 10px; text-transform: none; letter-spacing: 0; font-weight: 500; }
+  .copy-btn { background: var(--surface-2); border: 1px solid var(--border); color: var(--ink-2); padding: 8px 14px; border-radius: var(--radius); font-family: 'JetBrains Mono', monospace; font-size: 11px; cursor: pointer; transition: all .15s ease; min-height: 36px; display: inline-flex; align-items: center; gap: 6px; }
+  .copy-btn:active { transform: scale(0.97); }
+  .copy-btn.copied { background: var(--accent); color: white; border-color: var(--accent); }
+  .out-text { font-size: 14px; line-height: 1.65; color: var(--ink); white-space: pre-wrap; }
+  .out-text.hashtags { color: var(--accent-dark); font-weight: 500; word-break: break-word; }
+  .out-text.keywords { color: var(--ink-2); font-size: 13px; font-family: 'JetBrains Mono', monospace; line-height: 1.7; }
+  .strategy-block { background: var(--accent-light); border-left: 3px solid var(--accent); padding: 14px 18px; border-radius: var(--radius); font-size: 13px; color: var(--accent-dark); line-height: 1.55; }
+  .strategy-block .strat-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: .1em; text-transform: uppercase; font-weight: 600; margin-bottom: 6px; display: block; }
+  .vision-output { background: linear-gradient(135deg, #fafaf9, #f5f5f4); border: 1px solid var(--border); border-left: 3px solid var(--ink); padding: 14px 18px; border-radius: var(--radius); font-size: 14px; color: var(--ink-2); line-height: 1.6; font-style: italic; position: relative; }
+  .vision-output::before { content: '"'; position: absolute; top: -8px; left: 12px; font-family: 'Instrument Serif', serif; font-size: 40px; color: var(--ink); line-height: 1; background: white; padding: 0 6px; font-style: normal; }
+  .output-footer { padding: 14px 22px; background: var(--surface-2); display: flex; gap: 8px; flex-wrap: wrap; }
+  .output-footer .btn { flex: 1; min-width: 140px; }
+  .save-success { background: var(--accent); color: white; padding: 14px 20px; border-radius: var(--radius); margin: 14px 22px; font-size: 13px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+  /* WEEK VIEW */
+  .week-view-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 14px; }
+  .week-stats { display: flex; gap: 10px; flex-wrap: wrap; }
+  .stat-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 70px; }
+  .stat-num { font-size: 20px; font-weight: 600; color: var(--ink); line-height: 1; }
+  .stat-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+
+  .week-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .week-actions .btn { flex: 1; }
+  @media (min-width: 481px) { .week-actions .btn { flex: 0 1 auto; } }
+
+  .week-grid-large { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-bottom: 24px; }
+  @media (max-width: 880px) { .week-grid-large { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
+  @media (max-width: 480px) { .week-grid-large { grid-template-columns: 1fr; } }
+
+  .day-column { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; min-height: 180px; display: flex; flex-direction: column; }
+  .day-header { background: var(--surface-2); padding: 10px 12px; border-bottom: 1px solid var(--border); text-align: center; }
+  .day-header .day-name { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+  .day-header .post-count { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .day-content { padding: 6px; flex: 1; display: flex; flex-direction: column; gap: 5px; }
+  .day-empty { color: var(--muted-light); font-size: 11px; text-align: center; padding: 20px 8px; font-style: italic; }
+
+  .post-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; cursor: pointer; transition: all .15s ease; position: relative; overflow: hidden; }
+  .post-card:active { transform: scale(0.97); }
+  .post-card:hover { border-color: var(--accent); background: white; box-shadow: var(--shadow-sm); }
+  .post-card .post-time { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink); font-weight: 600; margin-bottom: 2px; display: flex; align-items: center; justify-content: space-between; }
+  .post-card .post-cat { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--accent); letter-spacing: .08em; text-transform: uppercase; font-weight: 600; margin-bottom: 3px; }
+  .post-card .post-preview { font-size: 11px; color: var(--ink-2); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .post-card .post-status-dot { width: 6px; height: 6px; border-radius: 50%; }
+  .post-card.status-draft .post-status-dot { background: var(--muted-light); }
+  .post-card.status-scheduled .post-status-dot { background: var(--accent); }
+  .post-card.status-published .post-status-dot { background: var(--info); }
+
+  /* MODAL */
+  .modal-backdrop { position: fixed; inset: 0; background: rgba(28,25,23,.5); backdrop-filter: blur(4px); z-index: 100; display: none; align-items: center; justify-content: center; padding: 16px; }
+  .modal-backdrop.visible { display: flex; animation: fadeIn .2s ease; }
+  .modal { background: white; border-radius: var(--radius-lg); max-width: 600px; width: 100%; max-height: 92vh; overflow-y: auto; box-shadow: var(--shadow-lg); }
+  .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 22px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: white; z-index: 1; }
+  .modal-title { font-size: 16px; font-weight: 600; color: var(--ink); }
+  .modal-close { background: transparent; border: none; cursor: pointer; color: var(--muted); padding: 8px; font-size: 20px; min-width: 36px; min-height: 36px; }
+  .modal-body { padding: 22px; }
+  .modal-footer { padding: 14px 22px; border-top: 1px solid var(--border); display: flex; gap: 8px; flex-wrap: wrap; background: var(--surface-2); }
+  .modal-footer .btn { flex: 1; min-width: 120px; }
+  .modal-image { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); margin-bottom: 14px; background: var(--surface-2); }
+  .modal-section { margin-bottom: 14px; }
+  .modal-section-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px; font-weight: 500; }
+  .modal-section-content { font-size: 14px; color: var(--ink); line-height: 1.6; white-space: pre-wrap; }
+
+  /* META BUSINESS TRANSFER WIZARD - fullscreen */
+  .transfer-overlay { position: fixed; inset: 0; background: var(--bg); z-index: 200; display: none; flex-direction: column; padding: max(16px, var(--safe-top)) 16px max(16px, var(--safe-bottom)); }
+  .transfer-overlay.visible { display: flex; animation: fadeIn .3s ease; }
+  .transfer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-shrink: 0; }
+  .transfer-title { font-size: 14px; font-weight: 600; color: var(--ink); }
+  .transfer-progress-text { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); }
+  .transfer-close { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 14px; font-size: 13px; cursor: pointer; min-height: 40px; }
+  .transfer-progress-bar { height: 4px; background: var(--border); border-radius: 2px; margin-bottom: 18px; overflow: hidden; flex-shrink: 0; }
+  .transfer-progress-fill { height: 100%; background: var(--accent); transition: width .3s ease; }
+
+  .transfer-content { flex: 1; overflow-y: auto; max-width: 700px; margin: 0 auto; width: 100%; padding-bottom: 16px; }
+  .transfer-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; box-shadow: var(--shadow-sm); margin-bottom: 14px; }
+  .transfer-meta { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .transfer-meta-tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 4px 10px; border-radius: var(--radius-pill); background: var(--surface-2); color: var(--ink-2); border: 1px solid var(--border); }
+  .transfer-meta-tag.time { background: var(--accent); color: white; border-color: var(--accent); font-weight: 600; }
+  .transfer-image-wrap { background: var(--surface-2); border-radius: var(--radius); aspect-ratio: 1; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; overflow: hidden; max-height: 320px; }
+  .transfer-image-wrap img { width: 100%; height: 100%; object-fit: contain; }
+  .transfer-image-empty { color: var(--muted-light); font-size: 13px; text-align: center; padding: 30px; font-style: italic; }
+  .transfer-text-block { margin-bottom: 14px; }
+  .transfer-text-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px; font-weight: 500; }
+  .transfer-text-content { font-size: 14px; line-height: 1.6; color: var(--ink); padding: 12px 14px; background: var(--surface-2); border-radius: 8px; border: 1px solid var(--border); white-space: pre-wrap; }
+  .transfer-text-content.hashtags { color: var(--accent-dark); font-weight: 500; }
+
+  .transfer-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  @media (max-width: 480px) { .transfer-actions { grid-template-columns: 1fr; } }
+
+  .transfer-nav { display: flex; gap: 10px; padding-top: 14px; border-top: 1px solid var(--border); flex-shrink: 0; }
+  .transfer-nav .btn { flex: 1; }
+
+  .transfer-instructions { background: var(--info-bg); border: 1px solid #bfdbfe; border-radius: var(--radius); padding: 12px 16px; font-size: 13px; color: var(--ink-2); line-height: 1.5; margin-bottom: 14px; }
+  .transfer-instructions strong { color: var(--info); }
+
+  .transfer-done { text-align: center; padding: 60px 20px; }
+  .transfer-done h2 { font-size: 28px; margin-bottom: 10px; color: var(--ink); }
+  .transfer-done p { color: var(--ink-2); margin-bottom: 24px; max-width: 400px; margin-left: auto; margin-right: auto; }
+
+  /* IDEEN VIEW */
+  .idea-intro { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px; margin-bottom: 18px; box-shadow: var(--shadow-sm); }
+  .idea-intro h2 { font-size: 22px; font-weight: 600; margin-bottom: 8px; color: var(--ink); }
+  .idea-intro p { color: var(--ink-2); margin-bottom: 16px; line-height: 1.5; font-size: 14px; }
+  .idea-controls { display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; align-items: end; }
+  @media (max-width: 540px) { .idea-controls { grid-template-columns: 1fr; } }
+  .ideas-list { display: flex; flex-direction: column; gap: 12px; }
+  .idea-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px 20px; transition: all .15s ease; }
+  .idea-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow); }
+  .idea-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+  .idea-num { background: var(--accent-light); color: var(--accent-dark); font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: var(--radius-pill); flex-shrink: 0; }
+  .idea-title { font-size: 15px; font-weight: 600; color: var(--ink); line-height: 1.4; flex: 1; }
+  .idea-meta { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+  .idea-meta-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); background: var(--surface-2); padding: 3px 8px; border-radius: 4px; }
+  .idea-description { font-size: 13px; color: var(--ink-2); line-height: 1.5; margin-bottom: 12px; }
+  .idea-footer { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  footer { text-align: center; margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted-light); letter-spacing: .05em; }
+  .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid currentColor; border-top-color: transparent; border-radius: 50%; animation: spin .6s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="top-bar">
+    <div class="brand"><div class="dot"></div>Gutshof Studio <span class="ver">v3.5</span></div>
+    <div class="status-pill"><span class="led"></span><span>Online</span></div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-eyebrow">Instagram · KI-Content für Gastronomie</div>
+    <h1>Eine ganze Woche Content<br/><span class="accent-word">in 15 Minuten geplant</span>.</h1>
+    <p class="hero-tag">Foto rein, Strategie wählen, fertige Captions raus. Wochenplaner mit 3 Slots pro Tag, Meta Business Schnellübertragung und Ideen-Generator.</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-view="generator">✨ <span class="label-long">Generator</span><span style="display:none">Generator</span></button>
+    <button class="tab" data-view="ideas">💡 <span class="label-long">Ideen</span></button>
+    <button class="tab" data-view="week">📅 <span class="label-long">Wochenplan</span><span class="count" id="weekCount">0</span></button>
+  </div>
+
+  <div class="alert error" id="errorAlert"></div>
+  <div class="alert success" id="successAlert"></div>
+
+  <!-- GENERATOR VIEW -->
+  <div class="view active" id="view-generator">
+    <div class="main-grid">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Schritt 1 · Bild</div>
+          <div class="card-num">01</div>
+        </div>
+        <label class="upload" id="uploadZone">
+          <div class="icon-circle">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          </div>
+          <div class="upload-text">Foto hochladen</div>
+          <div class="upload-sub">📷 Kamera oder Galerie</div>
+          <input type="file" id="imageInput" accept="image/*" />
+          <div class="upload-actions">
+            <button class="btn btn-ghost" type="button" id="changeImage" style="font-size:11px; padding:6px 12px; min-height:32px;">Bild wechseln</button>
+          </div>
+        </label>
+        <div class="vision-note">
+          <span class="v-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M1 8C1 8 3.5 3 8 3C12.5 3 15 8 15 8C15 8 12.5 13 8 13C3.5 13 1 8 1 8Z" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.5"/></svg></span>
+          <div><strong>Vision aktiv.</strong> Claude analysiert dein Foto und schreibt darauf bezogene Captions.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Schritt 2 · Briefing</div>
+          <div class="card-num">02</div>
+        </div>
+
+        <div class="field-group">
+          <div class="field-label">Kategorie</div>
+          <div class="chips" id="categoryChips">
+            <div class="chip active" data-value="FOOD">Food</div>
+            <div class="chip" data-value="EVENT">Event</div>
+            <div class="chip" data-value="AMBIENTE">Ambiente</div>
+            <div class="chip" data-value="TEAM">Team</div>
+            <div class="chip" data-value="SAISONAL">Saisonal</div>
+            <div class="chip" data-value="GETRAENKE">Getränke</div>
+            <div class="chip" data-value="ANGEBOT">Angebot</div>
+            <div class="chip" data-value="SONNTAG">Sonntag</div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field-label">Ziel <span class="req">★ wichtig</span></div>
+          <div class="chips" id="goalChips">
+            <div class="chip goal-chip active" data-value="engagement">Engagement</div>
+            <div class="chip goal-chip" data-value="reach">Reichweite</div>
+            <div class="chip goal-chip" data-value="conversion">Reservierungen</div>
+            <div class="chip goal-chip" data-value="brand">Markenaufbau</div>
+            <div class="chip goal-chip" data-value="community">Community</div>
+          </div>
+        </div>
+
+        <div class="strategy-card">
+          <div class="strategy-header">
+            <div class="strategy-title">
+              <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M2 13L6 9L9 12L14 7M14 7H10M14 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Strategie-Feintuning
+            </div>
+            <div class="strategy-sub" id="presetIndicator">preset: engagement</div>
+          </div>
+          <div class="strategy-hint">Ziel-Auswahl setzt Empfehlung — frei nachjustierbar.</div>
+          <div class="slider-row">
+            <div class="slider-label-row"><span class="slider-label">Hook-Intensität</span><span class="slider-value" id="val-hook">Stark</span></div>
+            <input type="range" id="slider-hook" class="slider" min="0" max="3" value="3" />
+            <div class="slider-track-labels"><span>Subtil</span><span>Sehr stark</span></div>
+          </div>
+          <div class="slider-row">
+            <div class="slider-label-row"><span class="slider-label">Verkaufsdruck</span><span class="slider-value" id="val-urgency">Hinweis</span></div>
+            <input type="range" id="slider-urgency" class="slider" min="0" max="3" value="1" />
+            <div class="slider-track-labels"><span>Sanft</span><span>Direkt</span></div>
+          </div>
+          <div class="slider-row">
+            <div class="slider-label-row"><span class="slider-label">Storytelling-Tiefe</span><span class="slider-value" id="val-story">Erzählerisch</span></div>
+            <input type="range" id="slider-story" class="slider" min="0" max="3" value="3" />
+            <div class="slider-track-labels"><span>Sachlich</span><span>Tiefe Story</span></div>
+          </div>
+          <div class="slider-row">
+            <div class="slider-label-row"><span class="slider-label">Lokal-Bezug</span><span class="slider-value" id="val-local">Andeutung</span></div>
+            <input type="range" id="slider-local" class="slider" min="0" max="3" value="1" />
+            <div class="slider-track-labels"><span>Allgemein</span><span>Stark regional</span></div>
+          </div>
+        </div>
+
+        <!-- TAG + SLOT -->
+        <div class="schedule-grid">
+          <div>
+            <div class="field-label">Wochentag</div>
+            <select id="day" class="input">
+              <option value="montag">Montag</option>
+              <option value="dienstag">Dienstag</option>
+              <option value="mittwoch">Mittwoch</option>
+              <option value="donnerstag">Donnerstag</option>
+              <option value="freitag">Freitag</option>
+              <option value="samstag">Samstag</option>
+              <option value="sonntag">Sonntag</option>
+            </select>
+          </div>
+          <div>
+            <div class="field-label">Posting-Slot</div>
+            <select id="slot" class="input">
+              <option value="morning">🌅 Morgens</option>
+              <option value="noon" selected>☀️ Mittags</option>
+              <option value="evening">🌙 Abends</option>
+            </select>
+            <div class="field-hint" id="slotHint">Mittags 12:30 · Bergfest-Crowd</div>
+          </div>
+        </div>
+
+        <div class="compact-row">
+          <div>
+            <div class="field-label">Tonalität</div>
+            <select id="tone" class="input">
+              <option value="warm">Warm</option>
+              <option value="elegant">Elegant</option>
+              <option value="rustikal">Rustikal</option>
+              <option value="verspielt">Verspielt</option>
+            </select>
+          </div>
+          <div>
+            <div class="field-label">Hashtags</div>
+            <select id="hashtagCount" class="input">
+              <option value="3">3 Tags</option>
+              <option value="5" selected>5 Tags</option>
+            </select>
+          </div>
+          <div>
+            <div class="field-label">Uhrzeit</div>
+            <input type="time" id="customTime" class="input" value="12:30" />
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field-label">Details · optional, hilft sehr</div>
+          <textarea id="details" class="input" placeholder="z.B. Reh-Ragout mit Pfifferlingen und Spätzle, Pianist-Abend am 12.07..."></textarea>
+        </div>
+
+        <button class="btn btn-accent btn-large" id="generateBtn" disabled>
+          <span class="btn-content">Beitrag generieren →</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="output" id="outputSection">
+      <div class="output-bar">
+        <h2><span class="pulse"></span> <span>Dein Beitrag</span></h2>
+        <div class="output-meta" id="outputMeta"></div>
+      </div>
+
+      <div class="save-success" id="saveSuccess" style="display:none;">
+        <span>✓ In Wochenplan gespeichert</span>
+        <button class="btn btn-ghost" style="background:white; color:var(--ink); padding:6px 12px; min-height:32px;" onclick="switchView('week')">Zum Plan →</button>
+      </div>
+
+      <div class="output-section" id="bildanalyseSection" style="display:none;">
+        <div class="out-row">
+          <div class="out-label">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M1 8C1 8 3.5 3 8 3C12.5 3 15 8 15 8C15 8 12.5 13 8 13C3.5 13 1 8 1 8Z" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.5"/></svg>
+            Bildanalyse <span class="badge">Was Claude sieht</span>
+          </div>
+          <button class="copy-btn" data-copy="bildanalyse">Als Alt-Text</button>
+        </div>
+        <div class="vision-output" id="bildanalyseOut"></div>
+      </div>
+
+      <div class="output-section" id="strategySection" style="display:none;">
+        <div class="strategy-block"><span class="strat-label">★ Strategie</span><span id="strategyOut"></span></div>
+      </div>
+
+      <div class="output-section">
+        <div class="out-row"><div class="out-label">Caption</div><button class="copy-btn" data-copy="caption">Kopieren</button></div>
+        <div class="out-text" id="captionOut"></div>
+      </div>
+
+      <div class="output-section">
+        <div class="out-row"><div class="out-label">Hashtags <span class="badge">Best Practice 3–5</span></div><button class="copy-btn" data-copy="hashtags">Kopieren</button></div>
+        <div class="out-text hashtags" id="hashtagsOut"></div>
+      </div>
+
+      <div class="output-section">
+        <div class="out-row"><div class="out-label">Keywords · Alt-Text & SEO</div><button class="copy-btn" data-copy="keywords">Kopieren</button></div>
+        <div class="out-text keywords" id="keywordsOut"></div>
+      </div>
+
+      <div class="output-footer">
+        <button class="btn btn-dark" id="saveToWeekBtn">📌 In Wochenplan speichern</button>
+        <button class="btn btn-ghost" id="regenerateBtn">↻ Neue Variante</button>
+        <button class="btn btn-ghost" id="copyAllBtn">⎘ Alles kopieren</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- IDEEN VIEW -->
+  <div class="view" id="view-ideas">
+    <div class="idea-intro">
+      <h2>💡 Was soll ich heute posten?</h2>
+      <p>Kein Plan, was diese Woche auf den Feed soll? Claude schlägt konkrete Post-Ideen vor — basierend auf Saison und was du schon geplant hast.</p>
+      <div class="idea-controls">
+        <div>
+          <div class="field-label">Anzahl</div>
+          <select id="ideaCount" class="input">
+            <option value="5" selected>5 Ideen</option>
+            <option value="7">7 Ideen (1 pro Tag)</option>
+            <option value="10">10 Ideen</option>
+            <option value="14">14 Ideen (2 pro Tag)</option>
+            <option value="21">21 Ideen (3 pro Tag)</option>
+          </select>
+        </div>
+        <div>
+          <div class="field-label">Fokus</div>
+          <select id="ideaFocus" class="input">
+            <option value="">Bunt gemischt</option>
+            <option value="food">Nur Food</option>
+            <option value="atmosphere">Nur Atmosphäre / Team</option>
+            <option value="event">Nur Events / Aktionen</option>
+            <option value="seasonal">Nur Saisonales</option>
+          </select>
+        </div>
+        <button class="btn btn-accent" id="generateIdeasBtn" style="width:auto; margin:0; padding:14px 20px; font-size:14px;">
+          <span class="ideas-btn-content">✨ Ideen generieren</span>
+        </button>
+      </div>
+    </div>
+    <div class="ideas-list" id="ideasList"></div>
+  </div>
+
+  <!-- WOCHENPLAN VIEW -->
+  <div class="view" id="view-week">
+    <div class="week-view-header">
+      <div class="week-stats">
+        <div class="stat-box"><div class="stat-num" id="statTotal">0</div><div class="stat-label">Posts</div></div>
+        <div class="stat-box"><div class="stat-num" id="statScheduled">0</div><div class="stat-label">Geplant</div></div>
+        <div class="stat-box"><div class="stat-num" id="statPublished">0</div><div class="stat-label">Live</div></div>
+      </div>
+      <div class="week-actions">
+        <button class="btn btn-accent" id="startTransferBtn" style="width:auto; margin:0; padding:12px 18px; font-size:14px; min-height:44px;">📤 An Meta Business übertragen</button>
+        <button class="btn btn-dark" id="exportCsvBtn">⬇ CSV-Export</button>
+        <button class="btn btn-danger" id="clearWeekBtn">🗑</button>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:18px; padding:14px 18px; background:var(--info-bg); border-color:#bfdbfe;">
+      <div style="display:flex; gap:10px; align-items:flex-start;">
+        <span style="color:var(--info); font-size:16px;">ℹ</span>
+        <div style="font-size:13px; color:var(--ink-2); line-height:1.5;">
+          <strong style="color:var(--info);">3 Slots pro Tag</strong> · Morgens (Lunch-Lockruf), Mittags (Crowd-Peak), Abends (Reservierung-Planung). Klicke <strong>"📤 An Meta Business übertragen"</strong> wenn alle Posts fertig sind — durchläuft sie nacheinander mit "Bild speichern" + "Text kopieren" zum direkten Einfügen in der Meta Business Suite App.
+        </div>
+      </div>
+    </div>
+
+    <div class="week-grid-large" id="weekGrid"></div>
+  </div>
+
+  <footer>Gutshof Studio · Powered by Claude · v3.5</footer>
+</div>
+
+<!-- POST DETAIL MODAL -->
+<div class="modal-backdrop" id="postModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">Beitrag</div>
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" id="modalChangeStatus">Status ändern</button>
+      <button class="btn btn-ghost" id="modalCopyAll">⎘ Kopieren</button>
+      <button class="btn btn-danger" id="modalDelete">🗑 Löschen</button>
+    </div>
+  </div>
+</div>
+
+<!-- META BUSINESS TRANSFER WIZARD -->
+<div class="transfer-overlay" id="transferOverlay">
+  <div class="transfer-header">
+    <div class="transfer-title">📤 An Meta Business übertragen</div>
+    <div class="transfer-progress-text" id="transferProgressText">Post 1 von 1</div>
+    <button class="transfer-close" id="transferClose">✕ Schließen</button>
+  </div>
+  <div class="transfer-progress-bar"><div class="transfer-progress-fill" id="transferProgressFill" style="width:0%;"></div></div>
+  <div class="transfer-content" id="transferContent"></div>
+</div>
+
+<script>
+const SLIDER_LABELS = {
+  hook:    ['Subtil', 'Solide', 'Stark', 'Sehr stark'],
+  urgency: ['Sanft', 'Hinweis', 'Klar', 'Direkt'],
+  story:   ['Sachlich', 'Mit Anker', 'Erzählerisch', 'Tiefe Story'],
+  local:   ['Allgemein', 'Andeutung', 'Lokal', 'Stark regional']
+};
+
+const SLIDER_INSTRUCTIONS = {
+  hook: ["Ruhiger, leiser Einstieg.", "Solider Einstieg mit klarer Aussage.", "Starke Hook in Zeile 1: konkretes Bild oder überraschende Aussage.", "Sehr starke Hook: polarisierende These oder Sensorik-Knall."],
+  urgency: ["Kein Verkaufsdruck. Nur Atmosphäre.", "Sanfter Hinweis am Ende.", "Klarer CTA mit Reservierungs-Hinweis.", "Direkter Verkauf: Verknappung, klarer CTA."],
+  story: ["Sachlich, knapp.", "Ein konkretes Detail als Anker.", "Erzählerisch mit Szene/Figur/Moment.", "Tiefe Geschichte mit Charakter."],
+  local: ["Allgemein.", "Subtile Andeutung.", "Lokal: Region, Lieferanten erwähnen.", "Stark regional: Orte, Namen, lokale Begriffe."]
+};
+
+const GOAL_PRESETS = {
+  engagement: { hook: 3, urgency: 1, story: 3, local: 1 },
+  reach:      { hook: 3, urgency: 1, story: 2, local: 0 },
+  conversion: { hook: 2, urgency: 3, story: 1, local: 1 },
+  brand:      { hook: 1, urgency: 0, story: 3, local: 2 },
+  community:  { hook: 2, urgency: 0, story: 2, local: 3 }
+};
+
+const GOAL_DESCRIPTION = {
+  engagement: "Likes, Kommentare, Saves maximieren.",
+  reach:      "Neue Augen erreichen.",
+  conversion: "Reservierungen anstoßen.",
+  brand:      "Markenidentität schärfen.",
+  community:  "Lokale Bindung stärken."
+};
+
+// 3 SLOTS PRO TAG mit optimalen Zeiten für deutsche Gastronomie
+const SLOT_TIMES = {
+  montag:      { morning: '10:30', noon: '12:30', evening: '18:30' },
+  dienstag:    { morning: '10:00', noon: '12:30', evening: '17:30' },
+  mittwoch:    { morning: '10:30', noon: '12:00', evening: '18:00' },
+  donnerstag:  { morning: '10:30', noon: '13:00', evening: '18:00' },
+  freitag:     { morning: '11:00', noon: '12:30', evening: '17:00' },
+  samstag:     { morning: '09:30', noon: '12:00', evening: '18:30' },
+  sonntag:     { morning: '09:30', noon: '12:00', evening: '17:30' }
+};
+
+const SLOT_REASONS = {
+  morning: 'Lunch-Lockruf · Brunch-Suche · Tagesplanung',
+  noon:    'Crowd-Peak · Bergfest · Mittagspause',
+  evening: 'Feierabend · Reservierung für morgen · Wochenend-Planung'
+};
+
+const SLOT_LABELS = { morning: '🌅 Morgens', noon: '☀️ Mittags', evening: '🌙 Abends' };
+const SLOT_ORDER = ['morning', 'noon', 'evening'];
+const DAY_SHORT = { montag: 'Mo', dienstag: 'Di', mittwoch: 'Mi', donnerstag: 'Do', freitag: 'Fr', samstag: 'Sa', sonntag: 'So' };
+const DAY_FULL = { montag: 'Montag', dienstag: 'Dienstag', mittwoch: 'Mittwoch', donnerstag: 'Donnerstag', freitag: 'Freitag', samstag: 'Samstag', sonntag: 'Sonntag' };
+const DAY_ORDER = ['montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag', 'samstag', 'sonntag'];
+
+const state = {
+  imageBase64: null,
+  imageMediaType: null,
+  category: 'FOOD',
+  goal: 'engagement',
+  sliders: { hook: 3, urgency: 1, story: 3, local: 1 },
+  currentPost: null,
+  currentView: 'generator',
+  transfer: { posts: [], index: 0 }
+};
+
+const $ = (id) => document.getElementById(id);
+const LS_POSTS = 'gutshof_posts_v3';
+
+function loadPosts() {
+  try {
+    const posts = JSON.parse(localStorage.getItem(LS_POSTS) || '[]');
+    // Migrate old posts: add slot + scheduledTime if missing
+    return posts.map(p => {
+      if (!p.slot) p.slot = 'noon';
+      if (!p.scheduledTime) p.scheduledTime = SLOT_TIMES[p.day]?.[p.slot] || '12:30';
+      return p;
+    });
+  } catch (e) { return []; }
+}
+function savePosts(posts) { localStorage.setItem(LS_POSTS, JSON.stringify(posts)); }
+
+function switchView(view) {
+  state.currentView = view;
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  $('view-' + view).classList.add('active');
+  document.querySelector(`.tab[data-view="${view}"]`).classList.add('active');
+  if (view === 'week') renderWeekPlan();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => switchView(tab.dataset.view));
+});
+
+function updateSliderValue(name) {
+  const val = parseInt($('slider-' + name).value);
+  state.sliders[name] = val;
+  $('val-' + name).textContent = SLIDER_LABELS[name][val];
+}
+
+function applyGoalPreset(goal) {
+  const preset = GOAL_PRESETS[goal];
+  ['hook','urgency','story','local'].forEach(k => {
+    $('slider-' + k).value = preset[k];
+    updateSliderValue(k);
+  });
+  $('presetIndicator').textContent = `preset: ${goal}`;
+}
+
+document.querySelectorAll('#categoryChips .chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('#categoryChips .chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    state.category = chip.dataset.value;
+  });
+});
+
+document.querySelectorAll('#goalChips .chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('#goalChips .chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    state.goal = chip.dataset.value;
+    applyGoalPreset(state.goal);
+  });
+});
+
+['hook','urgency','story','local'].forEach(name => {
+  $('slider-' + name).addEventListener('input', () => updateSliderValue(name));
+});
+
+// SLOT + DAY → autoset time
+function updateTimeFromSlot() {
+  const day = $('day').value;
+  const slot = $('slot').value;
+  const time = SLOT_TIMES[day][slot];
+  $('customTime').value = time;
+  $('slotHint').textContent = `${SLOT_LABELS[slot].replace(/^[^\s]+\s/,'')} ${time} · ${SLOT_REASONS[slot]}`;
+}
+$('day').addEventListener('change', updateTimeFromSlot);
+$('slot').addEventListener('change', updateTimeFromSlot);
+
+function showError(html) {
+  const a = $('errorAlert');
+  a.innerHTML = html;
+  a.classList.add('visible');
+  $('successAlert').classList.remove('visible');
+  a.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  setTimeout(() => a.classList.remove('visible'), 8000);
+}
+function showSuccess(html) {
+  const a = $('successAlert');
+  a.innerHTML = html;
+  a.classList.add('visible');
+  $('errorAlert').classList.remove('visible');
+  setTimeout(() => a.classList.remove('visible'), 5000);
+}
+
+const imageInput = $('imageInput');
+const uploadZone = $('uploadZone');
+const generateBtn = $('generateBtn');
+
+function loadImage(file) {
+  if (!file || !file.type.startsWith('image/')) return;
+  if (file.size > 10 * 1024 * 1024) { showError('Bild zu groß (max. 10 MB).'); return; }
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const dataUrl = e.target.result;
+    state.imageBase64 = dataUrl.split(',')[1];
+    state.imageMediaType = file.type === 'image/jpg' ? 'image/jpeg' : file.type;
+    const existing = uploadZone.querySelector('img');
+    if (existing) existing.remove();
+    const img = document.createElement('img');
+    img.src = dataUrl;
+    uploadZone.appendChild(img);
+    uploadZone.classList.add('has-image');
+    generateBtn.disabled = false;
+  };
+  reader.readAsDataURL(file);
+}
+
+imageInput.addEventListener('change', (e) => { if (e.target.files[0]) loadImage(e.target.files[0]); });
+['dragover','dragenter'].forEach(ev => {
+  uploadZone.addEventListener(ev, (e) => { e.preventDefault(); uploadZone.style.borderColor = 'var(--accent)'; uploadZone.style.background = 'var(--accent-light)'; });
+});
+['dragleave','drop'].forEach(ev => {
+  uploadZone.addEventListener(ev, (e) => { e.preventDefault(); uploadZone.style.borderColor = ''; uploadZone.style.background = ''; });
+});
+uploadZone.addEventListener('drop', (e) => { e.preventDefault(); if (e.dataTransfer.files[0]) loadImage(e.dataTransfer.files[0]); });
+$('changeImage').addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); imageInput.click(); });
+
+async function generate() {
+  const cat = state.category;
+  const goal = state.goal;
+  const day = $('day').selectedOptions[0].text;
+  const tone = $('tone').selectedOptions[0].text;
+  const hashtagCount = parseInt($('hashtagCount').value);
+  const details = $('details').value.trim();
+
+  const sliderInstructions = ['hook','urgency','story','local'].map(name => {
+    const v = state.sliders[name];
+    const label = ['Hook-Intensität','Verkaufsdruck','Storytelling-Tiefe','Lokal-Bezug'][['hook','urgency','story','local'].indexOf(name)];
+    return `${label}: ${SLIDER_LABELS[name][v]} → ${SLIDER_INSTRUCTIONS[name][v]}`;
+  }).join('\n');
+
+  const hasImage = !!state.imageBase64;
+
+  const prompt = `Du bist ein erfahrener Social-Media-Texter für gehobene Gastronomie, spezialisiert auf Gutshöfe und Landgasthöfe in Deutschland. Texte authentisch, nicht generisch, mit sparsam und bewusst eingesetzten Emojis.
+
+${hasImage ? `===========================================
+SCHRITT 1 — BILDANALYSE (PFLICHT, ZUERST!)
+===========================================
+Analysiere das Foto SORGFÄLTIG bevor du irgendetwas schreibst:
+- Hauptmotiv: Was ist konkret zu sehen?
+- Komposition: Bildaufbau, Anschnitt, Perspektive
+- Farben & Licht: Dominante Farbtöne, Lichtstimmung
+- Setting: Tisch, Holz, Stein, Garten, Innenraum?
+- Details: Besondere Dinge (Kerze, Glas, Hand, Garnitur, Dampf)
+- Stimmung: Welches Gefühl löst das Bild aus?
+
+Schreibe 3-5 konkrete Sätze.
+
+===========================================
+SCHRITT 2 — CAPTION schreiben
+===========================================
+Basierend auf Bildanalyse. Caption MUSS auf konkrete Bilddetails Bezug nehmen.` : `KEIN BILD: Schreibe Caption passend zu Kategorie und Details.`}
+
+KONTEXT
+- Restaurant: Gutshof (rustikal, regional, hochwertig)
+- Kategorie: ${cat}
+- Wochentag: ${day}
+- Tonalität: ${tone}
+- Ziel: ${goal} — ${GOAL_DESCRIPTION[goal]}
+${details ? '- Details: ' + details : ''}
+
+STRATEGIE:
+${sliderInstructions}
+
+CAPTION-REGELN:
+- Maximal 130 Wörter
+- KEINE Floskeln wie "einzigartig", "leidenschaftlich", "mit Liebe gemacht"
+- Authentisch, nicht overpolished
+- EMOJIS: 2-4 passende Emojis sinnvoll im Text platziert (nicht alle gehäuft, nicht nur am Ende). Beispiele: 🌿 🍷 🔥 ✨ 🍂 🥖 🌞. KEINE Emoji-Ketten, sondern wo sie etwas bedeuten.
+
+HASHTAGS: GENAU ${hashtagCount} Hashtags, Mix aus Reach und Nische.
+KEYWORDS: 6-8 Stichwörter für Alt-Text und SEO.
+
+Antworte AUSSCHLIESSLICH mit gültigem JSON:
+{
+  ${hasImage ? '"bildanalyse": "Deine 3-5 Sätze",' : ''}
+  "caption": "Caption mit \\n",
+  "hashtags": ["#tag1"],
+  "keywords": ["keyword1"],
+  "strategie": "1-2 Sätze: warum das funktioniert"
+}`;
+
+  const content = [];
+  if (hasImage) content.push({ type: 'image', source: { type: 'base64', media_type: state.imageMediaType, data: state.imageBase64 } });
+  content.push({ type: 'text', text: prompt });
+
+  const btn = $('generateBtn');
+  const btnContent = btn.querySelector('.btn-content');
+  btn.classList.add('loading');
+  btn.disabled = true;
+  btnContent.innerHTML = '<span class="spinner"></span> Claude denkt...';
+
+  try {
+    const response = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 1500, messages: [{ role: 'user', content }] })
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || `Server-Fehler ${response.status}`);
+
+    const rawText = data.content[0].text;
+    let parsed;
+    try { parsed = JSON.parse(rawText); }
+    catch (e) {
+      const match = rawText.match(/\{[\s\S]*\}/);
+      if (match) parsed = JSON.parse(match[0]);
+      else throw new Error('Antwort konnte nicht geparst werden.');
+    }
+
+    state.currentPost = {
+      id: 'post_' + Date.now() + '_' + Math.random().toString(36).slice(2,7),
+      createdAt: new Date().toISOString(),
+      day: $('day').value,
+      slot: $('slot').value,
+      scheduledTime: $('customTime').value || SLOT_TIMES[$('day').value][$('slot').value],
+      category: state.category,
+      goal: state.goal,
+      tone: $('tone').value,
+      details: details,
+      bildanalyse: parsed.bildanalyse || null,
+      caption: parsed.caption,
+      hashtags: parsed.hashtags,
+      keywords: parsed.keywords,
+      strategie: parsed.strategie,
+      imageDataUrl: hasImage ? `data:${state.imageMediaType};base64,${state.imageBase64}` : null,
+      imageMediaType: state.imageMediaType,
+      status: 'draft'
+    };
+
+    renderOutput(state.currentPost);
+  } catch (err) {
+    showError('<strong>Fehler:</strong> ' + err.message);
+  } finally {
+    btn.classList.remove('loading');
+    btn.disabled = false;
+    btnContent.textContent = 'Beitrag generieren →';
+  }
+}
+
+function renderOutput(post) {
+  $('captionOut').textContent = post.caption;
+  $('hashtagsOut').textContent = post.hashtags.join(' ');
+  $('keywordsOut').textContent = post.keywords.join(' · ');
+
+  if (post.bildanalyse) { $('bildanalyseSection').style.display = 'block'; $('bildanalyseOut').textContent = post.bildanalyse; }
+  else $('bildanalyseSection').style.display = 'none';
+
+  if (post.strategie) { $('strategySection').style.display = 'block'; $('strategyOut').textContent = ' ' + post.strategie; }
+  else $('strategySection').style.display = 'none';
+
+  const meta = $('outputMeta');
+  meta.innerHTML = '';
+  [post.category, post.goal, `${DAY_SHORT[post.day]} ${post.scheduledTime}`, SLOT_LABELS[post.slot]].forEach(t => {
+    const el = document.createElement('span');
+    el.className = 'meta-tag';
+    el.textContent = t;
+    meta.appendChild(el);
+  });
+
+  $('saveSuccess').style.display = 'none';
+  $('outputSection').classList.add('visible');
+  $('outputSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+generateBtn.addEventListener('click', generate);
+$('regenerateBtn').addEventListener('click', generate);
+
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const text = $(btn.dataset.copy + 'Out').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const orig = btn.innerHTML;
+      btn.innerHTML = '✓ Kopiert';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 1400);
+    });
+  });
+});
+
+$('copyAllBtn').addEventListener('click', () => {
+  const all = `${$('captionOut').textContent}\n\n${$('hashtagsOut').textContent}\n\nKeywords: ${$('keywordsOut').textContent}`;
+  navigator.clipboard.writeText(all).then(() => {
+    const btn = $('copyAllBtn');
+    const o = btn.textContent;
+    btn.textContent = '✓ Alles kopiert';
+    setTimeout(() => btn.textContent = o, 1400);
+  });
+});
+
+$('saveToWeekBtn').addEventListener('click', () => {
+  if (!state.currentPost) return;
+  const posts = loadPosts();
+  posts.push(state.currentPost);
+  savePosts(posts);
+  $('saveSuccess').style.display = 'flex';
+  updateWeekCount();
+});
+
+function updateWeekCount() { $('weekCount').textContent = loadPosts().length; }
+
+function escapeHtml(s) {
+  const div = document.createElement('div');
+  div.textContent = s;
+  return div.innerHTML;
+}
+
+function renderWeekPlan() {
+  const posts = loadPosts();
+  const grid = $('weekGrid');
+  grid.innerHTML = '';
+
+  $('statTotal').textContent = posts.length;
+  $('statScheduled').textContent = posts.filter(p => p.status === 'scheduled').length;
+  $('statPublished').textContent = posts.filter(p => p.status === 'published').length;
+
+  DAY_ORDER.forEach(day => {
+    const dayPosts = posts.filter(p => p.day === day).sort((a,b) => (a.scheduledTime || '').localeCompare(b.scheduledTime || ''));
+    const col = document.createElement('div');
+    col.className = 'day-column';
+    col.innerHTML = `
+      <div class="day-header">
+        <div class="day-name">${DAY_SHORT[day]}</div>
+        <div class="post-count">${dayPosts.length === 0 ? 'leer' : dayPosts.length === 1 ? '1 Post' : dayPosts.length + ' Posts'}</div>
+      </div>
+      <div class="day-content"></div>
+    `;
+    grid.appendChild(col);
+
+    const content = col.querySelector('.day-content');
+    if (dayPosts.length === 0) {
+      content.innerHTML = '<div class="day-empty">—</div>';
+    } else {
+      dayPosts.forEach(post => {
+        const card = document.createElement('div');
+        card.className = `post-card status-${post.status}`;
+        card.innerHTML = `
+          <div class="post-time">⏰ ${post.scheduledTime}<span class="post-status-dot"></span></div>
+          <div class="post-cat">${post.category}</div>
+          <div class="post-preview">${escapeHtml(post.caption.split('\n').slice(0,2).join(' ').slice(0,80))}...</div>
+        `;
+        card.addEventListener('click', () => openPostModal(post.id));
+        content.appendChild(card);
+      });
+    }
+  });
+}
+
+let modalCurrentPostId = null;
+
+function openPostModal(postId) {
+  const posts = loadPosts();
+  const post = posts.find(p => p.id === postId);
+  if (!post) return;
+  modalCurrentPostId = postId;
+  const statusLabels = { draft: 'Entwurf', scheduled: 'Geplant', published: 'Veröffentlicht' };
+
+  $('modalTitle').textContent = `${DAY_SHORT[post.day]} ${post.scheduledTime} · ${post.category}`;
+
+  let html = '';
+  if (post.imageDataUrl) html += `<img src="${post.imageDataUrl}" class="modal-image" alt="" />`;
+  html += `
+    <div class="modal-section"><div class="modal-section-label">Status</div><div class="modal-section-content"><strong>${statusLabels[post.status]}</strong> · ${SLOT_LABELS[post.slot]}</div></div>
+    <div class="modal-section"><div class="modal-section-label">Posting-Zeit</div><div class="modal-section-content">${DAY_FULL[post.day]} um ${post.scheduledTime} — ${SLOT_REASONS[post.slot]}</div></div>
+    <div class="modal-section"><div class="modal-section-label">Caption</div><div class="modal-section-content">${escapeHtml(post.caption)}</div></div>
+    <div class="modal-section"><div class="modal-section-label">Hashtags</div><div class="modal-section-content" style="color:var(--accent-dark); font-weight:500;">${escapeHtml(post.hashtags.join(' '))}</div></div>
+    <div class="modal-section"><div class="modal-section-label">Alt-Text</div><div class="modal-section-content" style="font-family:'JetBrains Mono', monospace; font-size:13px;">${escapeHtml(post.keywords.join(' · '))}</div></div>
+  `;
+  $('modalBody').innerHTML = html;
+  $('postModal').classList.add('visible');
+}
+
+$('modalClose').addEventListener('click', () => $('postModal').classList.remove('visible'));
+$('postModal').addEventListener('click', (e) => { if (e.target.id === 'postModal') $('postModal').classList.remove('visible'); });
+
+$('modalChangeStatus').addEventListener('click', () => {
+  if (!modalCurrentPostId) return;
+  const posts = loadPosts();
+  const post = posts.find(p => p.id === modalCurrentPostId);
+  if (!post) return;
+  const next = { draft: 'scheduled', scheduled: 'published', published: 'draft' };
+  post.status = next[post.status];
+  savePosts(posts);
+  openPostModal(modalCurrentPostId);
+  renderWeekPlan();
+});
+
+$('modalCopyAll').addEventListener('click', () => {
+  if (!modalCurrentPostId) return;
+  const posts = loadPosts();
+  const post = posts.find(p => p.id === modalCurrentPostId);
+  if (!post) return;
+  const text = `${post.caption}\n\n${post.hashtags.join(' ')}\n\nAlt-Text: ${post.keywords.join(', ')}`;
+  navigator.clipboard.writeText(text);
+  const btn = $('modalCopyAll');
+  const o = btn.textContent;
+  btn.textContent = '✓ Kopiert';
+  setTimeout(() => btn.textContent = o, 1400);
+});
+
+$('modalDelete').addEventListener('click', () => {
+  if (!modalCurrentPostId) return;
+  if (!confirm('Diesen Beitrag wirklich löschen?')) return;
+  const posts = loadPosts().filter(p => p.id !== modalCurrentPostId);
+  savePosts(posts);
+  $('postModal').classList.remove('visible');
+  renderWeekPlan();
+  updateWeekCount();
+});
+
+$('clearWeekBtn').addEventListener('click', () => {
+  if (!confirm('Wirklich alle Beiträge löschen?')) return;
+  savePosts([]);
+  renderWeekPlan();
+  updateWeekCount();
+});
+
+$('exportCsvBtn').addEventListener('click', () => {
+  const posts = loadPosts();
+  if (posts.length === 0) { showError('Keine Beiträge zum Exportieren.'); return; }
+
+  const today = new Date();
+  const monday = new Date(today);
+  const day = today.getDay();
+  const diff = today.getDate() - day + (day === 0 ? -6 : 1);
+  monday.setDate(diff);
+  const dayOffset = { montag: 0, dienstag: 1, mittwoch: 2, donnerstag: 3, freitag: 4, samstag: 5, sonntag: 6 };
+
+  // Sort posts by day + time
+  const sorted = [...posts].sort((a,b) => {
+    if (a.day !== b.day) return dayOffset[a.day] - dayOffset[b.day];
+    return (a.scheduledTime || '').localeCompare(b.scheduledTime || '');
+  });
+
+  const rows = [['Tag','Datum','Uhrzeit','Slot','Kategorie','Caption','Hashtags','Alt-Text','Status']];
+  sorted.forEach(post => {
+    const postDate = new Date(monday);
+    postDate.setDate(monday.getDate() + dayOffset[post.day]);
+    rows.push([
+      DAY_SHORT[post.day],
+      postDate.toLocaleDateString('de-DE'),
+      post.scheduledTime,
+      post.slot,
+      post.category,
+      post.caption.replace(/\n/g, ' '),
+      post.hashtags.join(' '),
+      post.keywords.join(', '),
+      post.status
+    ]);
+  });
+
+  const csv = rows.map(r => r.map(c => `"${(c || '').toString().replace(/"/g,'""')}"`).join(';')).join('\n');
+  const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `gutshof-wochenplan-${new Date().toISOString().slice(0,10)}.csv`;
+  link.click();
+  URL.revokeObjectURL(url);
+  showSuccess('✓ CSV exportiert.');
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   META BUSINESS TRANSFER WIZARD
+   ═══════════════════════════════════════════════════════════════ */
+
+$('startTransferBtn').addEventListener('click', () => {
+  const posts = loadPosts();
+  if (posts.length === 0) { showError('Keine Beiträge zum Übertragen. Erstelle erst Posts im Generator.'); return; }
+
+  const dayOffset = { montag: 0, dienstag: 1, mittwoch: 2, donnerstag: 3, freitag: 4, samstag: 5, sonntag: 6 };
+  const sorted = [...posts].sort((a,b) => {
+    if (a.day !== b.day) return dayOffset[a.day] - dayOffset[b.day];
+    return (a.scheduledTime || '').localeCompare(b.scheduledTime || '');
+  });
+
+  state.transfer.posts = sorted;
+  state.transfer.index = 0;
+  $('transferOverlay').classList.add('visible');
+  document.body.style.overflow = 'hidden';
+  renderTransferStep();
+});
+
+$('transferClose').addEventListener('click', closeTransfer);
+
+function closeTransfer() {
+  $('transferOverlay').classList.remove('visible');
+  document.body.style.overflow = '';
+  renderWeekPlan();
+}
+
+function renderTransferStep() {
+  const { posts, index } = state.transfer;
+  const total = posts.length;
+
+  if (index >= total) {
+    // DONE
+    $('transferProgressText').textContent = 'Fertig!';
+    $('transferProgressFill').style.width = '100%';
+    $('transferContent').innerHTML = `
+      <div class="transfer-done">
+        <h2>🎉 Alle Posts übertragen</h2>
+        <p>Du hast ${total} ${total === 1 ? 'Post' : 'Posts'} an Meta Business übergeben. Alle wurden auf Status "Geplant" gesetzt.</p>
+        <button class="btn btn-accent btn-large" style="width:auto; margin:0 auto; padding:14px 32px;" onclick="closeTransfer()">✓ Schließen</button>
+      </div>
+    `;
+    return;
+  }
+
+  const post = posts[index];
+  $('transferProgressText').textContent = `Post ${index + 1} von ${total}`;
+  $('transferProgressFill').style.width = `${((index) / total) * 100}%`;
+
+  const fullText = `${post.caption}\n\n${post.hashtags.join(' ')}`;
+
+  $('transferContent').innerHTML = `
+    <div class="transfer-instructions">
+      <strong>So geht's:</strong> 1) "Bild speichern" tippen → speichert in deine Fotos · 2) "Text kopieren" tippen → Caption + Hashtags in Zwischenablage · 3) Meta Business Suite App öffnen, neuen Post anlegen · 4) Bild + Text einfügen, Datum &amp; Uhrzeit setzen, planen · 5) Hier zurück, "Nächster Post →"
+    </div>
+
+    <div class="transfer-card">
+      <div class="transfer-meta">
+        <span class="transfer-meta-tag time">📅 ${DAY_FULL[post.day]} · ${post.scheduledTime}</span>
+        <span class="transfer-meta-tag">${post.category}</span>
+        <span class="transfer-meta-tag">${SLOT_LABELS[post.slot]}</span>
+      </div>
+
+      <div class="transfer-image-wrap">
+        ${post.imageDataUrl ? `<img src="${post.imageDataUrl}" alt="" id="transferImage" />` : '<div class="transfer-image-empty">Kein Bild bei diesem Post</div>'}
+      </div>
+
+      <div class="transfer-actions">
+        ${post.imageDataUrl ? `<button class="btn btn-dark btn-large" id="downloadImgBtn">📥 Bild speichern</button>` : '<button class="btn btn-ghost" disabled>📥 Bild speichern</button>'}
+        <button class="btn btn-dark btn-large" id="copyTextBtn">⎘ Text kopieren</button>
+      </div>
+
+      <div class="transfer-text-block">
+        <div class="transfer-text-label">Caption</div>
+        <div class="transfer-text-content">${escapeHtml(post.caption)}</div>
+      </div>
+
+      <div class="transfer-text-block">
+        <div class="transfer-text-label">Hashtags</div>
+        <div class="transfer-text-content hashtags">${escapeHtml(post.hashtags.join(' '))}</div>
+      </div>
+
+      <div class="transfer-text-block">
+        <div class="transfer-text-label">Alt-Text (für Barrierefreiheit)</div>
+        <div class="transfer-text-content" style="font-size:12px; font-family:'JetBrains Mono', monospace;">${escapeHtml(post.keywords.join(', '))}</div>
+      </div>
+    </div>
+
+    <div class="transfer-nav">
+      ${index > 0 ? `<button class="btn btn-ghost" id="prevPostBtn">← Zurück</button>` : ''}
+      <button class="btn btn-accent btn-large" id="nextPostBtn">${index === total - 1 ? '✓ Fertig' : 'Nächster Post →'}</button>
+    </div>
+  `;
+
+  // Bind events
+  if (post.imageDataUrl) {
+    $('downloadImgBtn').addEventListener('click', () => downloadImage(post));
+  }
+  $('copyTextBtn').addEventListener('click', () => {
+    navigator.clipboard.writeText(fullText).then(() => {
+      const b = $('copyTextBtn');
+      const o = b.textContent;
+      b.textContent = '✓ Text kopiert!';
+      b.style.background = 'var(--accent)';
+      setTimeout(() => { b.textContent = o; b.style.background = ''; }, 1500);
+    });
+  });
+
+  $('nextPostBtn').addEventListener('click', () => {
+    // Mark as scheduled
+    const allPosts = loadPosts();
+    const realPost = allPosts.find(p => p.id === post.id);
+    if (realPost && realPost.status === 'draft') {
+      realPost.status = 'scheduled';
+      savePosts(allPosts);
+    }
+    state.transfer.index++;
+    renderTransferStep();
+    document.querySelector('.transfer-content').scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  if (index > 0) {
+    $('prevPostBtn').addEventListener('click', () => {
+      state.transfer.index--;
+      renderTransferStep();
+      document.querySelector('.transfer-content').scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+}
+
+function downloadImage(post) {
+  if (!post.imageDataUrl) return;
+  const ext = (post.imageMediaType || 'image/jpeg').split('/')[1].replace('jpeg','jpg');
+  const filename = `gutshof-${DAY_SHORT[post.day].toLowerCase()}-${post.scheduledTime.replace(':','')}-${post.category.toLowerCase()}.${ext}`;
+
+  const link = document.createElement('a');
+  link.href = post.imageDataUrl;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  const b = $('downloadImgBtn');
+  if (b) {
+    const o = b.textContent;
+    b.textContent = '✓ Bild gespeichert!';
+    b.style.background = 'var(--accent)';
+    setTimeout(() => { b.textContent = o; b.style.background = ''; }, 1500);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   IDEEN GENERATOR
+   ═══════════════════════════════════════════════════════════════ */
+
+$('generateIdeasBtn').addEventListener('click', async () => {
+  const count = parseInt($('ideaCount').value);
+  const focus = $('ideaFocus').value;
+  const focusLabel = $('ideaFocus').selectedOptions[0].text;
+
+  const existingPosts = loadPosts();
+  const usedSlots = existingPosts.map(p => `${DAY_SHORT[p.day]} ${SLOT_LABELS[p.slot]}`);
+
+  const now = new Date();
+  const month = now.toLocaleDateString('de-DE', { month: 'long' });
+  const dayOfWeek = now.toLocaleDateString('de-DE', { weekday: 'long' });
+
+  const prompt = `Du bist Strategie-Berater für ein Gutshof-Restaurant in Deutschland.
+
+KONTEXT
+- Aktueller Monat: ${month}
+- Heute: ${dayOfWeek}
+- Bereits geplante Slots: ${usedSlots.length > 0 ? usedSlots.join(', ') : 'noch keine'}
+- Fokus: ${focus ? focusLabel : 'bunt gemischt, ausgewogen'}
+
+AUFGABE
+Schlage ${count} konkrete, umsetzbare Instagram-Post-Ideen vor:
+- Saisonal passend zum ${month} (was hat Saison? Feiertage? Jahreszeit?)
+- Nicht überlappen mit bereits geplanten Slots
+- Glaubwürdig für deutsches Gutshof-Restaurant
+- Inhaltlich abwechslungsreich
+- Konkret umsetzbar
+
+WICHTIG: Verteile die Ideen über verschiedene Tage UND Tageszeiten (Slots: morning/noon/evening). Nicht alle Ideen für den gleichen Slot.
+
+Für jede Idee:
+- title: Knackiger Titel (max. 8 Wörter)
+- category: FOOD, EVENT, AMBIENTE, TEAM, SAISONAL, GETRAENKE, ANGEBOT oder SONNTAG
+- day: Wochentag (montag-sonntag)
+- slot: morning, noon oder evening (welche Tageszeit am besten passt)
+- description: 2-3 Sätze: Was zeigen, was schreiben?
+- hook: Vorschlag für die erste Zeile (max. 10 Wörter)
+
+Antworte AUSSCHLIESSLICH als gültiges JSON:
+{ "ideas": [ { "title": "...", "category": "...", "day": "...", "slot": "...", "description": "...", "hook": "..." } ] }`;
+
+  const btn = $('generateIdeasBtn');
+  const btnContent = btn.querySelector('.ideas-btn-content');
+  btn.classList.add('loading');
+  btn.disabled = true;
+  btnContent.innerHTML = '<span class="spinner"></span> Claude überlegt...';
+
+  try {
+    const response = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 3500,
+        messages: [{ role: 'user', content: [{ type: 'text', text: prompt }] }]
+      })
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || `Fehler ${response.status}`);
+
+    const rawText = data.content[0].text;
+    let parsed;
+    try { parsed = JSON.parse(rawText); }
+    catch (e) {
+      const match = rawText.match(/\{[\s\S]*\}/);
+      if (match) parsed = JSON.parse(match[0]);
+      else throw new Error('Antwort nicht parsbar');
+    }
+
+    renderIdeas(parsed.ideas || []);
+  } catch (err) {
+    showError('<strong>Fehler:</strong> ' + err.message);
+  } finally {
+    btn.classList.remove('loading');
+    btn.disabled = false;
+    btnContent.textContent = '✨ Ideen generieren';
+  }
+});
+
+function renderIdeas(ideas) {
+  const list = $('ideasList');
+  list.innerHTML = '';
+  if (ideas.length === 0) {
+    list.innerHTML = '<div class="idea-card"><p style="color:var(--muted);">Keine Ideen erhalten.</p></div>';
+    return;
+  }
+
+  ideas.forEach((idea, i) => {
+    const slot = idea.slot || 'noon';
+    const card = document.createElement('div');
+    card.className = 'idea-card';
+    card.innerHTML = `
+      <div class="idea-header">
+        <div class="idea-num">${String(i+1).padStart(2,'0')}</div>
+        <div class="idea-title">${escapeHtml(idea.title)}</div>
+      </div>
+      <div class="idea-meta">
+        <span class="idea-meta-tag">📁 ${idea.category}</span>
+        <span class="idea-meta-tag">📅 ${DAY_SHORT[idea.day] || idea.day}</span>
+        <span class="idea-meta-tag">${SLOT_LABELS[slot] || slot}</span>
+      </div>
+      <div class="idea-description">${escapeHtml(idea.description)}</div>
+      <div class="idea-description" style="background:var(--surface-2); padding:10px 12px; border-left:2px solid var(--accent); font-style:italic; margin-bottom:12px;">
+        💬 <strong>Hook:</strong> "${escapeHtml(idea.hook)}"
+      </div>
+      <div class="idea-footer">
+        <button class="btn btn-accent" style="width:auto; margin:0; padding:10px 18px; font-size:13px;" data-idea-index="${i}">→ Im Generator nutzen</button>
+      </div>
+    `;
+    list.appendChild(card);
+  });
+
+  list.querySelectorAll('[data-idea-index]').forEach(btn => {
+    btn.addEventListener('click', () => useIdea(ideas[parseInt(btn.dataset.ideaIndex)]));
+  });
+}
+
+function useIdea(idea) {
+  state.category = idea.category;
+  document.querySelectorAll('#categoryChips .chip').forEach(c => {
+    c.classList.toggle('active', c.dataset.value === idea.category);
+  });
+  if (idea.day && DAY_SHORT[idea.day]) $('day').value = idea.day;
+  if (idea.slot && SLOT_TIMES[idea.day]) $('slot').value = idea.slot;
+  updateTimeFromSlot();
+  $('details').value = `${idea.title}\n\nIdee: ${idea.description}\n\nHook: "${idea.hook}"`;
+  switchView('generator');
+  showSuccess(`✓ "${idea.title}" übernommen. Foto hochladen und generieren!`);
+}
+
+/* INIT */
+['hook','urgency','story','local'].forEach(name => updateSliderValue(name));
+updateWeekCount();
+updateTimeFromSlot();
+</script>
+
+</body>
+</html>

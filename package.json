@@ -1,0 +1,9 @@
+{
+  "name": "gutshof-studio",
+  "version": "1.0.0",
+  "description": "Instagram Post Generator für Gutshof-Restaurants",
+  "private": true,
+  "engines": {
+    "node": "20.x"
+  }
+}
