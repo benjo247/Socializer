@@ -1,7 +1,7 @@
 {
-  "name": "gutshof-studio",
-  "version": "1.0.0",
-  "description": "Instagram Post Generator für Gutshof-Restaurants",
+  "name": "socialaiza-studio",
+  "version": "3.5.0",
+  "description": "Socialaiza Studio · KI-Content-Tool für die Gastronomie",
   "private": true,
   "engines": {
     "node": "20.x"

@@ -6,11 +6,11 @@
 <meta name="theme-color" content="#15803d" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-<meta name="apple-mobile-web-app-title" content="Gutshof Studio" />
-<title>Gutshof Studio · Instagram Content für Restaurants</title>
-<meta name="description" content="KI-Content-Tool für Gutshof-Restaurants. Foto rein, fertige Caption raus. Mit Wochenplaner und Meta Business Transfer." />
-<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIj48cmVjdCB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgcng9IjQwIiBmaWxsPSIjMTU4MDNkIi8+PHRleHQgeD0iOTAiIHk9IjEyMiIgZm9udC1mYW1pbHk9IkRNIFNhbnMsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTAwIiBmb250LXdlaWdodD0iNzAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZmIj5HPC90ZXh0Pjwvc3ZnPg==" />
-<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSIjMTU4MDNkIi8+PHRleHQgeD0iNTAiIHk9IjY4IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSI1NSIgZm9udC13ZWlnaHQ9IjcwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmZiI+RzwvdGV4dD48L3N2Zz4=" />
+<meta name="apple-mobile-web-app-title" content="Socialaiza Studio" />
+<title>Socialaiza Studio · KI-Content für Restaurants</title>
+<meta name="description" content="KI-Content-Tool für die Gastronomie. Foto rein, fertige Caption raus. Mit Wochenplaner und Meta Business Transfer." />
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIj48cmVjdCB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgcng9IjQwIiBmaWxsPSIjMTU4MDNkIi8+PHRleHQgeD0iOTAiIHk9IjEyMiIgZm9udC1mYW1pbHk9IkRNIFNhbnMsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTAwIiBmb250LXdlaWdodD0iNzAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZmIj5TPC90ZXh0Pjwvc3ZnPg==" />
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSIjMTU4MDNkIi8+PHRleHQgeD0iNTAiIHk9IjY4IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSI1NSIgZm9udC13ZWlnaHQ9IjcwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmZiI+UzwvdGV4dD48L3N2Zz4=" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
@@ -292,7 +292,7 @@
 <div class="container">
 
   <div class="top-bar">
-    <div class="brand"><div class="dot"></div>Gutshof Studio <span class="ver">v3.5</span></div>
+    <div class="brand"><div class="dot"></div>Socialaiza Studio <span class="ver">v3.5</span></div>
     <div class="status-pill"><span class="led"></span><span>Online</span></div>
   </div>
 
@@ -395,6 +395,11 @@
             <div class="slider-label-row"><span class="slider-label">Lokal-Bezug</span><span class="slider-value" id="val-local">Andeutung</span></div>
             <input type="range" id="slider-local" class="slider" min="0" max="3" value="1" />
             <div class="slider-track-labels"><span>Allgemein</span><span>Stark regional</span></div>
+          </div>
+          <div class="slider-row">
+            <div class="slider-label-row"><span class="slider-label">Caption-Länge</span><span class="slider-value" id="val-length">Standard</span></div>
+            <input type="range" id="slider-length" class="slider" min="0" max="3" value="1" />
+            <div class="slider-track-labels"><span>Knapp</span><span>Ausführlich</span></div>
           </div>
         </div>
 
@@ -567,7 +572,7 @@
     <div class="week-grid-large" id="weekGrid"></div>
   </div>
 
-  <footer>Gutshof Studio · Powered by Claude · v3.5</footer>
+  <footer>Socialaiza Studio · Powered by Claude · v3.5</footer>
 </div>
 
 <!-- POST DETAIL MODAL -->
@@ -602,22 +607,29 @@ const SLIDER_LABELS = {
   hook:    ['Subtil', 'Solide', 'Stark', 'Sehr stark'],
   urgency: ['Sanft', 'Hinweis', 'Klar', 'Direkt'],
   story:   ['Sachlich', 'Mit Anker', 'Erzählerisch', 'Tiefe Story'],
-  local:   ['Allgemein', 'Andeutung', 'Lokal', 'Stark regional']
+  local:   ['Allgemein', 'Andeutung', 'Lokal', 'Stark regional'],
+  length:  ['Knapp', 'Standard', 'Ausführlich', 'Maxi']
 };
 
 const SLIDER_INSTRUCTIONS = {
   hook: ["Ruhiger, leiser Einstieg.", "Solider Einstieg mit klarer Aussage.", "Starke Hook in Zeile 1: konkretes Bild oder überraschende Aussage.", "Sehr starke Hook: polarisierende These oder Sensorik-Knall."],
   urgency: ["Kein Verkaufsdruck. Nur Atmosphäre.", "Sanfter Hinweis am Ende.", "Klarer CTA mit Reservierungs-Hinweis.", "Direkter Verkauf: Verknappung, klarer CTA."],
   story: ["Sachlich, knapp.", "Ein konkretes Detail als Anker.", "Erzählerisch mit Szene/Figur/Moment.", "Tiefe Geschichte mit Charakter."],
-  local: ["Allgemein.", "Subtile Andeutung.", "Lokal: Region, Lieferanten erwähnen.", "Stark regional: Orte, Namen, lokale Begriffe."]
+  local: ["Allgemein.", "Subtile Andeutung.", "Lokal: Region, Lieferanten erwähnen.", "Stark regional: Orte, Namen, lokale Begriffe."],
+  length: [
+    "MAXIMAL 40 Wörter. Knapp, prägnant, fast Zeilen-artig. Ein Gedanke, kein Ausschmücken.",
+    "60-100 Wörter. Standard-Länge — Sweet Spot für Feed-Engagement. Nicht überladen.",
+    "120-180 Wörter. Ausführlich mit Raum für Geschichte und Details. Klare Struktur mit Absätzen.",
+    "200-280 Wörter. Maxi-Format für tiefe Storytelling-Posts. Mehrere Absätze, narrative Bögen, sensorische Details."
+  ]
 };
 
 const GOAL_PRESETS = {
-  engagement: { hook: 3, urgency: 1, story: 3, local: 1 },
-  reach:      { hook: 3, urgency: 1, story: 2, local: 0 },
-  conversion: { hook: 2, urgency: 3, story: 1, local: 1 },
-  brand:      { hook: 1, urgency: 0, story: 3, local: 2 },
-  community:  { hook: 2, urgency: 0, story: 2, local: 3 }
+  engagement: { hook: 3, urgency: 1, story: 3, local: 1, length: 2 },
+  reach:      { hook: 3, urgency: 1, story: 2, local: 0, length: 1 },
+  conversion: { hook: 2, urgency: 3, story: 1, local: 1, length: 1 },
+  brand:      { hook: 1, urgency: 0, story: 3, local: 2, length: 3 },
+  community:  { hook: 2, urgency: 0, story: 2, local: 3, length: 2 }
 };
 
 const GOAL_DESCRIPTION = {
@@ -656,17 +668,23 @@ const state = {
   imageMediaType: null,
   category: 'FOOD',
   goal: 'engagement',
-  sliders: { hook: 3, urgency: 1, story: 3, local: 1 },
+  sliders: { hook: 3, urgency: 1, story: 3, local: 1, length: 2 },
   currentPost: null,
   currentView: 'generator',
   transfer: { posts: [], index: 0 }
 };
 
 const $ = (id) => document.getElementById(id);
-const LS_POSTS = 'gutshof_posts_v3';
+const LS_POSTS = 'socialaiza_posts_v1';
+const LS_POSTS_LEGACY = 'gutshof_posts_v3';
 
 function loadPosts() {
   try {
+    // One-time migration from legacy key
+    const legacy = localStorage.getItem(LS_POSTS_LEGACY);
+    if (legacy && !localStorage.getItem(LS_POSTS)) {
+      localStorage.setItem(LS_POSTS, legacy);
+    }
     const posts = JSON.parse(localStorage.getItem(LS_POSTS) || '[]');
     // Migrate old posts: add slot + scheduledTime if missing
     return posts.map(p => {
@@ -700,7 +718,7 @@ function updateSliderValue(name) {
 
 function applyGoalPreset(goal) {
   const preset = GOAL_PRESETS[goal];
-  ['hook','urgency','story','local'].forEach(k => {
+  ['hook','urgency','story','local','length'].forEach(k => {
     $('slider-' + k).value = preset[k];
     updateSliderValue(k);
   });
@@ -724,7 +742,7 @@ document.querySelectorAll('#goalChips .chip').forEach(chip => {
   });
 });
 
-['hook','urgency','story','local'].forEach(name => {
+['hook','urgency','story','local','length'].forEach(name => {
   $('slider-' + name).addEventListener('input', () => updateSliderValue(name));
 });
 
@@ -796,11 +814,13 @@ async function generate() {
   const hashtagCount = parseInt($('hashtagCount').value);
   const details = $('details').value.trim();
 
-  const sliderInstructions = ['hook','urgency','story','local'].map(name => {
+  const sliderInstructions = ['hook','urgency','story','local','length'].map(name => {
     const v = state.sliders[name];
-    const label = ['Hook-Intensität','Verkaufsdruck','Storytelling-Tiefe','Lokal-Bezug'][['hook','urgency','story','local'].indexOf(name)];
+    const label = ['Hook-Intensität','Verkaufsdruck','Storytelling-Tiefe','Lokal-Bezug','Caption-Länge'][['hook','urgency','story','local','length'].indexOf(name)];
     return `${label}: ${SLIDER_LABELS[name][v]} → ${SLIDER_INSTRUCTIONS[name][v]}`;
   }).join('\n');
+
+  const lengthInstruction = SLIDER_INSTRUCTIONS.length[state.sliders.length];
 
   const hasImage = !!state.imageBase64;
 
@@ -836,7 +856,7 @@ STRATEGIE:
 ${sliderInstructions}
 
 CAPTION-REGELN:
-- Maximal 130 Wörter
+- LÄNGE (kritisch, halte dich genau daran): ${lengthInstruction}
 - KEINE Floskeln wie "einzigartig", "leidenschaftlich", "mit Liebe gemacht"
 - Authentisch, nicht overpolished
 - EMOJIS: 2-4 passende Emojis sinnvoll im Text platziert (nicht alle gehäuft, nicht nur am Ende). Beispiele: 🌿 🍷 🔥 ✨ 🍂 🥖 🌞. KEINE Emoji-Ketten, sondern wo sie etwas bedeuten.
@@ -867,7 +887,7 @@ Antworte AUSSCHLIESSLICH mit gültigem JSON:
     const response = await fetch('/api/generate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 1500, messages: [{ role: 'user', content }] })
+      body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 2000, messages: [{ role: 'user', content }] })
     });
     const data = await response.json();
     if (!response.ok) throw new Error(data.error || `Server-Fehler ${response.status}`);
@@ -1127,7 +1147,7 @@ $('exportCsvBtn').addEventListener('click', () => {
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
-  link.download = `gutshof-wochenplan-${new Date().toISOString().slice(0,10)}.csv`;
+  link.download = `socialaiza-wochenplan-${new Date().toISOString().slice(0,10)}.csv`;
   link.click();
   URL.revokeObjectURL(url);
   showSuccess('✓ CSV exportiert.');
@@ -1268,7 +1288,7 @@ function renderTransferStep() {
 function downloadImage(post) {
   if (!post.imageDataUrl) return;
   const ext = (post.imageMediaType || 'image/jpeg').split('/')[1].replace('jpeg','jpg');
-  const filename = `gutshof-${DAY_SHORT[post.day].toLowerCase()}-${post.scheduledTime.replace(':','')}-${post.category.toLowerCase()}.${ext}`;
+  const filename = `socialaiza-${DAY_SHORT[post.day].toLowerCase()}-${post.scheduledTime.replace(':','')}-${post.category.toLowerCase()}.${ext}`;
 
   const link = document.createElement('a');
   link.href = post.imageDataUrl;
@@ -1421,7 +1441,7 @@ function useIdea(idea) {
 }
 
 /* INIT */
-['hook','urgency','story','local'].forEach(name => updateSliderValue(name));
+['hook','urgency','story','local','length'].forEach(name => updateSliderValue(name));
 updateWeekCount();
 updateTimeFromSlot();
 </script>

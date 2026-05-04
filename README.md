@@ -1,18 +1,14 @@
-# Gutshof Studio v3.5
+# Socialaiza Studio v3.5
 
-KI-gestützter Instagram-Workflow für Gutshof-Restaurants. Foto rein, Caption raus, ganze Woche in 15 Minuten geplant.
+KI-gestütztes Instagram-Content-Tool für die Gastronomie. Foto rein, fertige Caption raus, ganze Woche in 15 Minuten geplant.
 
-## Was ist neu in v3.5
+> **Spezialisierung:** Die KI ist auf den Ton und die Atmosphäre von Gutshöfen und Landgasthöfen in Deutschland trainiert. Authentisch-rustikal, regional verankert, ohne Floskeln.
 
-- ⏰ **3 Posting-Slots pro Tag** (Morgens / Mittags / Abends) — bis zu 21 Posts pro Woche
-- 📤 **Meta Business Transfer-Wizard** — Vollbild-Modus, Post für Post: Bild speichern, Text kopieren, in Meta Business einfügen
-- 📱 **Mobile-First** — größere Touch-Targets, iOS-Homescreen-Icon, Kamera-Direktzugriff
-
-## Komplette Feature-Liste
+## Features
 
 ### ✨ Generator
-- Vision-KI: Claude analysiert dein Foto, schreibt darauf bezogene Captions
-- 4 Strategie-Slider (Hook, Verkaufsdruck, Storytelling, Lokal-Bezug)
+- Vision-KI: Claude analysiert dein Foto und schreibt darauf bezogene Captions
+- 4 Strategie-Slider (Hook-Intensität, Verkaufsdruck, Storytelling, Lokal-Bezug)
 - 5 Ziel-Presets (Engagement, Reichweite, Reservierungen, Markenaufbau, Community)
 - 8 Kategorien (Food, Event, Ambiente, Team, Saisonal, Getränke, Angebot, Sonntag)
 - 3 Slot-Auswahl pro Tag mit individuell justierbarer Uhrzeit
@@ -25,10 +21,7 @@ KI-gestützter Instagram-Workflow für Gutshof-Restaurants. Foto rein, Caption r
 - Ein Klick → ins Generator-Briefing übernehmen
 
 ### 📅 Wochenplan mit 3 Slots/Tag
-- 7-Tage-Kalender, sortiert nach Uhrzeit pro Tag
-- Status-Tracking: Entwurf → Geplant → Veröffentlicht
-- Detail-Modal mit Bild, Caption, Hashtags, Alt-Text
-- Stats: Gesamt / Geplant / Live
+Bis zu 21 Posts pro Woche planen, sortiert nach Tag und Uhrzeit.
 
 **Optimale Zeit-Slots für deutsche Gastronomie:**
 
@@ -56,21 +49,16 @@ Wenn deine Wochenplanung steht: ein Klick auf "📤 An Meta Business übertragen
 4. Zurück zum Wizard → "Nächster Post →"
 5. Nach allen Posts: automatischer Status-Wechsel auf "Geplant"
 
-Perfekt für mobile Nutzung am Handy. Du wechselst zwischen Gutshof Studio und Meta Business App hin und her.
-
 ### Mobile-Optimierungen
 - Viewport-fit für iPhone-Notch
 - Touch-Targets min. 44×44px (Apple HIG)
 - iOS-Homescreen-Icon (auf Homescreen hinzufügen → wirkt wie eine App)
-- Kamera-Direktzugriff beim Foto-Upload (iOS/Android)
-- Adaptive Tab-Beschriftung (Icons + Text auf Desktop, nur Icons auf sehr kleinen Screens)
+- Kamera-Direktzugriff beim Foto-Upload
+- Adaptive Tab-Beschriftung
 - Optimierte Slider mit größeren Thumbs für Touch
 
 ### CSV-Export
-Zusätzlich für Desktop-User die lieber Bulk-Upload machen:
-- Spalten: Tag, Datum, Uhrzeit, Slot, Kategorie, Caption, Hashtags, Alt-Text, Status
-- Sortiert nach Tag + Zeit
-- UTF-8 mit BOM für Excel-Kompatibilität
+Zusätzlich für Bulk-Upload: Spalten Tag, Datum, Uhrzeit, Slot, Kategorie, Caption, Hashtags, Alt-Text, Status. Sortiert nach Tag + Zeit. UTF-8 mit BOM für Excel-Kompatibilität.
 
 ## Tech Stack
 
@@ -88,7 +76,7 @@ Zusätzlich für Desktop-User die lieber Bulk-Upload machen:
 
 ### Schritt 1 — GitHub Repo
 1. [github.com](https://github.com) → "New repository"
-2. Name: `gutshof-studio`, **Private** wählen
+2. Name: `socialaiza-studio`, **Private** wählen
 3. "Create repository"
 
 ### Schritt 2 — Dateien hochladen
@@ -100,12 +88,12 @@ Zusätzlich für Desktop-User die lieber Bulk-Upload machen:
 
 **Oder Git CLI:**
 ```bash
-cd gutshof-vercel
+cd socialaiza-studio
 git init
 git add .
 git commit -m "Initial commit"
 git branch -M main
-git remote add origin https://github.com/DEIN-USERNAME/gutshof-studio.git
+git remote add origin https://github.com/DEIN-USERNAME/socialaiza-studio.git
 git push -u origin main
 ```
 
@@ -116,13 +104,13 @@ git push -u origin main
    - Name: `ANTHROPIC_API_KEY`
    - Value: dein Key (`sk-ant-...`)
 4. "Deploy" klicken
-5. Nach ~30 Sekunden: live auf `gutshof-studio.vercel.app`
+5. Nach ~30 Sekunden: live auf `socialaiza-studio.vercel.app`
 
 ### Schritt 4 — Auf Homescreen
 **iPhone (Safari):** App öffnen → Teilen-Button → "Zum Home-Bildschirm"
 **Android (Chrome):** App öffnen → Menü → "Zum Startbildschirm hinzufügen"
 
-Danach hast du eine App-ähnliche Verknüpfung mit Logo und Vollbild.
+Danach hast du eine App-ähnliche Verknüpfung mit dem Socialaiza-Logo und Vollbild-Modus.
 
 ---
 
@@ -140,7 +128,9 @@ Danach hast du eine App-ähnliche Verknüpfung mit Logo und Vollbild.
 
 ## Datenspeicherung
 
-Posts werden im **Browser localStorage** gespeichert. Vorteile: kostenlos, schnell, keine Datenbank. Nachteil: Cache löschen = Posts weg. Vor Cache-Reset CSV exportieren.
+Posts werden im **Browser localStorage** gespeichert (Schlüssel: `socialaiza_posts_v1`). Vorteile: kostenlos, schnell, keine Datenbank. Nachteil: Cache löschen = Posts weg. Vor Cache-Reset CSV exportieren.
+
+> Alte Daten aus früheren Versionen (`gutshof_posts_v3`) werden automatisch einmalig migriert — du verlierst keine Posts.
 
 ## Updates
 
@@ -160,13 +150,17 @@ Push auf `main` → automatisches Re-Deploy.
 
 ## Roadmap (nächste Updates)
 
-Ausgewählt für die nächste Iteration:
+Bereits ausgewählt für die nächste Iteration:
 
 - 🎬 **Story-Modus** — kürzere Texte, Frage-Sticker-Vorschläge, Polls, Quiz
 - 🌦 **Wetterabhängige Vorschläge** — Standort-basiert (Open-Meteo), Regen → Soulfood, Sonne → Terrasse
 - 🎄 **Anlass-Kalender** — Feiertage, Spargelsaison, Muttertag, Pfingsten, Brauchtum, kuriose Tage
 
-Diese kommen nachdem du v3.5 getestet hast und Feedback zum Workflow gegeben hast.
+Diese kommen nach dem Test-Deploy von v3.5.
+
+## Branding-Hinweis
+
+Der Tool-Name ist **Socialaiza Studio**. Die KI-Prompts sind speziell für **Gutshöfe und Landgasthöfe** in Deutschland tunen — das ist die Nische und der Unique-Angle der Captions. Wenn du das Tool später für andere Restaurant-Typen anpassen willst (Cafés, Sterne-Gastronomie, urbane Bistros), müssten die System-Prompts in `index.html` angepasst werden.
 
 ## Lizenz
 
