@@ -494,15 +494,19 @@
         <button class="btn btn-ghost" style="background:white; color:var(--ink); padding:6px 12px; min-height:32px;" onclick="switchView('week')">Zum Plan →</button>
       </div>
 
-      <div class="output-section" id="bildanalyseSection" style="display:none;">
-        <div class="out-row">
-          <div class="out-label">
-            <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M1 8C1 8 3.5 3 8 3C12.5 3 15 8 15 8C15 8 12.5 13 8 13C3.5 13 1 8 1 8Z" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.5"/></svg>
-            Bildanalyse <span class="badge">Was Claude sieht</span>
-          </div>
-          <button class="copy-btn" data-copy="bildanalyse">Als Alt-Text</button>
-        </div>
-        <div class="vision-output" id="bildanalyseOut"></div>
+      <div class="output-section">
+        <div class="out-row"><div class="out-label">Caption</div><button class="copy-btn" data-copy="caption">Kopieren</button></div>
+        <div class="out-text" id="captionOut"></div>
+      </div>
+
+      <div class="output-section">
+        <div class="out-row"><div class="out-label">Hashtags <span class="badge">Best Practice 3–5</span></div><button class="copy-btn" data-copy="hashtags">Kopieren</button></div>
+        <div class="out-text hashtags" id="hashtagsOut"></div>
+      </div>
+
+      <div class="output-section">
+        <div class="out-row"><div class="out-label">Keywords · Alt-Text & SEO</div><button class="copy-btn" data-copy="keywords">Kopieren</button></div>
+        <div class="out-text keywords" id="keywordsOut"></div>
       </div>
 
       <div class="output-section" id="mismatchSection" style="display:none;">
@@ -528,19 +532,15 @@
         <div class="strategy-block"><span class="strat-label">★ Strategie</span><span id="strategyOut"></span></div>
       </div>
 
-      <div class="output-section">
-        <div class="out-row"><div class="out-label">Caption</div><button class="copy-btn" data-copy="caption">Kopieren</button></div>
-        <div class="out-text" id="captionOut"></div>
-      </div>
-
-      <div class="output-section">
-        <div class="out-row"><div class="out-label">Hashtags <span class="badge">Best Practice 3–5</span></div><button class="copy-btn" data-copy="hashtags">Kopieren</button></div>
-        <div class="out-text hashtags" id="hashtagsOut"></div>
-      </div>
-
-      <div class="output-section">
-        <div class="out-row"><div class="out-label">Keywords · Alt-Text & SEO</div><button class="copy-btn" data-copy="keywords">Kopieren</button></div>
-        <div class="out-text keywords" id="keywordsOut"></div>
+      <div class="output-section" id="bildanalyseSection" style="display:none;">
+        <div class="out-row">
+          <div class="out-label">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M1 8C1 8 3.5 3 8 3C12.5 3 15 8 15 8C15 8 12.5 13 8 13C3.5 13 1 8 1 8Z" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.5"/></svg>
+            Bildanalyse <span class="badge">Was Claude sieht</span>
+          </div>
+          <button class="copy-btn" data-copy="bildanalyse">Als Alt-Text</button>
+        </div>
+        <div class="vision-output" id="bildanalyseOut"></div>
       </div>
 
       <div class="output-footer">
@@ -869,84 +869,144 @@ async function generate() {
 
   const hasImage = !!state.imageBase64;
 
-  const prompt = `Du bist ein erfahrener deutscher Social-Media-Texter für Gastronomie, spezialisiert auf Gutshöfe und Landgasthöfe. Du schreibst wie ein Mensch, nicht wie eine PR-Agentur.
+  const prompt = `Du schreibst Instagram-Captions für deutsche Gutshöfe. Aber zuerst: VERGISS alles was du über Marketing-Texte weißt. Die meisten Restaurant-Captions klingen wie Werbeflyer und sind genau deswegen unsichtbar im Feed.
 
-ANTI-FLOSKEL-LISTE (NIEMALS verwenden):
-- "einzigartig", "leidenschaftlich", "mit Liebe gemacht", "mit viel Herzblut"
-- "ein Genuss für alle Sinne", "kulinarisches Erlebnis", "Gaumenfreude"
-- "wahre Köstlichkeit", "verwöhnt den Gaumen", "lässt das Herz höherschlagen"
-- Drei-Adjektiv-Ketten ("frisch, zart und aromatisch") — wirkt wie ChatGPT-Standard
-- "Wir freuen uns auf euch" als Standard-Abschluss
-- Übertriebene Sensorik: "explodiert auf der Zunge", "schmilzt im Mund"
+WIE DU SCHREIBST — drei einfache Regeln:
 
-NATÜRLICH-TON-REGELN:
-- Schreibe wie ein Wirt der seinen Gästen am Tresen erzählt was es gibt — nicht wie eine Speisekarte
-- Konkrete Beobachtungen statt allgemeines Lob ("der Kalbsfond köchelt seit 8 Stunden" > "intensiver Geschmack")
-- Trau dich Pausen, halbe Sätze, kleine Imperfektionen
-- Mal trocken-direkt, mal warm-erzählerisch — nicht permanent feierlich
-- Lieber ein konkretes Detail das hängenbleibt, als drei generische Vorzüge
+1) KURZE SÄTZE. Auch mal Halbsätze.
+   Punkt. Neue Zeile. Wie du redest.
 
-${hasImage ? `===========================================
-SCHRITT 1 — BILDANALYSE & QUALITÄTSPRÜFUNG
-===========================================
-Zuerst: Was ist auf dem Foto? Beschreibe in 3-5 Sätzen konkret was du siehst (Hauptmotiv, Setting, Licht, Details, Stimmung).
+2) KONKRET STATT BLUMIG.
+   ❌ "saftig zarte Hähnchenbrust mit aromatischen Kräutern"
+   ✓ "Hähnchen aus Friedrichs Stall. Salz, Pfeffer, Zeit."
 
-Dann: BILD-QUALITÄTS-CHECK. Prüfe ehrlich:
-- Belichtung: Zu dunkel? Überbelichtet? Schatten zu hart?
-- Komposition: Schiefer Horizont? Wichtiges am Rand abgeschnitten? Zu viel toter Raum?
-- Schärfe: Verwackelt? Falscher Fokuspunkt?
-- Hintergrund: Ablenkende Objekte? Unaufgeräumt?
-- Perspektive: 45°-Winkel bei Tellern oft besser als Vogelperspektive bei flachen Speisen
-- Farben: Stimmig oder farbstichig?
-- Anrichtung: Wirkt der Teller/das Motiv ansprechend?
+3) EINE BEOBACHTUNG, NICHT DREI.
+   ❌ "Frisch, regional und mit Liebe zubereitet"
+   ✓ "Der Spargel war heute morgen noch im Boden."
 
-Falls das Bild gut ist: sag das auch ("Bild ist gut belichtet und gut komponiert").
-Falls Verbesserungspotenzial besteht: 1-3 konkrete, freundliche Tipps wie der Wirt es nächstes Mal besser machen kann.
+═══════════════════════════════════════════
+HARTE VERBOTE (auch in Variationen)
+═══════════════════════════════════════════
+Diese Wörter und Phrasen darfst du NIEMALS verwenden:
+- "einzigartig", "leidenschaftlich", "mit Liebe", "mit Herzblut"
+- "Genuss", "Gaumenfreude", "kulinarisch", "Köstlichkeit"
+- "verwöhnt", "verzaubert", "betört", "lässt das Herz höherschlagen"
+- "explodiert", "schmilzt im Mund", "tanzt auf der Zunge"
+- Drei-Adjektiv-Ketten ("frisch, zart und aromatisch")
+- "Wir freuen uns auf euch" / "Wir freuen uns auf Sie"
+- "hochwertig", "ausgewählt", "erlesen"
+- "Tradition trifft Moderne" und ähnliche Phrasen-Mischungen
+- "ein Stück Heimat", "wie bei Oma"
+- Adjektiv-Inflation generell — wenn ein Adjektiv reicht, nimm eines
 
-THEMENPASSUNG-CHECK:
-Passt das Bild zur gewählten Kategorie "${cat}"?
-- Wenn JA: alles gut, weiter mit Caption.
-- Wenn NEIN (z.B. Bild zeigt eine Fernbedienung, Kategorie ist "Sonntag"): Du machst trotzdem einen Post, aber:
-  a) Markiere "topic_mismatch": true
-  b) In "mismatch_note" erklärst du freundlich was du siehst und was nicht passt
-  c) Caption: nutze einen kreativen Brücken-Schlag (z.B. "Heute mal kein Foto vom Sonntagsbraten — dafür der Beweis, dass die Couch ruft" o.ä. — humorvoll, ehrlich)
-  ODER schlage in "mismatch_note" eine bessere Foto-Alternative vor, die zur Kategorie passen würde.
+Wenn du bei einem Wort denkst "das könnte auch in einem Werbeflyer stehen" → streich es.
 
-===========================================
+═══════════════════════════════════════════
+GUTE BEISPIELE (lerne den Ton)
+═══════════════════════════════════════════
+
+BEISPIEL 1 — Food, Mittwoch Abend:
+"Wildschwein-Ragout. Vier Stunden im Ofen.
+Dazu Spätzle, weil Spätzle zu allem passen.
+Heute Abend ab 18 Uhr — solange der Topf reicht. 🔥"
+
+BEISPIEL 2 — Saisonal, Spargelsaison:
+"Erste Stangen vom Hofgut Klein.
+Heute morgen geliefert, jetzt schon im Wasser.
+Sieben Wochen haben wir drauf gewartet. 🌱"
+
+BEISPIEL 3 — Sonntag-Brunch:
+"Halb zehn, der Kaffee läuft.
+Eier von Heidi, Brot von Schmidt, Honig vom Imker drei Dörfer weiter.
+Ihr wisst Bescheid. ☕"
+
+BEISPIEL 4 — Team:
+"Tom steht seit fünf Uhr in der Küche.
+Heute gibt's Sauerbraten — der musste vier Tage ziehen.
+Tom sagt: hat sich gelohnt."
+
+BEISPIEL 5 — Ambiente, Herbstabend:
+"Kamin an. Glas Riesling.
+Der Regen draußen macht's eigentlich schöner. 🍷"
+
+BEISPIEL 6 — Event:
+"Donnerstag, 19 Uhr: Konstantin spielt Klavier.
+Keine Eintritt, keine Reservierung nötig.
+Einfach kommen, hinhören, Wein dazu."
+
+═══════════════════════════════════════════
+SCHLECHTE BEISPIELE (vermeide diesen Ton)
+═══════════════════════════════════════════
+
+❌ "Tauchen Sie ein in eine Welt voller kulinarischer Genüsse..."
+   → klingt wie Reise-Katalog
+
+❌ "Mit viel Liebe und ausgewählten Zutaten zaubern wir Ihnen..."
+   → "zaubern", "Liebe", "ausgewählt" — alles streichen
+
+❌ "Frisches Wildschwein, zart geschmort und aromatisch gewürzt..."
+   → drei Adjektive, kein Inhalt
+
+❌ "Lassen Sie sich von unseren saisonalen Köstlichkeiten verwöhnen!"
+   → "verwöhnen" + "Köstlichkeiten" + Ausrufezeichen
+
+═══════════════════════════════════════════
+STRUKTUR-VORGABEN
+═══════════════════════════════════════════
+- Erste Zeile MAXIMAL 7 Wörter. Sie muss alleine stehen können.
+- Mindestens ein konkreter Eigenname (Person, Hof, Lieferant, Ort, Zutat) pro Caption — außer die Caption ist sehr kurz (Knapp-Stufe).
+- Keine Frage-Sätze als Hook ("Wer kennt das nicht...?") — das ist ausgelutscht.
+- Keine Hashtags in der Caption selbst.
+- Emoji: 1-3, nur wo sie etwas bedeuten. Im Zweifel: kein Emoji.
+
+${hasImage ? `═══════════════════════════════════════════
+SCHRITT 1 — BILD ANSCHAUEN
+═══════════════════════════════════════════
+Beschreibe in 3-5 Sätzen was du KONKRET siehst (Hauptmotiv, Setting, Licht, Details, Stimmung).
+
+BILD-QUALITÄT prüfen:
+- Belichtung, Komposition, Schärfe, Hintergrund, Perspektive, Farben
+- Wenn gut: sag das auch.
+- Wenn verbesserbar: 1-3 freundliche, konkrete Tipps wie der Wirt es nächstes Mal besser macht.
+
+PASST DAS BILD ZUR KATEGORIE "${cat}"?
+- Wenn ja: weiter mit Caption.
+- Wenn nein (z.B. Bild zeigt Fernbedienung, Kategorie ist "Sonntag"): topic_mismatch=true, erkläre in mismatch_note was du siehst und was nicht passt. Caption: ehrlich-humorvoller Brücken-Schlag, oder schlage in mismatch_note ein passenderes Foto vor.
+
+═══════════════════════════════════════════
 SCHRITT 2 — CAPTION
-===========================================
-Caption MUSS auf konkrete Bilddetails Bezug nehmen — keine generischen Beschreibungen die zu jedem Bild passen würden.` : `KEIN BILD: Schreibe Caption passend zu Kategorie und Details.`}
+═══════════════════════════════════════════
+Caption nimmt KONKRETE Bilddetails auf — nicht generische Beschreibungen die zu jedem Bild passen würden. Wenn auf dem Bild ein dampfender Topf steht, schreib darüber. Wenn eine Hand zu sehen ist, erzähl wem sie gehört.` : `KEIN BILD: Caption passend zu Kategorie und Details.`}
 
-KONTEXT
-- Restaurant: Gutshof (rustikal, regional, hochwertig)
+═══════════════════════════════════════════
+KONTEXT FÜR DIESE CAPTION
+═══════════════════════════════════════════
+- Restaurant-Typ: Gutshof / Landgasthof
 - Kategorie: ${cat}
 - Wochentag: ${day}
 - Tonalität: ${tone}
 - Ziel: ${goal} — ${GOAL_DESCRIPTION[goal]}
-${details ? '- Details: ' + details : ''}
+${details ? '- Details vom Wirt: ' + details : ''}
 
-STRATEGIE:
+STRATEGIE-FEINTUNING:
 ${sliderInstructions}
 
-CAPTION-FORMAT:
-- LÄNGE (kritisch): ${lengthInstruction}
-- EMOJIS: 2-4 passende Emojis sinnvoll im Text platziert (nicht alle gehäuft, nicht nur am Ende). Nur wo sie etwas bedeuten, keine Ketten.
+LÄNGE (kritisch): ${lengthInstruction}
 
-HASHTAGS: GENAU ${hashtagCount} Hashtags, Mix aus Reach und Nische.
+HASHTAGS: GENAU ${hashtagCount} Stück. Mix aus Reach-Tags (groß, generisch) und Nische (klein, spezifisch). Keine Hashtags in der Caption.
 KEYWORDS: 6-8 Stichwörter für Alt-Text und SEO.
 
-Antworte AUSSCHLIESSLICH mit gültigem JSON:
+═══════════════════════════════════════════
+JSON-FORMAT (nur dieses, kein Vor-/Nachtext)
+═══════════════════════════════════════════
 {
-  ${hasImage ? `"bildanalyse": "Deine 3-5 Sätze Beschreibung",
-  "bildqualitaet": {
-    "bewertung": "gut" | "ok" | "verbesserungsfähig",
-    "tipps": ["Tipp 1", "Tipp 2"]
-  },
+  ${hasImage ? `"bildanalyse": "3-5 Sätze",
+  "bildqualitaet": { "bewertung": "gut" | "ok" | "verbesserungsfähig", "tipps": ["..."] },
   "topic_mismatch": false,
   "mismatch_note": "",` : ''}
   "caption": "Caption mit \\n",
-  "hashtags": ["#tag1"],
-  "keywords": ["keyword1"],
+  "hashtags": ["#tag"],
+  "keywords": ["keyword"],
   "strategie": "1-2 Sätze: warum das funktioniert"
 }`;
 
