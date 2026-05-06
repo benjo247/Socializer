@@ -177,6 +177,27 @@
   .strategy-block .strat-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: .1em; text-transform: uppercase; font-weight: 600; margin-bottom: 6px; display: block; }
   .vision-output { background: linear-gradient(135deg, #fafaf9, #f5f5f4); border: 1px solid var(--border); border-left: 3px solid var(--ink); padding: 14px 18px; border-radius: var(--radius); font-size: 14px; color: var(--ink-2); line-height: 1.6; font-style: italic; position: relative; }
   .vision-output::before { content: '"'; position: absolute; top: -8px; left: 12px; font-family: 'Instrument Serif', serif; font-size: 40px; color: var(--ink); line-height: 1; background: white; padding: 0 6px; font-style: normal; }
+
+  /* Image Quality Coaching */
+  .quality-block { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; }
+  .quality-block.good { background: var(--accent-light); border-color: var(--accent-soft); }
+  .quality-block.warn { background: #fffbeb; border-color: #fde68a; }
+  .quality-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .quality-badge { font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 4px 10px; border-radius: var(--radius-pill); background: var(--surface); border: 1px solid var(--border); color: var(--ink-2); font-weight: 500; letter-spacing: .03em; }
+  .quality-block.good .quality-badge { background: var(--accent); color: white; border-color: var(--accent); }
+  .quality-block.warn .quality-badge { background: #d97706; color: white; border-color: #d97706; }
+  .quality-tips { list-style: none; padding: 0; margin: 0; }
+  .quality-tips li { font-size: 13px; color: var(--ink-2); line-height: 1.55; padding: 6px 0 6px 22px; position: relative; }
+  .quality-tips li::before { content: '💡'; position: absolute; left: 0; top: 6px; font-size: 13px; }
+  .quality-tips li:not(:last-child) { border-bottom: 1px dashed var(--border); }
+  .quality-block.good .quality-tips li::before { content: '✓'; color: var(--accent); font-weight: 700; }
+
+  /* Topic Mismatch Warning */
+  .mismatch-block { background: #fffbeb; border: 1px solid #fde68a; border-left: 3px solid #d97706; border-radius: var(--radius); padding: 14px 18px; }
+  .mismatch-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .mismatch-icon { font-size: 16px; }
+  .mismatch-title { font-size: 13px; font-weight: 600; color: #92400e; }
+  .mismatch-body { font-size: 13px; color: #78350f; line-height: 1.55; }
   .output-footer { padding: 14px 22px; background: var(--surface-2); display: flex; gap: 8px; flex-wrap: wrap; }
   .output-footer .btn { flex: 1; min-width: 140px; }
   .save-success { background: var(--accent); color: white; padding: 14px 20px; border-radius: var(--radius); margin: 14px 22px; font-size: 13px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
@@ -482,6 +503,25 @@
           <button class="copy-btn" data-copy="bildanalyse">Als Alt-Text</button>
         </div>
         <div class="vision-output" id="bildanalyseOut"></div>
+      </div>
+
+      <div class="output-section" id="mismatchSection" style="display:none;">
+        <div class="mismatch-block">
+          <div class="mismatch-header">
+            <span class="mismatch-icon">⚠️</span>
+            <span class="mismatch-title">Bild &amp; Kategorie passen nicht recht zusammen</span>
+          </div>
+          <div class="mismatch-body" id="mismatchOut"></div>
+        </div>
+      </div>
+
+      <div class="output-section" id="qualitySection" style="display:none;">
+        <div class="quality-block" id="qualityBlock">
+          <div class="quality-header">
+            <span class="quality-badge" id="qualityBadge">📸 Bildqualität</span>
+          </div>
+          <ul class="quality-tips" id="qualityTips"></ul>
+        </div>
       </div>
 
       <div class="output-section" id="strategySection" style="display:none;">
@@ -804,7 +844,12 @@ imageInput.addEventListener('change', (e) => { if (e.target.files[0]) loadImage(
   uploadZone.addEventListener(ev, (e) => { e.preventDefault(); uploadZone.style.borderColor = ''; uploadZone.style.background = ''; });
 });
 uploadZone.addEventListener('drop', (e) => { e.preventDefault(); if (e.dataTransfer.files[0]) loadImage(e.dataTransfer.files[0]); });
-$('changeImage').addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); imageInput.click(); });
+$('changeImage').addEventListener('click', (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  // Defer file dialog so :active state and other UI updates can paint first (fixes INP > 200ms)
+  requestAnimationFrame(() => imageInput.click());
+});
 
 async function generate() {
   const cat = state.category;
@@ -824,25 +869,53 @@ async function generate() {
 
   const hasImage = !!state.imageBase64;
 
-  const prompt = `Du bist ein erfahrener Social-Media-Texter für gehobene Gastronomie, spezialisiert auf Gutshöfe und Landgasthöfe in Deutschland. Texte authentisch, nicht generisch, mit sparsam und bewusst eingesetzten Emojis.
+  const prompt = `Du bist ein erfahrener deutscher Social-Media-Texter für Gastronomie, spezialisiert auf Gutshöfe und Landgasthöfe. Du schreibst wie ein Mensch, nicht wie eine PR-Agentur.
+
+ANTI-FLOSKEL-LISTE (NIEMALS verwenden):
+- "einzigartig", "leidenschaftlich", "mit Liebe gemacht", "mit viel Herzblut"
+- "ein Genuss für alle Sinne", "kulinarisches Erlebnis", "Gaumenfreude"
+- "wahre Köstlichkeit", "verwöhnt den Gaumen", "lässt das Herz höherschlagen"
+- Drei-Adjektiv-Ketten ("frisch, zart und aromatisch") — wirkt wie ChatGPT-Standard
+- "Wir freuen uns auf euch" als Standard-Abschluss
+- Übertriebene Sensorik: "explodiert auf der Zunge", "schmilzt im Mund"
+
+NATÜRLICH-TON-REGELN:
+- Schreibe wie ein Wirt der seinen Gästen am Tresen erzählt was es gibt — nicht wie eine Speisekarte
+- Konkrete Beobachtungen statt allgemeines Lob ("der Kalbsfond köchelt seit 8 Stunden" > "intensiver Geschmack")
+- Trau dich Pausen, halbe Sätze, kleine Imperfektionen
+- Mal trocken-direkt, mal warm-erzählerisch — nicht permanent feierlich
+- Lieber ein konkretes Detail das hängenbleibt, als drei generische Vorzüge
 
 ${hasImage ? `===========================================
-SCHRITT 1 — BILDANALYSE (PFLICHT, ZUERST!)
+SCHRITT 1 — BILDANALYSE & QUALITÄTSPRÜFUNG
 ===========================================
-Analysiere das Foto SORGFÄLTIG bevor du irgendetwas schreibst:
-- Hauptmotiv: Was ist konkret zu sehen?
-- Komposition: Bildaufbau, Anschnitt, Perspektive
-- Farben & Licht: Dominante Farbtöne, Lichtstimmung
-- Setting: Tisch, Holz, Stein, Garten, Innenraum?
-- Details: Besondere Dinge (Kerze, Glas, Hand, Garnitur, Dampf)
-- Stimmung: Welches Gefühl löst das Bild aus?
+Zuerst: Was ist auf dem Foto? Beschreibe in 3-5 Sätzen konkret was du siehst (Hauptmotiv, Setting, Licht, Details, Stimmung).
 
-Schreibe 3-5 konkrete Sätze.
+Dann: BILD-QUALITÄTS-CHECK. Prüfe ehrlich:
+- Belichtung: Zu dunkel? Überbelichtet? Schatten zu hart?
+- Komposition: Schiefer Horizont? Wichtiges am Rand abgeschnitten? Zu viel toter Raum?
+- Schärfe: Verwackelt? Falscher Fokuspunkt?
+- Hintergrund: Ablenkende Objekte? Unaufgeräumt?
+- Perspektive: 45°-Winkel bei Tellern oft besser als Vogelperspektive bei flachen Speisen
+- Farben: Stimmig oder farbstichig?
+- Anrichtung: Wirkt der Teller/das Motiv ansprechend?
+
+Falls das Bild gut ist: sag das auch ("Bild ist gut belichtet und gut komponiert").
+Falls Verbesserungspotenzial besteht: 1-3 konkrete, freundliche Tipps wie der Wirt es nächstes Mal besser machen kann.
+
+THEMENPASSUNG-CHECK:
+Passt das Bild zur gewählten Kategorie "${cat}"?
+- Wenn JA: alles gut, weiter mit Caption.
+- Wenn NEIN (z.B. Bild zeigt eine Fernbedienung, Kategorie ist "Sonntag"): Du machst trotzdem einen Post, aber:
+  a) Markiere "topic_mismatch": true
+  b) In "mismatch_note" erklärst du freundlich was du siehst und was nicht passt
+  c) Caption: nutze einen kreativen Brücken-Schlag (z.B. "Heute mal kein Foto vom Sonntagsbraten — dafür der Beweis, dass die Couch ruft" o.ä. — humorvoll, ehrlich)
+  ODER schlage in "mismatch_note" eine bessere Foto-Alternative vor, die zur Kategorie passen würde.
 
 ===========================================
-SCHRITT 2 — CAPTION schreiben
+SCHRITT 2 — CAPTION
 ===========================================
-Basierend auf Bildanalyse. Caption MUSS auf konkrete Bilddetails Bezug nehmen.` : `KEIN BILD: Schreibe Caption passend zu Kategorie und Details.`}
+Caption MUSS auf konkrete Bilddetails Bezug nehmen — keine generischen Beschreibungen die zu jedem Bild passen würden.` : `KEIN BILD: Schreibe Caption passend zu Kategorie und Details.`}
 
 KONTEXT
 - Restaurant: Gutshof (rustikal, regional, hochwertig)
@@ -855,18 +928,22 @@ ${details ? '- Details: ' + details : ''}
 STRATEGIE:
 ${sliderInstructions}
 
-CAPTION-REGELN:
-- LÄNGE (kritisch, halte dich genau daran): ${lengthInstruction}
-- KEINE Floskeln wie "einzigartig", "leidenschaftlich", "mit Liebe gemacht"
-- Authentisch, nicht overpolished
-- EMOJIS: 2-4 passende Emojis sinnvoll im Text platziert (nicht alle gehäuft, nicht nur am Ende). Beispiele: 🌿 🍷 🔥 ✨ 🍂 🥖 🌞. KEINE Emoji-Ketten, sondern wo sie etwas bedeuten.
+CAPTION-FORMAT:
+- LÄNGE (kritisch): ${lengthInstruction}
+- EMOJIS: 2-4 passende Emojis sinnvoll im Text platziert (nicht alle gehäuft, nicht nur am Ende). Nur wo sie etwas bedeuten, keine Ketten.
 
 HASHTAGS: GENAU ${hashtagCount} Hashtags, Mix aus Reach und Nische.
 KEYWORDS: 6-8 Stichwörter für Alt-Text und SEO.
 
 Antworte AUSSCHLIESSLICH mit gültigem JSON:
 {
-  ${hasImage ? '"bildanalyse": "Deine 3-5 Sätze",' : ''}
+  ${hasImage ? `"bildanalyse": "Deine 3-5 Sätze Beschreibung",
+  "bildqualitaet": {
+    "bewertung": "gut" | "ok" | "verbesserungsfähig",
+    "tipps": ["Tipp 1", "Tipp 2"]
+  },
+  "topic_mismatch": false,
+  "mismatch_note": "",` : ''}
   "caption": "Caption mit \\n",
   "hashtags": ["#tag1"],
   "keywords": ["keyword1"],
@@ -912,6 +989,9 @@ Antworte AUSSCHLIESSLICH mit gültigem JSON:
       tone: $('tone').value,
       details: details,
       bildanalyse: parsed.bildanalyse || null,
+      bildqualitaet: parsed.bildqualitaet || null,
+      topic_mismatch: parsed.topic_mismatch || false,
+      mismatch_note: parsed.mismatch_note || '',
       caption: parsed.caption,
       hashtags: parsed.hashtags,
       keywords: parsed.keywords,
@@ -938,6 +1018,35 @@ function renderOutput(post) {
 
   if (post.bildanalyse) { $('bildanalyseSection').style.display = 'block'; $('bildanalyseOut').textContent = post.bildanalyse; }
   else $('bildanalyseSection').style.display = 'none';
+
+  // Topic mismatch warning
+  if (post.topic_mismatch && post.mismatch_note) {
+    $('mismatchSection').style.display = 'block';
+    $('mismatchOut').textContent = post.mismatch_note;
+  } else {
+    $('mismatchSection').style.display = 'none';
+  }
+
+  // Image quality coaching
+  if (post.bildqualitaet && post.bildqualitaet.tipps && post.bildqualitaet.tipps.length > 0) {
+    $('qualitySection').style.display = 'block';
+    const block = $('qualityBlock');
+    const badge = $('qualityBadge');
+    const tipsEl = $('qualityTips');
+    tipsEl.innerHTML = '';
+
+    const rating = post.bildqualitaet.bewertung || 'ok';
+    block.className = 'quality-block ' + (rating === 'gut' ? 'good' : rating === 'verbesserungsfähig' ? 'warn' : '');
+    badge.textContent = rating === 'gut' ? '📸 Bildqualität · gut' : rating === 'verbesserungsfähig' ? '📸 Bildqualität · verbesserungsfähig' : '📸 Bildqualität · ok';
+
+    post.bildqualitaet.tipps.forEach(tip => {
+      const li = document.createElement('li');
+      li.textContent = tip;
+      tipsEl.appendChild(li);
+    });
+  } else {
+    $('qualitySection').style.display = 'none';
+  }
 
   if (post.strategie) { $('strategySection').style.display = 'block'; $('strategyOut').textContent = ' ' + post.strategie; }
   else $('strategySection').style.display = 'none';
