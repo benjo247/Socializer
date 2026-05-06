@@ -198,6 +198,46 @@
   .mismatch-icon { font-size: 16px; }
   .mismatch-title { font-size: 13px; font-weight: 600; color: #92400e; }
   .mismatch-body { font-size: 13px; color: #78350f; line-height: 1.55; }
+
+  /* Instagram Preview Mockup */
+  .preview-section { background: linear-gradient(180deg, #fafaf9, #f5f5f4); }
+  .ig-mockup { max-width: 470px; margin: 12px auto 16px; background: white; border: 1px solid #dbdbdb; border-radius: 8px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+  .ig-header { display: flex; align-items: center; gap: 12px; padding: 12px 14px; }
+  .ig-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); padding: 2px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 13px; flex-shrink: 0; box-shadow: inset 0 0 0 2px white; }
+  .ig-userinfo { flex: 1; min-width: 0; }
+  .ig-username { font-size: 14px; font-weight: 600; color: #262626; line-height: 1.2; }
+  .ig-location { font-size: 11px; color: #262626; line-height: 1.3; margin-top: 1px; }
+  .ig-more { font-size: 18px; color: #262626; cursor: default; }
+
+  .ig-image-wrap { width: 100%; aspect-ratio: 1 / 1; background: #fafafa; position: relative; overflow: hidden; transition: aspect-ratio .3s ease; }
+  .ig-image-wrap.portrait { aspect-ratio: 4 / 5; }
+  .ig-image-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ig-image-empty { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+  .ig-actions { display: flex; justify-content: space-between; padding: 8px 12px 4px; color: #262626; }
+  .ig-actions-left { display: flex; gap: 14px; }
+  .ig-actions svg { cursor: default; }
+
+  .ig-likes { padding: 0 14px 6px; font-size: 14px; color: #262626; }
+  .ig-likes strong { font-weight: 600; }
+
+  .ig-caption-wrap { padding: 0 14px 4px; font-size: 14px; color: #262626; line-height: 1.4; word-wrap: break-word; }
+  .ig-caption-username { font-weight: 600; margin-right: 6px; }
+  .ig-caption-text { white-space: pre-wrap; }
+  .ig-caption-text.truncated { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .ig-more-btn { background: none; border: none; color: #8e8e8e; font-size: 14px; padding: 0; margin-top: 2px; cursor: pointer; font-family: inherit; }
+  .ig-more-btn:hover { color: #262626; }
+
+  .ig-hashtags { padding: 4px 14px 8px; font-size: 14px; color: #00376b; line-height: 1.4; word-wrap: break-word; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+  .ig-time { padding: 0 14px 12px; font-size: 10px; color: #8e8e8e; letter-spacing: .04em; }
+
+  .ig-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 470px; margin: 0 auto; }
+  @media (max-width: 480px) { .ig-controls { grid-template-columns: 1fr; } }
+  .ig-control-row { display: flex; flex-direction: column; gap: 4px; }
+  .ig-control-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; font-weight: 500; }
+  .ig-input { padding: 8px 12px; border: 1px solid var(--border); border-radius: var(--radius); font-size: 13px; font-family: inherit; background: white; outline: none; min-height: 38px; }
+  .ig-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  select.ig-input { cursor: pointer; }
   .output-footer { padding: 14px 22px; background: var(--surface-2); display: flex; gap: 8px; flex-wrap: wrap; }
   .output-footer .btn { flex: 1; min-width: 140px; }
   .save-success { background: var(--accent); color: white; padding: 14px 20px; border-radius: var(--radius); margin: 14px 22px; font-size: 13px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
@@ -492,6 +532,60 @@
       <div class="save-success" id="saveSuccess" style="display:none;">
         <span>✓ In Wochenplan gespeichert</span>
         <button class="btn btn-ghost" style="background:white; color:var(--ink); padding:6px 12px; min-height:32px;" onclick="switchView('week')">Zum Plan →</button>
+      </div>
+
+      <div class="output-section preview-section">
+        <div class="out-row">
+          <div class="out-label">📱 Instagram-Vorschau <span class="badge">So sieht's im Feed aus</span></div>
+        </div>
+        <div class="ig-mockup" id="igMockup">
+          <div class="ig-header">
+            <div class="ig-avatar" id="igAvatar">G</div>
+            <div class="ig-userinfo">
+              <div class="ig-username" id="igUsername">dein_gutshof</div>
+              <div class="ig-location">Gutshof · Deutschland</div>
+            </div>
+            <div class="ig-more">⋯</div>
+          </div>
+          <div class="ig-image-wrap">
+            <img id="igImage" alt="" />
+            <div class="ig-image-empty" id="igImageEmpty" style="display:none;">
+              <div style="font-size:32px;">🖼</div>
+              <div style="font-size:13px; color:var(--muted); margin-top:8px;">Kein Bild</div>
+            </div>
+          </div>
+          <div class="ig-actions">
+            <div class="ig-actions-left">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </div>
+            <div class="ig-actions-right">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </div>
+          </div>
+          <div class="ig-likes">Gefällt <strong id="igLikes">247</strong> Mal</div>
+          <div class="ig-caption-wrap">
+            <span class="ig-caption-username" id="igCaptionUsername">dein_gutshof</span>
+            <span class="ig-caption-text" id="igCaptionText"></span>
+            <button class="ig-more-btn" id="igMoreBtn" style="display:none;">… mehr</button>
+          </div>
+          <div class="ig-hashtags" id="igHashtags"></div>
+          <div class="ig-time" id="igTime">VOR 2 STUNDEN</div>
+        </div>
+        <div class="ig-controls">
+          <label class="ig-control-row">
+            <span class="ig-control-label">Username</span>
+            <input type="text" id="previewUsername" class="ig-input" value="dein_gutshof" maxlength="30" />
+          </label>
+          <label class="ig-control-row">
+            <span class="ig-control-label">Bildformat</span>
+            <select id="previewFormat" class="ig-input">
+              <option value="square" selected>1:1 Quadrat</option>
+              <option value="portrait">4:5 Portrait</option>
+            </select>
+          </label>
+        </div>
       </div>
 
       <div class="output-section">
@@ -1076,6 +1170,9 @@ function renderOutput(post) {
   $('hashtagsOut').textContent = post.hashtags.join(' ');
   $('keywordsOut').textContent = post.keywords.join(' · ');
 
+  // Instagram preview
+  renderInstagramPreview(post);
+
   if (post.bildanalyse) { $('bildanalyseSection').style.display = 'block'; $('bildanalyseOut').textContent = post.bildanalyse; }
   else $('bildanalyseSection').style.display = 'none';
 
@@ -1126,6 +1223,93 @@ function renderOutput(post) {
 }
 
 generateBtn.addEventListener('click', generate);
+
+/* ═══════════════════════════════════════════════════════════════
+   INSTAGRAM PREVIEW
+   ═══════════════════════════════════════════════════════════════ */
+
+function renderInstagramPreview(post) {
+  const username = ($('previewUsername').value || 'dein_gutshof').trim().slice(0, 30);
+  const format = $('previewFormat').value;
+
+  // Header
+  $('igUsername').textContent = username;
+  $('igCaptionUsername').textContent = username;
+  // Avatar: first letter of username (uppercase)
+  $('igAvatar').textContent = username.charAt(0).toUpperCase() || 'G';
+
+  // Image
+  const imgEl = $('igImage');
+  const emptyEl = $('igImageEmpty');
+  const imgWrap = imgEl.parentElement;
+  imgWrap.classList.toggle('portrait', format === 'portrait');
+
+  if (post.imageDataUrl) {
+    imgEl.src = post.imageDataUrl;
+    imgEl.style.display = 'block';
+    emptyEl.style.display = 'none';
+  } else {
+    imgEl.style.display = 'none';
+    imgEl.removeAttribute('src');
+    emptyEl.style.display = 'flex';
+  }
+
+  // Likes (random plausible number, weighted to lower side for realism)
+  const baseLikes = Math.floor(Math.random() * 200) + 50;
+  $('igLikes').textContent = baseLikes;
+
+  // Caption with truncation logic
+  const captionEl = $('igCaptionText');
+  const moreBtn = $('igMoreBtn');
+  captionEl.textContent = post.caption;
+  // Reset state
+  captionEl.classList.add('truncated');
+  moreBtn.style.display = 'none';
+  moreBtn.textContent = '… mehr';
+
+  // After render, check if truncation is needed (caption longer than 2 lines)
+  requestAnimationFrame(() => {
+    if (captionEl.scrollHeight > captionEl.clientHeight + 2) {
+      moreBtn.style.display = 'inline';
+    }
+  });
+
+  // Hashtags
+  $('igHashtags').textContent = post.hashtags.join(' ');
+
+  // Time
+  const slotLabel = post.slot ? `${SLOT_LABELS[post.slot].split(' ')[1]?.toLowerCase() || 'mittags'}` : '';
+  $('igTime').textContent = `Geplant: ${DAY_FULL[post.day]} ${post.scheduledTime}`.toUpperCase();
+}
+
+// "mehr" toggle
+$('igMoreBtn').addEventListener('click', () => {
+  const captionEl = $('igCaptionText');
+  const moreBtn = $('igMoreBtn');
+  if (captionEl.classList.contains('truncated')) {
+    captionEl.classList.remove('truncated');
+    moreBtn.textContent = 'weniger';
+  } else {
+    captionEl.classList.add('truncated');
+    moreBtn.textContent = '… mehr';
+  }
+});
+
+// Live-update preview when controls change
+$('previewUsername').addEventListener('input', () => {
+  if (state.currentPost) renderInstagramPreview(state.currentPost);
+});
+$('previewFormat').addEventListener('change', () => {
+  if (state.currentPost) renderInstagramPreview(state.currentPost);
+});
+
+// Persist username preference
+const LS_USERNAME = 'socialaiza_preview_username';
+const savedUsername = localStorage.getItem(LS_USERNAME);
+if (savedUsername) $('previewUsername').value = savedUsername;
+$('previewUsername').addEventListener('change', () => {
+  localStorage.setItem(LS_USERNAME, $('previewUsername').value);
+});
 $('regenerateBtn').addEventListener('click', generate);
 
 document.querySelectorAll('.copy-btn').forEach(btn => {
