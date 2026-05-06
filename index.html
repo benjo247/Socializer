@@ -307,6 +307,85 @@
   .recs-empty { text-align: center; color: var(--accent-dark); font-size: 13px; padding: 20px 12px; line-height: 1.5; }
   .recs-empty strong { font-weight: 600; }
 
+  /* ═══════════════════════════════════════════════════════════════
+     KNOWLEDGE BASE
+     ═══════════════════════════════════════════════════════════════ */
+
+  .kb-banner { background: linear-gradient(135deg, var(--accent-light), #ecfdf5); border: 1px solid var(--accent-soft); border-left: 3px solid var(--accent); border-radius: var(--radius); padding: 14px 18px; margin-bottom: 18px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .kb-banner-icon { font-size: 22px; }
+  .kb-banner-text { flex: 1; min-width: 240px; font-size: 13px; color: var(--accent-dark); line-height: 1.5; }
+  .kb-banner-text strong { font-weight: 600; }
+  .kb-banner-btn { background: var(--accent); color: white; border: none; padding: 10px 18px; border-radius: var(--radius); font-size: 13px; font-weight: 600; cursor: pointer; min-height: 40px; }
+  .kb-banner-btn:hover { background: var(--accent-dark); }
+
+  .kb-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; flex-wrap: wrap; gap: 12px; }
+  .kb-status { display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); }
+  .kb-status .led { width: 6px; height: 6px; border-radius: 50%; background: var(--muted-light); }
+  .kb-status.saved .led { background: var(--accent); box-shadow: 0 0 4px var(--accent); }
+
+  .kb-quickfill { background: linear-gradient(135deg, #fef3c7, #fde68a); border: 1px solid #fbbf24; border-radius: var(--radius-lg); padding: 18px 20px; margin-bottom: 20px; }
+  .kb-quickfill-title { font-size: 14px; font-weight: 600; color: #78350f; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+  .kb-quickfill-desc { font-size: 12px; color: #92400e; line-height: 1.5; margin-bottom: 12px; }
+  .kb-quickfill-btn { background: #d97706; color: white; border: none; padding: 12px 20px; border-radius: var(--radius); font-size: 13px; font-weight: 600; cursor: pointer; min-height: 44px; display: inline-flex; align-items: center; gap: 8px; }
+  .kb-quickfill-btn:hover { background: #b45309; }
+
+  .kb-section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px 22px; margin-bottom: 14px; box-shadow: var(--shadow-sm); }
+  .kb-section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .kb-section-icon { font-size: 18px; }
+  .kb-section-title { font-size: 15px; font-weight: 600; color: var(--ink); }
+  .kb-section-desc { font-size: 12px; color: var(--muted); margin-bottom: 16px; line-height: 1.5; }
+
+  .kb-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 540px) { .kb-grid { grid-template-columns: 1fr; } }
+  .kb-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  @media (max-width: 720px) { .kb-grid.cols-3 { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .kb-grid.cols-3 { grid-template-columns: 1fr; } }
+  .kb-grid.full { grid-template-columns: 1fr; }
+
+  .kb-field { display: flex; flex-direction: column; gap: 6px; }
+  .kb-field-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; font-weight: 500; }
+  .kb-field-hint { font-size: 11px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+
+  /* List inputs (team, lieferanten, geschichten) */
+  .kb-list { display: flex; flex-direction: column; gap: 8px; }
+  .kb-list-item { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 6px; align-items: center; }
+  .kb-list-item.cols-2 { grid-template-columns: 1fr 2fr auto; }
+  .kb-list-item.cols-1 { grid-template-columns: 1fr auto; }
+  @media (max-width: 540px) {
+    .kb-list-item, .kb-list-item.cols-2, .kb-list-item.cols-1 { grid-template-columns: 1fr; gap: 4px; padding: 10px; background: var(--surface-2); border-radius: var(--radius); border: 1px solid var(--border); }
+    .kb-list-item .kb-remove { justify-self: end; margin-top: 4px; }
+  }
+  .kb-list-input { padding: 9px 12px; border: 1px solid var(--border); border-radius: var(--radius); font-family: inherit; font-size: 13px; background: var(--surface-2); color: var(--ink); outline: none; min-height: 38px; }
+  .kb-list-input:focus { border-color: var(--accent); background: white; box-shadow: 0 0 0 2px var(--accent-soft); }
+  .kb-list-input.textarea { resize: vertical; min-height: 60px; line-height: 1.5; }
+  .kb-remove { background: var(--surface); border: 1px solid var(--border); color: var(--muted); width: 36px; height: 36px; border-radius: var(--radius); cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all .15s ease; }
+  .kb-remove:hover { background: var(--warning-bg); color: var(--warning); border-color: #fecaca; }
+  .kb-add-btn { background: transparent; border: 1px dashed var(--border-strong); color: var(--muted); padding: 10px 16px; border-radius: var(--radius); font-size: 13px; cursor: pointer; transition: all .15s ease; align-self: flex-start; min-height: 40px; display: inline-flex; align-items: center; gap: 6px; }
+  .kb-add-btn:hover { background: var(--surface-2); color: var(--ink); border-color: var(--border-strong); border-style: solid; }
+
+  /* Quickfill Modal */
+  .qf-modal { background: white; border-radius: var(--radius-lg); max-width: 540px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow-lg); }
+  .qf-tabs { display: flex; gap: 4px; padding: 16px 22px 0; }
+  .qf-tab { background: transparent; border: none; padding: 10px 14px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; transition: all .15s ease; min-height: 40px; }
+  .qf-tab.active { color: var(--ink); border-bottom-color: var(--accent); }
+  .qf-content { padding: 18px 22px 22px; }
+  .qf-pane { display: none; }
+  .qf-pane.active { display: block; }
+  .qf-drop { border: 1.5px dashed var(--border-strong); background: var(--surface-2); border-radius: var(--radius); padding: 32px 20px; text-align: center; cursor: pointer; transition: all .2s ease; }
+  .qf-drop:hover, .qf-drop.dragover { border-color: var(--accent); background: var(--accent-light); }
+  .qf-drop-icon { font-size: 32px; margin-bottom: 8px; }
+  .qf-drop-text { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+  .qf-drop-sub { font-size: 11px; color: var(--muted); font-family: 'JetBrains Mono', monospace; letter-spacing: .05em; }
+  .qf-drop input { display: none; }
+  .qf-textarea { width: 100%; min-height: 200px; padding: 12px 14px; border: 1px solid var(--border); border-radius: var(--radius); font-family: inherit; font-size: 13px; line-height: 1.5; resize: vertical; outline: none; }
+  .qf-textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .qf-file-info { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; margin-top: 12px; font-size: 13px; color: var(--ink-2); display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+
+  /* KB usage indicator on output */
+  .kb-usage { background: var(--accent-light); border: 1px solid var(--accent-soft); border-radius: var(--radius); padding: 8px 12px; margin-bottom: 14px; font-size: 11px; color: var(--accent-dark); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .kb-usage-icon { font-size: 13px; }
+  .kb-usage-text strong { font-weight: 600; }
+
   .day-column { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; min-height: 180px; display: flex; flex-direction: column; }
   .day-header { background: var(--surface-2); padding: 10px 12px; border-bottom: 1px solid var(--border); text-align: center; }
   .day-header .day-name { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
@@ -417,6 +496,7 @@
     <button class="tab active" data-view="generator">✨ <span class="label-long">Generator</span><span style="display:none">Generator</span></button>
     <button class="tab" data-view="ideas">💡 <span class="label-long">Ideen</span></button>
     <button class="tab" data-view="week">📅 <span class="label-long">Wochenplan</span><span class="count" id="weekCount">0</span></button>
+    <button class="tab" data-view="knowledge">📖 <span class="label-long">Wissen</span></button>
   </div>
 
   <div class="alert error" id="errorAlert"></div>
@@ -424,6 +504,13 @@
 
   <!-- GENERATOR VIEW -->
   <div class="view active" id="view-generator">
+    <div class="kb-banner" id="kbOnboardingBanner" style="display:none;">
+      <div class="kb-banner-icon">📖</div>
+      <div class="kb-banner-text">
+        <strong>Wissensbasis ist leer.</strong> Sag dem Tool wer du bist — Restaurant-Name, Lieferanten, Team. Die Captions werden dann persönlich und konkret statt generisch.
+      </div>
+      <button class="kb-banner-btn" onclick="switchView('knowledge')">→ Jetzt einrichten</button>
+    </div>
     <div class="main-grid">
       <div class="card">
         <div class="card-header">
@@ -639,6 +726,7 @@
       </div>
 
       <div class="output-section">
+        <div id="kbUsageIndicator" style="display:none;"></div>
         <div class="out-row"><div class="out-label">Caption</div><button class="copy-btn" data-copy="caption">Kopieren</button></div>
         <div class="out-text" id="captionOut"></div>
       </div>
@@ -802,6 +890,186 @@
     <div class="week-grid-large" id="weekGrid"></div>
   </div>
 
+  <!-- KNOWLEDGE BASE VIEW -->
+  <div class="view" id="view-knowledge">
+    <div class="kb-header">
+      <div>
+        <div class="dashboard-title" style="font-size: 22px; margin-bottom: 4px;">📖 Wissensbasis</div>
+        <div class="dashboard-sub">Erzähl dem Tool wer du bist — die Captions werden persönlich.</div>
+      </div>
+      <div class="kb-status" id="kbStatus">
+        <span class="led"></span>
+        <span id="kbStatusText">Bereit</span>
+      </div>
+    </div>
+
+    <!-- QUICKFILL -->
+    <div class="kb-quickfill">
+      <div class="kb-quickfill-title">🪄 Schnell-Setup</div>
+      <div class="kb-quickfill-desc">Lade eine Speisekarte (PDF/Foto) hoch oder kopiere Text von deiner Webseite — Claude liest durch und befüllt die Felder unten automatisch. Du musst dann nur noch korrigieren.</div>
+      <button class="kb-quickfill-btn" id="qfOpenBtn">🪄 Speisekarte oder Webseite einlesen</button>
+    </div>
+
+    <!-- SECTION 1: Restaurant -->
+    <div class="kb-section">
+      <div class="kb-section-header">
+        <span class="kb-section-icon">🏠</span>
+        <span class="kb-section-title">Restaurant</span>
+      </div>
+      <div class="kb-section-desc">Identität und Verortung deines Betriebs.</div>
+      <div class="kb-grid">
+        <div class="kb-field">
+          <label class="kb-field-label" for="kb-name">Name</label>
+          <input type="text" class="input" id="kb-name" data-kb="name" placeholder="z.B. Gasthof zum Goldenen Hirsch" />
+        </div>
+        <div class="kb-field">
+          <label class="kb-field-label" for="kb-type">Restaurant-Typ</label>
+          <select class="input" id="kb-type" data-kb="type">
+            <option value="gutshof">Gutshof</option>
+            <option value="landgasthof">Landgasthof</option>
+            <option value="restaurant">Restaurant</option>
+            <option value="cafe">Café</option>
+            <option value="bistro">Bistro</option>
+            <option value="weinstube">Weinstube</option>
+            <option value="brauhaus">Brauhaus</option>
+            <option value="biergarten">Biergarten</option>
+          </select>
+        </div>
+      </div>
+      <div class="kb-grid cols-3" style="margin-top:12px;">
+        <div class="kb-field">
+          <label class="kb-field-label" for="kb-ort">Ort</label>
+          <input type="text" class="input" id="kb-ort" data-kb="ort" placeholder="Bamberg" />
+        </div>
+        <div class="kb-field">
+          <label class="kb-field-label" for="kb-bundesland">Bundesland</label>
+          <input type="text" class="input" id="kb-bundesland" data-kb="bundesland" placeholder="Bayern" />
+        </div>
+        <div class="kb-field">
+          <label class="kb-field-label" for="kb-region">Region/Landschaft</label>
+          <input type="text" class="input" id="kb-region" data-kb="region" placeholder="Fränkische Schweiz" />
+        </div>
+      </div>
+      <div class="kb-grid" style="margin-top:12px;">
+        <div class="kb-field">
+          <label class="kb-field-label" for="kb-gruendung">Gegründet</label>
+          <input type="text" class="input" id="kb-gruendung" data-kb="gruendungsjahr" placeholder="1842" />
+        </div>
+      </div>
+      <div class="kb-grid full" style="margin-top:12px;">
+        <div class="kb-field">
+          <label class="kb-field-label" for="kb-beschreibung">Selbstbeschreibung</label>
+          <textarea class="input" id="kb-beschreibung" data-kb="beschreibung" rows="3" placeholder="2-3 Sätze: Was macht dein Betrieb aus? Wofür stehst du?"></textarea>
+          <div class="kb-field-hint">Diese Beschreibung fließt in jede Caption ein — knapp halten, das Wichtigste.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: Inhaber & Team -->
+    <div class="kb-section">
+      <div class="kb-section-header">
+        <span class="kb-section-icon">👥</span>
+        <span class="kb-section-title">Inhaber & Team</span>
+      </div>
+      <div class="kb-section-desc">Menschen geben dem Restaurant Charakter. Vornamen reichen — Claude nutzt sie in passenden Captions.</div>
+      <div class="kb-grid full">
+        <div class="kb-field">
+          <label class="kb-field-label" for="kb-inhaber">Inhaber/Wirt</label>
+          <input type="text" class="input" id="kb-inhaber" data-kb="inhaber" placeholder="z.B. Christoph Müller (3. Generation)" />
+        </div>
+      </div>
+      <div class="kb-field" style="margin-top:14px;">
+        <label class="kb-field-label">Team</label>
+        <div class="kb-list" id="kb-team-list"></div>
+        <button type="button" class="kb-add-btn" data-add="team">＋ Team-Mitglied hinzufügen</button>
+      </div>
+    </div>
+
+    <!-- SECTION 3: Sprache & Identität -->
+    <div class="kb-section">
+      <div class="kb-section-header">
+        <span class="kb-section-icon">💬</span>
+        <span class="kb-section-title">Sprache & Identität</span>
+      </div>
+      <div class="kb-section-desc">Wie sprichst du mit deinen Gästen? Was ist typisch für deine Region?</div>
+      <div class="kb-grid">
+        <div class="kb-field">
+          <label class="kb-field-label" for="kb-anrede">Anrede</label>
+          <select class="input" id="kb-anrede" data-kb="anrede">
+            <option value="du">Du / euch</option>
+            <option value="sie">Sie / Ihnen</option>
+            <option value="ihr">Ihr (gemischt)</option>
+          </select>
+        </div>
+        <div class="kb-field">
+          <label class="kb-field-label" for="kb-mundart">Mundart-Anteil</label>
+          <input type="text" class="input" id="kb-mundart" data-kb="mundart" placeholder='z.B. "leichtes Bayrisch", "Hochdeutsch", "Allgäuerisch"' />
+        </div>
+      </div>
+      <div class="kb-grid full" style="margin-top:12px;">
+        <div class="kb-field">
+          <label class="kb-field-label" for="kb-begriffe">Regionale Begriffe</label>
+          <textarea class="input" id="kb-begriffe" data-kb="regionale_begriffe" rows="2" placeholder='z.B. "Brotzeit (statt Vesper), Schorle (statt Spritzer), Halve Hahn (statt Käsebrötchen)"'></textarea>
+          <div class="kb-field-hint">Begriffe die in deiner Region typisch sind und ins Restaurant passen.</div>
+        </div>
+      </div>
+      <div class="kb-grid full" style="margin-top:12px;">
+        <div class="kb-field">
+          <label class="kb-field-label" for="kb-nieverwenden">Wörter die wir nie verwenden</label>
+          <textarea class="input" id="kb-nieverwenden" data-kb="nie_verwenden" rows="2" placeholder='z.B. "kulinarisch, einzigartig, exquisit, raffiniert" — wir reden bodenständig'></textarea>
+          <div class="kb-field-hint">Der wichtigste Identitäts-Marker: was du *nicht* sagst.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: Lieferanten -->
+    <div class="kb-section">
+      <div class="kb-section-header">
+        <span class="kb-section-icon">🚜</span>
+        <span class="kb-section-title">Lieferanten & Partner</span>
+      </div>
+      <div class="kb-section-desc">Diese Namen machen Captions unschlagbar konkret. "Hähnchen vom Friedrich-Hof" schlägt jedes "regional und frisch".</div>
+      <div class="kb-list" id="kb-lieferanten-list"></div>
+      <button type="button" class="kb-add-btn" data-add="lieferanten">＋ Lieferant hinzufügen</button>
+    </div>
+
+    <!-- SECTION 5: Gerichte -->
+    <div class="kb-section">
+      <div class="kb-section-header">
+        <span class="kb-section-icon">🍽</span>
+        <span class="kb-section-title">Gerichte & Spezialitäten</span>
+      </div>
+      <div class="kb-section-desc">Hausklassiker und saisonale Schwerpunkte.</div>
+      <div class="kb-grid full">
+        <div class="kb-field">
+          <label class="kb-field-label" for="kb-klassiker">Hausklassiker</label>
+          <textarea class="input" id="kb-klassiker" data-kb="klassiker" rows="3" placeholder='z.B. "Sauerbraten nach Omas Rezept (4 Tage Beize), Kalbsschnitzel mit Bratkartoffeln, Apfelstrudel mit Vanillesoße"'></textarea>
+        </div>
+      </div>
+      <div class="kb-grid full" style="margin-top:12px;">
+        <div class="kb-field">
+          <label class="kb-field-label" for="kb-saisonal">Saisonale Schwerpunkte</label>
+          <textarea class="input" id="kb-saisonal" data-kb="saisonale_schwerpunkte" rows="2" placeholder='z.B. "Spargelsaison April-Juni, Pfifferlinge Juni-September, Wild August-Januar, Federweißer im Herbst"'></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 6: Geschichten -->
+    <div class="kb-section">
+      <div class="kb-section-header">
+        <span class="kb-section-icon">📚</span>
+        <span class="kb-section-title">Geschichten & Anekdoten</span>
+      </div>
+      <div class="kb-section-desc">Kleine Geschichten, die das Restaurant lebendig machen — können in Captions wiederverwendet werden.</div>
+      <div class="kb-list" id="kb-geschichten-list"></div>
+      <button type="button" class="kb-add-btn" data-add="geschichten">＋ Geschichte hinzufügen</button>
+    </div>
+
+    <div style="display: flex; gap: 8px; margin-top: 20px; flex-wrap: wrap;">
+      <button class="btn btn-danger" id="kbResetBtn">🗑 Alles zurücksetzen</button>
+    </div>
+  </div>
+
   <footer>Socialaiza Studio · Powered by Claude · v3.5</footer>
 </div>
 
@@ -830,6 +1098,42 @@
   </div>
   <div class="transfer-progress-bar"><div class="transfer-progress-fill" id="transferProgressFill" style="width:0%;"></div></div>
   <div class="transfer-content" id="transferContent"></div>
+</div>
+
+<!-- QUICKFILL MODAL -->
+<div class="modal-backdrop" id="qfModal">
+  <div class="qf-modal">
+    <div class="modal-header">
+      <div class="modal-title">🪄 Schnell-Setup</div>
+      <button class="modal-close" id="qfClose">✕</button>
+    </div>
+    <div class="qf-tabs">
+      <button class="qf-tab active" data-qf-pane="file">📁 Datei</button>
+      <button class="qf-tab" data-qf-pane="text">📝 Text einfügen</button>
+    </div>
+    <div class="qf-content">
+      <div class="qf-pane active" data-qf-pane-content="file">
+        <p style="font-size: 13px; color: var(--ink-2); line-height: 1.5; margin-bottom: 14px;">Speisekarte als PDF, Foto der Karte, oder anderes Dokument mit Restaurant-Infos. Claude liest durch und befüllt die Felder.</p>
+        <label class="qf-drop" id="qfDrop">
+          <div class="qf-drop-icon">📤</div>
+          <div class="qf-drop-text">Datei hier ablegen oder klicken</div>
+          <div class="qf-drop-sub">PDF · JPG · PNG · max 10 MB</div>
+          <input type="file" id="qfFile" accept="image/*,application/pdf,.txt" />
+        </label>
+        <div class="qf-file-info" id="qfFileInfo" style="display:none;"></div>
+      </div>
+      <div class="qf-pane" data-qf-pane-content="text">
+        <p style="font-size: 13px; color: var(--ink-2); line-height: 1.5; margin-bottom: 12px;">Text von deiner Webseite kopieren (Über-uns-Seite, Speisekarte, Pressetexte) und hier einfügen.</p>
+        <textarea class="qf-textarea" id="qfText" placeholder="Hier Text einfügen..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" id="qfCancelBtn" style="flex: 1;">Abbrechen</button>
+      <button class="btn btn-accent" id="qfSubmitBtn" style="flex: 2; margin: 0; padding: 12px 18px; font-size: 14px;">
+        <span class="btn-content">→ Felder befüllen</span>
+      </button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -1080,7 +1384,10 @@ Vermeide diese Variante (User mochte sie nicht):
 Mach es JETZT erkennbar anders.
 ` : '';
 
-  const prompt = `Du schreibst Instagram-Captions für deutsche Gutshöfe. Aber zuerst: VERGISS alles was du über Marketing-Texte weißt. Die meisten Restaurant-Captions klingen wie Werbeflyer und sind genau deswegen unsichtbar im Feed.${variationInstruction}
+  // Build KB context (smart selection by category)
+  const { context: kbContext, usedItems: kbUsedItems } = buildKBContext(cat);
+
+  const prompt = `Du schreibst Instagram-Captions für deutsche Gutshöfe. Aber zuerst: VERGISS alles was du über Marketing-Texte weißt. Die meisten Restaurant-Captions klingen wie Werbeflyer und sind genau deswegen unsichtbar im Feed.${variationInstruction}${kbContext}
 
 WIE DU SCHREIBST — drei einfache Regeln:
 
@@ -1275,6 +1582,7 @@ JSON-FORMAT (nur dieses, kein Vor-/Nachtext)
       hashtags: parsed.hashtags,
       keywords: parsed.keywords,
       strategie: parsed.strategie,
+      kbUsedItems: kbUsedItems,
       imageDataUrl: hasImage ? `data:${state.imageMediaType};base64,${state.imageBase64}` : null,
       imageMediaType: state.imageMediaType,
       status: 'draft'
@@ -1308,6 +1616,16 @@ function renderOutput(post) {
   $('captionOut').textContent = post.caption;
   $('hashtagsOut').textContent = post.hashtags.join(' ');
   $('keywordsOut').textContent = post.keywords.join(' · ');
+
+  // KB usage indicator
+  const kbInd = $('kbUsageIndicator');
+  if (post.kbUsedItems && post.kbUsedItems.length > 0) {
+    kbInd.className = 'kb-usage';
+    kbInd.style.display = 'flex';
+    kbInd.innerHTML = `<span class="kb-usage-icon">📖</span><span class="kb-usage-text"><strong>Wissensbasis aktiv:</strong> ${escapeHtml(post.kbUsedItems.join(' · '))}</span>`;
+  } else {
+    kbInd.style.display = 'none';
+  }
 
   // Instagram preview
   renderInstagramPreview(post);
@@ -2232,10 +2550,452 @@ function useIdea(idea) {
   showSuccess(`✓ "${idea.title}" übernommen. Foto hochladen und generieren!`);
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   KNOWLEDGE BASE
+   ═══════════════════════════════════════════════════════════════ */
+
+const LS_KB = 'socialaiza_kb_v1';
+
+const EMPTY_KB = {
+  name: '',
+  type: 'gutshof',
+  ort: '',
+  bundesland: '',
+  region: '',
+  gruendungsjahr: '',
+  beschreibung: '',
+  inhaber: '',
+  team: [],          // [{name, rolle, notiz}]
+  anrede: 'du',
+  mundart: '',
+  regionale_begriffe: '',
+  nie_verwenden: '',
+  lieferanten: [],   // [{name, was}]
+  klassiker: '',
+  saisonale_schwerpunkte: '',
+  geschichten: []    // [string]
+};
+
+function loadKB() {
+  try {
+    const stored = JSON.parse(localStorage.getItem(LS_KB) || 'null');
+    if (!stored) return { ...EMPTY_KB };
+    // Merge with empty to handle schema additions
+    return { ...EMPTY_KB, ...stored };
+  } catch (e) { return { ...EMPTY_KB }; }
+}
+
+function saveKB(kb) {
+  localStorage.setItem(LS_KB, JSON.stringify(kb));
+  flashKBSaved();
+}
+
+function isKBPopulated(kb) {
+  return !!(kb.name || kb.ort || kb.beschreibung || kb.inhaber);
+}
+
+function flashKBSaved() {
+  const status = $('kbStatus');
+  const text = $('kbStatusText');
+  status.classList.add('saved');
+  text.textContent = '✓ Gespeichert';
+  clearTimeout(window._kbSaveTimer);
+  window._kbSaveTimer = setTimeout(() => {
+    text.textContent = 'Bereit';
+  }, 1800);
+}
+
+// Form rendering
+function renderKBForm() {
+  const kb = loadKB();
+
+  // Simple fields
+  document.querySelectorAll('[data-kb]').forEach(el => {
+    const key = el.dataset.kb;
+    if (kb[key] !== undefined && typeof kb[key] !== 'object') {
+      el.value = kb[key];
+    }
+  });
+
+  // List fields
+  renderKBList('team', kb.team, ['Name', 'Rolle', 'Notiz'], 'cols-3');
+  renderKBList('lieferanten', kb.lieferanten, ['Name / Hof', 'Was sie liefern'], 'cols-2');
+  renderKBList('geschichten', kb.geschichten, ['Anekdote / Geschichte'], 'cols-1');
+}
+
+function renderKBList(field, items, labels, layout) {
+  const container = $(`kb-${field}-list`);
+  container.innerHTML = '';
+
+  if (!items || items.length === 0) {
+    const empty = document.createElement('div');
+    empty.style.cssText = 'color: var(--muted); font-size: 12px; font-style: italic; padding: 8px 0;';
+    empty.textContent = 'Noch nichts hinzugefügt.';
+    container.appendChild(empty);
+    return;
+  }
+
+  items.forEach((item, idx) => {
+    const row = document.createElement('div');
+    row.className = `kb-list-item ${layout}`;
+
+    if (field === 'team') {
+      row.innerHTML = `
+        <input type="text" class="kb-list-input" placeholder="${labels[0]}" value="${escapeHtml(item.name || '')}" data-list-field="name" />
+        <input type="text" class="kb-list-input" placeholder="${labels[1]}" value="${escapeHtml(item.rolle || '')}" data-list-field="rolle" />
+        <input type="text" class="kb-list-input" placeholder="${labels[2]}" value="${escapeHtml(item.notiz || '')}" data-list-field="notiz" />
+        <button type="button" class="kb-remove" title="Entfernen">✕</button>
+      `;
+    } else if (field === 'lieferanten') {
+      row.innerHTML = `
+        <input type="text" class="kb-list-input" placeholder="${labels[0]}" value="${escapeHtml(item.name || '')}" data-list-field="name" />
+        <input type="text" class="kb-list-input" placeholder="${labels[1]}" value="${escapeHtml(item.was || '')}" data-list-field="was" />
+        <button type="button" class="kb-remove" title="Entfernen">✕</button>
+      `;
+    } else if (field === 'geschichten') {
+      row.innerHTML = `
+        <textarea class="kb-list-input textarea" placeholder="${labels[0]}" data-list-field="value" rows="2">${escapeHtml(item || '')}</textarea>
+        <button type="button" class="kb-remove" title="Entfernen">✕</button>
+      `;
+    }
+
+    container.appendChild(row);
+
+    // Wire inputs
+    row.querySelectorAll('[data-list-field]').forEach(input => {
+      input.addEventListener('input', () => {
+        const kb = loadKB();
+        if (field === 'geschichten') {
+          kb[field][idx] = input.value;
+        } else {
+          if (!kb[field][idx]) kb[field][idx] = {};
+          kb[field][idx][input.dataset.listField] = input.value;
+        }
+        saveKB(kb);
+      });
+    });
+
+    // Remove button
+    row.querySelector('.kb-remove').addEventListener('click', () => {
+      const kb = loadKB();
+      kb[field].splice(idx, 1);
+      saveKB(kb);
+      renderKBList(field, kb[field], labels, layout);
+      updateKBOnboardingBanner();
+    });
+  });
+}
+
+// Wire up simple field inputs
+function wireKBInputs() {
+  document.querySelectorAll('[data-kb]').forEach(el => {
+    el.addEventListener('input', () => {
+      const kb = loadKB();
+      kb[el.dataset.kb] = el.value;
+      saveKB(kb);
+      updateKBOnboardingBanner();
+    });
+  });
+
+  // Add buttons
+  document.querySelectorAll('[data-add]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const field = btn.dataset.add;
+      const kb = loadKB();
+      if (field === 'team') kb.team.push({ name: '', rolle: '', notiz: '' });
+      else if (field === 'lieferanten') kb.lieferanten.push({ name: '', was: '' });
+      else if (field === 'geschichten') kb.geschichten.push('');
+      saveKB(kb);
+      renderKBForm();
+      updateKBOnboardingBanner();
+    });
+  });
+
+  // Reset
+  $('kbResetBtn').addEventListener('click', () => {
+    if (!confirm('Wirklich alle Wissensbasis-Daten löschen?')) return;
+    localStorage.removeItem(LS_KB);
+    renderKBForm();
+    updateKBOnboardingBanner();
+    showSuccess('Wissensbasis zurückgesetzt.');
+  });
+}
+
+function updateKBOnboardingBanner() {
+  const kb = loadKB();
+  $('kbOnboardingBanner').style.display = isKBPopulated(kb) ? 'none' : 'flex';
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   QUICKFILL: Datei/Text → KB-Felder via Claude
+   ═══════════════════════════════════════════════════════════════ */
+
+let qfFile = null;
+
+$('qfOpenBtn').addEventListener('click', () => {
+  $('qfModal').classList.add('visible');
+});
+$('qfClose').addEventListener('click', closeQFModal);
+$('qfCancelBtn').addEventListener('click', closeQFModal);
+$('qfModal').addEventListener('click', (e) => {
+  if (e.target.id === 'qfModal') closeQFModal();
+});
+
+function closeQFModal() {
+  $('qfModal').classList.remove('visible');
+  qfFile = null;
+  $('qfFile').value = '';
+  $('qfText').value = '';
+  $('qfFileInfo').style.display = 'none';
+}
+
+// Tab switching
+document.querySelectorAll('.qf-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.qf-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.qf-pane').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.querySelector(`[data-qf-pane-content="${tab.dataset.qfPane}"]`).classList.add('active');
+  });
+});
+
+// File handling
+const qfDrop = $('qfDrop');
+const qfFileInput = $('qfFile');
+
+qfFileInput.addEventListener('change', (e) => {
+  if (e.target.files[0]) handleQFFile(e.target.files[0]);
+});
+['dragover', 'dragenter'].forEach(ev => {
+  qfDrop.addEventListener(ev, (e) => { e.preventDefault(); qfDrop.classList.add('dragover'); });
+});
+['dragleave', 'drop'].forEach(ev => {
+  qfDrop.addEventListener(ev, (e) => { e.preventDefault(); qfDrop.classList.remove('dragover'); });
+});
+qfDrop.addEventListener('drop', (e) => {
+  e.preventDefault();
+  if (e.dataTransfer.files[0]) handleQFFile(e.dataTransfer.files[0]);
+});
+
+function handleQFFile(file) {
+  if (file.size > 10 * 1024 * 1024) { alert('Datei zu groß (max. 10 MB)'); return; }
+  qfFile = file;
+  const info = $('qfFileInfo');
+  info.style.display = 'flex';
+  info.innerHTML = `<span>📄 ${escapeHtml(file.name)} (${Math.round(file.size / 1024)} KB)</span><button class="kb-remove" id="qfFileRemove">✕</button>`;
+  $('qfFileRemove').addEventListener('click', () => {
+    qfFile = null;
+    qfFileInput.value = '';
+    info.style.display = 'none';
+  });
+}
+
+// Submit
+$('qfSubmitBtn').addEventListener('click', async () => {
+  const activeTab = document.querySelector('.qf-tab.active').dataset.qfPane;
+  const text = $('qfText').value.trim();
+
+  if (activeTab === 'file' && !qfFile) {
+    alert('Bitte Datei auswählen.');
+    return;
+  }
+  if (activeTab === 'text' && !text) {
+    alert('Bitte Text einfügen.');
+    return;
+  }
+
+  const btn = $('qfSubmitBtn');
+  const btnContent = btn.querySelector('.btn-content');
+  btn.disabled = true;
+  btn.classList.add('loading');
+  btnContent.innerHTML = '<span class="spinner"></span> Claude liest...';
+
+  try {
+    const extractPrompt = `Du analysierst Material eines deutschen Restaurants/Gutshofs und extrahierst strukturierte Informationen für eine Wissensbasis. Sei vorsichtig: Nur extrahieren was explizit erwähnt wird, NICHTS erfinden.
+
+Gib AUSSCHLIESSLICH gültiges JSON zurück mit diesen Feldern (leer lassen wenn nicht ableitbar):
+{
+  "name": "Name des Restaurants",
+  "type": "gutshof | landgasthof | restaurant | cafe | bistro | weinstube | brauhaus | biergarten",
+  "ort": "Ort/Stadt",
+  "bundesland": "Bundesland",
+  "region": "Region/Landschaft (z.B. Allgäu, Spreewald, Eifel)",
+  "gruendungsjahr": "Jahr falls erwähnt",
+  "beschreibung": "2-3 Sätze Selbstbeschreibung, sachlich",
+  "inhaber": "Name des Inhabers/Wirts",
+  "team": [{"name": "...", "rolle": "...", "notiz": "..."}],
+  "anrede": "du | sie | ihr",
+  "mundart": "z.B. 'leichtes Bayrisch' wenn erkennbar",
+  "regionale_begriffe": "regionale Wörter falls erkennbar",
+  "nie_verwenden": "",
+  "lieferanten": [{"name": "...", "was": "..."}],
+  "klassiker": "Liste der Hausspezialitäten als Fließtext",
+  "saisonale_schwerpunkte": "Saisonales als Fließtext",
+  "geschichten": ["kurze Anekdoten/Geschichten falls vorhanden"]
+}
+
+Material:`;
+
+    const content = [];
+
+    if (activeTab === 'file' && qfFile) {
+      // Read file as base64 for image, or text for PDF/text
+      if (qfFile.type.startsWith('image/')) {
+        const dataUrl = await new Promise((resolve, reject) => {
+          const r = new FileReader();
+          r.onload = () => resolve(r.result);
+          r.onerror = reject;
+          r.readAsDataURL(qfFile);
+        });
+        content.push({
+          type: 'image',
+          source: {
+            type: 'base64',
+            media_type: qfFile.type === 'image/jpg' ? 'image/jpeg' : qfFile.type,
+            data: dataUrl.split(',')[1]
+          }
+        });
+        content.push({ type: 'text', text: extractPrompt + '\n\n[Foto/Bild siehe oben]' });
+      } else if (qfFile.type === 'application/pdf') {
+        // PDF: encode as base64 document
+        const dataUrl = await new Promise((resolve, reject) => {
+          const r = new FileReader();
+          r.onload = () => resolve(r.result);
+          r.onerror = reject;
+          r.readAsDataURL(qfFile);
+        });
+        content.push({
+          type: 'document',
+          source: {
+            type: 'base64',
+            media_type: 'application/pdf',
+            data: dataUrl.split(',')[1]
+          }
+        });
+        content.push({ type: 'text', text: extractPrompt + '\n\n[PDF-Dokument siehe oben]' });
+      } else {
+        // Text file
+        const txt = await qfFile.text();
+        content.push({ type: 'text', text: extractPrompt + '\n\n' + txt });
+      }
+    } else {
+      content.push({ type: 'text', text: extractPrompt + '\n\n' + text });
+    }
+
+    const response = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 2500, messages: [{ role: 'user', content }] })
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || `Fehler ${response.status}`);
+
+    const rawText = data.content[0].text;
+    let parsed;
+    try { parsed = JSON.parse(rawText); }
+    catch (e) {
+      const match = rawText.match(/\{[\s\S]*\}/);
+      if (match) parsed = JSON.parse(match[0]);
+      else throw new Error('Antwort konnte nicht geparst werden');
+    }
+
+    // Merge into existing KB (don't overwrite filled fields with empty extractions)
+    const kb = loadKB();
+    Object.keys(parsed).forEach(key => {
+      const val = parsed[key];
+      if (val === '' || val === null || val === undefined) return;
+      if (Array.isArray(val) && val.length === 0) return;
+      kb[key] = val;
+    });
+    saveKB(kb);
+
+    closeQFModal();
+    renderKBForm();
+    updateKBOnboardingBanner();
+    showSuccess('✓ Felder aus Datei/Text befüllt — bitte prüfen und ggf. korrigieren.');
+  } catch (err) {
+    alert('Fehler: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.classList.remove('loading');
+    btnContent.textContent = '→ Felder befüllen';
+  }
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   KB CONTEXT FÜR PROMPT (smart selection)
+   ═══════════════════════════════════════════════════════════════ */
+
+function buildKBContext(category) {
+  const kb = loadKB();
+  if (!isKBPopulated(kb)) return { context: '', usedItems: [] };
+
+  const lines = [];
+  const usedItems = [];
+
+  // Always include: name, ort, region
+  if (kb.name) { lines.push(`Restaurant: ${kb.name}${kb.type ? ' (' + kb.type + ')' : ''}`); usedItems.push(kb.name); }
+  if (kb.ort) { lines.push(`Ort: ${kb.ort}${kb.bundesland ? ', ' + kb.bundesland : ''}${kb.region ? ' — ' + kb.region : ''}`); }
+  if (kb.gruendungsjahr) lines.push(`Seit: ${kb.gruendungsjahr}`);
+  if (kb.beschreibung) lines.push(`Selbstbild: ${kb.beschreibung}`);
+
+  // Inhaber - always include if present
+  if (kb.inhaber) { lines.push(`Inhaber: ${kb.inhaber}`); usedItems.push(kb.inhaber.split(' ')[0]); }
+
+  // Anrede + Sprache - always
+  if (kb.anrede) lines.push(`Anrede: ${kb.anrede === 'du' ? 'duzen (du/euch)' : kb.anrede === 'sie' ? 'siezen (Sie/Ihnen)' : 'ihrzen (gemischt)'}`);
+  if (kb.mundart) lines.push(`Mundart-Anteil: ${kb.mundart}`);
+  if (kb.regionale_begriffe) lines.push(`Regionale Begriffe (gerne nutzen): ${kb.regionale_begriffe}`);
+  if (kb.nie_verwenden) lines.push(`NIEMALS verwenden (zusätzlich zu den Floskel-Verboten): ${kb.nie_verwenden}`);
+
+  // Category-specific additions
+  const team = (kb.team || []).filter(t => t.name);
+  const lieferanten = (kb.lieferanten || []).filter(l => l.name);
+
+  if (['TEAM'].includes(category) && team.length > 0) {
+    lines.push(`Team:\n${team.map(t => `- ${t.name}${t.rolle ? ' (' + t.rolle + ')' : ''}${t.notiz ? ': ' + t.notiz : ''}`).join('\n')}`);
+    team.forEach(t => usedItems.push(t.name));
+  } else if (team.length > 0 && team.length <= 3) {
+    // Short team list always
+    lines.push(`Team: ${team.map(t => `${t.name}${t.rolle ? ' (' + t.rolle + ')' : ''}`).join(', ')}`);
+  }
+
+  if (['SAISONAL', 'FOOD', 'GETRAENKE'].includes(category) && lieferanten.length > 0) {
+    lines.push(`Lieferanten/Partner:\n${lieferanten.map(l => `- ${l.name}${l.was ? ': ' + l.was : ''}`).join('\n')}`);
+    lieferanten.forEach(l => usedItems.push(l.name));
+  } else if (lieferanten.length > 0 && lieferanten.length <= 3) {
+    lines.push(`Wichtige Lieferanten: ${lieferanten.map(l => l.name).join(', ')}`);
+  }
+
+  if (['FOOD', 'ANGEBOT', 'SONNTAG', 'SAISONAL'].includes(category) && kb.klassiker) {
+    lines.push(`Hausklassiker: ${kb.klassiker}`);
+  }
+
+  if (['SAISONAL'].includes(category) && kb.saisonale_schwerpunkte) {
+    lines.push(`Saisonales: ${kb.saisonale_schwerpunkte}`);
+  }
+
+  // Geschichten — only if relevant categories
+  const geschichten = (kb.geschichten || []).filter(g => g && g.trim());
+  if (['EVENT', 'TEAM', 'AMBIENTE', 'SONNTAG'].includes(category) && geschichten.length > 0) {
+    lines.push(`Geschichten/Anekdoten (gerne als Material nutzen):\n${geschichten.map(g => `- ${g}`).join('\n')}`);
+  }
+
+  return {
+    context: lines.length > 0 ? `\n═══════════════════════════════════════════\nDIESES RESTAURANT (Wissensbasis)\n═══════════════════════════════════════════\n${lines.join('\n')}\n\nNutze diese Infos KONKRET in der Caption — keine generischen Platzhalter.` : '',
+    usedItems: usedItems.slice(0, 5)
+  };
+}
+
 /* INIT */
 ['hook','urgency','story','local','length'].forEach(name => updateSliderValue(name));
 updateWeekCount();
 updateTimeFromSlot();
+renderKBForm();
+wireKBInputs();
+updateKBOnboardingBanner();
+
 </script>
 
 </body>
