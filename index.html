@@ -1108,11 +1108,19 @@
       <button class="modal-close" id="qfClose">✕</button>
     </div>
     <div class="qf-tabs">
-      <button class="qf-tab active" data-qf-pane="file">📁 Datei</button>
-      <button class="qf-tab" data-qf-pane="text">📝 Text einfügen</button>
+      <button class="qf-tab active" data-qf-pane="url">🌐 Webseite</button>
+      <button class="qf-tab" data-qf-pane="file">📁 Datei</button>
+      <button class="qf-tab" data-qf-pane="text">📝 Text</button>
     </div>
     <div class="qf-content">
-      <div class="qf-pane active" data-qf-pane-content="file">
+      <div class="qf-pane active" data-qf-pane-content="url">
+        <p style="font-size: 13px; color: var(--ink-2); line-height: 1.5; margin-bottom: 14px;">URL deiner Restaurant-Webseite eingeben. Claude lädt die Seite, liest Inhalte (Über-uns, Speisekarte, Team) und befüllt die Felder. Funktioniert auch mit Unterseiten.</p>
+        <input type="url" class="qf-textarea" id="qfUrl" placeholder="https://www.dein-gasthof.de" style="min-height: 44px; font-size: 14px;" />
+        <div style="font-size: 11px; color: var(--muted); margin-top: 8px; line-height: 1.4;">
+          💡 Tipp: Wenn deine Webseite eine ausführliche "Über uns"-Seite hat, gib direkt die URL davon an — z.B. <code style="font-family: 'JetBrains Mono', monospace; background: var(--surface-2); padding: 2px 6px; border-radius: 3px;">/ueber-uns</code> oder <code style="font-family: 'JetBrains Mono', monospace; background: var(--surface-2); padding: 2px 6px; border-radius: 3px;">/restaurant</code>.
+        </div>
+      </div>
+      <div class="qf-pane" data-qf-pane-content="file">
         <p style="font-size: 13px; color: var(--ink-2); line-height: 1.5; margin-bottom: 14px;">Speisekarte als PDF, Foto der Karte, oder anderes Dokument mit Restaurant-Infos. Claude liest durch und befüllt die Felder.</p>
         <label class="qf-drop" id="qfDrop">
           <div class="qf-drop-icon">📤</div>
@@ -2746,6 +2754,7 @@ function closeQFModal() {
   qfFile = null;
   $('qfFile').value = '';
   $('qfText').value = '';
+  $('qfUrl').value = '';
   $('qfFileInfo').style.display = 'none';
 }
 
@@ -2794,6 +2803,7 @@ function handleQFFile(file) {
 $('qfSubmitBtn').addEventListener('click', async () => {
   const activeTab = document.querySelector('.qf-tab.active').dataset.qfPane;
   const text = $('qfText').value.trim();
+  const url = $('qfUrl').value.trim();
 
   if (activeTab === 'file' && !qfFile) {
     alert('Bitte Datei auswählen.');
@@ -2803,14 +2813,52 @@ $('qfSubmitBtn').addEventListener('click', async () => {
     alert('Bitte Text einfügen.');
     return;
   }
+  if (activeTab === 'url' && !url) {
+    alert('Bitte URL eingeben.');
+    return;
+  }
 
   const btn = $('qfSubmitBtn');
   const btnContent = btn.querySelector('.btn-content');
   btn.disabled = true;
   btn.classList.add('loading');
-  btnContent.innerHTML = '<span class="spinner"></span> Claude liest...';
 
   try {
+    let materialForExtraction = '';
+    let materialContent = null; // content array for Claude (image/document)
+
+    // === STEP 1: Get the material based on input type ===
+
+    if (activeTab === 'url') {
+      btnContent.innerHTML = '<span class="spinner"></span> Lade Webseite...';
+
+      // Auto-prepend https:// if no scheme
+      let fullUrl = url;
+      if (!/^https?:\/\//i.test(fullUrl)) fullUrl = 'https://' + fullUrl;
+
+      const fetchResp = await fetch('/api/fetch-url', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: fullUrl })
+      });
+
+      const fetchData = await fetchResp.json();
+      if (!fetchResp.ok) {
+        throw new Error(fetchData.error || `Webseite-Fetch fehlgeschlagen (${fetchResp.status})`);
+      }
+
+      // Build material text including title and description
+      materialForExtraction = `URL: ${fetchData.url}\n`;
+      if (fetchData.title) materialForExtraction += `Titel: ${fetchData.title}\n`;
+      if (fetchData.description) materialForExtraction += `Beschreibung: ${fetchData.description}\n`;
+      materialForExtraction += `\n--- Seiteninhalt ---\n${fetchData.text}`;
+
+    } else if (activeTab === 'text') {
+      materialForExtraction = text;
+    }
+
+    btnContent.innerHTML = '<span class="spinner"></span> Claude liest...';
+
     const extractPrompt = `Du analysierst Material eines deutschen Restaurants/Gutshofs und extrahierst strukturierte Informationen für eine Wissensbasis. Sei vorsichtig: Nur extrahieren was explizit erwähnt wird, NICHTS erfinden.
 
 Gib AUSSCHLIESSLICH gültiges JSON zurück mit diesen Feldern (leer lassen wenn nicht ableitbar):
@@ -2839,7 +2887,7 @@ Material:`;
     const content = [];
 
     if (activeTab === 'file' && qfFile) {
-      // Read file as base64 for image, or text for PDF/text
+      // Read file as base64 for image/PDF
       if (qfFile.type.startsWith('image/')) {
         const dataUrl = await new Promise((resolve, reject) => {
           const r = new FileReader();
@@ -2857,7 +2905,6 @@ Material:`;
         });
         content.push({ type: 'text', text: extractPrompt + '\n\n[Foto/Bild siehe oben]' });
       } else if (qfFile.type === 'application/pdf') {
-        // PDF: encode as base64 document
         const dataUrl = await new Promise((resolve, reject) => {
           const r = new FileReader();
           r.onload = () => resolve(r.result);
@@ -2874,12 +2921,12 @@ Material:`;
         });
         content.push({ type: 'text', text: extractPrompt + '\n\n[PDF-Dokument siehe oben]' });
       } else {
-        // Text file
         const txt = await qfFile.text();
         content.push({ type: 'text', text: extractPrompt + '\n\n' + txt });
       }
     } else {
-      content.push({ type: 'text', text: extractPrompt + '\n\n' + text });
+      // URL or text — both use materialForExtraction
+      content.push({ type: 'text', text: extractPrompt + '\n\n' + materialForExtraction });
     }
 
     const response = await fetch('/api/generate', {
@@ -2913,7 +2960,9 @@ Material:`;
     closeQFModal();
     renderKBForm();
     updateKBOnboardingBanner();
-    showSuccess('✓ Felder aus Datei/Text befüllt — bitte prüfen und ggf. korrigieren.');
+
+    const sourceLabel = activeTab === 'url' ? 'Webseite' : activeTab === 'file' ? 'Datei' : 'Text';
+    showSuccess(`✓ Felder aus ${sourceLabel} befüllt — bitte prüfen und ggf. korrigieren.`);
   } catch (err) {
     alert('Fehler: ' + err.message);
   } finally {
