@@ -689,7 +689,7 @@
 
       <div class="output-footer">
         <button class="btn btn-dark" id="saveToWeekBtn">📌 In Wochenplan speichern</button>
-        <button class="btn btn-ghost" id="regenerateBtn">↻ Neue Variante</button>
+        <button class="btn btn-ghost" id="regenerateBtn"><span class="btn-content">↻ Neue Variante</span></button>
         <button class="btn btn-ghost" id="copyAllBtn">⎘ Alles kopieren</button>
       </div>
     </div>
@@ -1041,7 +1041,10 @@ $('changeImage').addEventListener('click', (e) => {
   requestAnimationFrame(() => imageInput.click());
 });
 
-async function generate() {
+// Track last generated caption for variation prompt
+let lastGeneratedCaption = null;
+
+async function generate(isRegenerate = false) {
   const cat = state.category;
   const goal = state.goal;
   const day = $('day').selectedOptions[0].text;
@@ -1059,7 +1062,25 @@ async function generate() {
 
   const hasImage = !!state.imageBase64;
 
-  const prompt = `Du schreibst Instagram-Captions für deutsche Gutshöfe. Aber zuerst: VERGISS alles was du über Marketing-Texte weißt. Die meisten Restaurant-Captions klingen wie Werbeflyer und sind genau deswegen unsichtbar im Feed.
+  // If user clicked "Neue Variante", inject anti-repetition instruction
+  const variationInstruction = (isRegenerate && lastGeneratedCaption) ? `
+
+═══════════════════════════════════════════
+WICHTIG — DEUTLICH ANDERE VARIANTE!
+═══════════════════════════════════════════
+Der Nutzer fand die letzte Variante nicht passend und klickt jetzt "Neue Variante". Du MUSST deutlich anders schreiben:
+- Andere erste Zeile (komplett anderer Hook)
+- Anderer Caption-Aufbau (wenn vorher Liste, jetzt Erzählung — oder umgekehrt)
+- Wenn vorher humorvoll, jetzt sachlich. Wenn vorher emotional, jetzt direkt.
+- Andere Bilddetails als Aufhänger nehmen falls Bild vorhanden
+
+Vermeide diese Variante (User mochte sie nicht):
+"${lastGeneratedCaption}"
+
+Mach es JETZT erkennbar anders.
+` : '';
+
+  const prompt = `Du schreibst Instagram-Captions für deutsche Gutshöfe. Aber zuerst: VERGISS alles was du über Marketing-Texte weißt. Die meisten Restaurant-Captions klingen wie Werbeflyer und sind genau deswegen unsichtbar im Feed.${variationInstruction}
 
 WIE DU SCHREIBST — drei einfache Regeln:
 
@@ -1204,11 +1225,19 @@ JSON-FORMAT (nur dieses, kein Vor-/Nachtext)
   if (hasImage) content.push({ type: 'image', source: { type: 'base64', media_type: state.imageMediaType, data: state.imageBase64 } });
   content.push({ type: 'text', text: prompt });
 
-  const btn = $('generateBtn');
-  const btnContent = btn.querySelector('.btn-content');
-  btn.classList.add('loading');
-  btn.disabled = true;
-  btnContent.innerHTML = '<span class="spinner"></span> Claude denkt...';
+  // Identify which button triggered this — show loading state on the right one
+  const mainBtn = $('generateBtn');
+  const regenBtn = $('regenerateBtn');
+  const activeBtn = isRegenerate ? regenBtn : mainBtn;
+  const activeBtnContent = activeBtn.querySelector('.btn-content');
+  const activeBtnOriginalText = isRegenerate ? '↻ Neue Variante' : 'Beitrag generieren →';
+  const loadingText = isRegenerate ? 'Neue Variante...' : 'Claude denkt...';
+
+  // Disable BOTH buttons during generation
+  mainBtn.disabled = true;
+  regenBtn.disabled = true;
+  activeBtn.classList.add('loading');
+  activeBtnContent.innerHTML = `<span class="spinner"></span> ${loadingText}`;
 
   try {
     const response = await fetch('/api/generate', {
@@ -1251,13 +1280,27 @@ JSON-FORMAT (nur dieses, kein Vor-/Nachtext)
       status: 'draft'
     };
 
+    // Track for next regenerate
+    lastGeneratedCaption = parsed.caption;
+
     renderOutput(state.currentPost);
+
+    // Brief success flash on regenerate button so user knows it worked
+    if (isRegenerate) {
+      activeBtnContent.textContent = '✓ Neue Variante da';
+      setTimeout(() => { activeBtnContent.textContent = activeBtnOriginalText; }, 1600);
+    }
   } catch (err) {
     showError('<strong>Fehler:</strong> ' + err.message);
+    activeBtnContent.textContent = activeBtnOriginalText;
   } finally {
-    btn.classList.remove('loading');
-    btn.disabled = false;
-    btnContent.textContent = 'Beitrag generieren →';
+    mainBtn.disabled = false;
+    regenBtn.disabled = false;
+    activeBtn.classList.remove('loading');
+    // Reset main button text only if it was the one loading (regenerate text gets reset by setTimeout)
+    if (!isRegenerate) {
+      activeBtnContent.textContent = activeBtnOriginalText;
+    }
   }
 }
 
@@ -1318,7 +1361,7 @@ function renderOutput(post) {
   $('outputSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-generateBtn.addEventListener('click', generate);
+generateBtn.addEventListener('click', () => generate(false));
 
 /* ═══════════════════════════════════════════════════════════════
    INSTAGRAM PREVIEW
@@ -1406,7 +1449,7 @@ if (savedUsername) $('previewUsername').value = savedUsername;
 $('previewUsername').addEventListener('change', () => {
   localStorage.setItem(LS_USERNAME, $('previewUsername').value);
 });
-$('regenerateBtn').addEventListener('click', generate);
+$('regenerateBtn').addEventListener('click', () => generate(true));
 
 document.querySelectorAll('.copy-btn').forEach(btn => {
   btn.addEventListener('click', () => {
