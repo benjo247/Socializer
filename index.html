@@ -257,6 +257,56 @@
   @media (max-width: 880px) { .week-grid-large { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
   @media (max-width: 480px) { .week-grid-large { grid-template-columns: 1fr; } }
 
+  /* DASHBOARD */
+  .dashboard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px; margin-bottom: 18px; box-shadow: var(--shadow-sm); }
+  .dashboard-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; gap: 12px; flex-wrap: wrap; }
+  .dashboard-title { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+  .dashboard-sub { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: .03em; }
+
+  .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  @media (max-width: 720px) { .dashboard-grid { grid-template-columns: 1fr; } }
+
+  .dashboard-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; }
+  .dashboard-card-title { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; font-weight: 500; margin-bottom: 14px; }
+
+  /* Content-Mix Donut */
+  .mix-row { display: flex; gap: 14px; align-items: center; }
+  .mix-donut-wrap { flex-shrink: 0; }
+  .mix-donut { width: 110px; height: 110px; transform: rotate(-90deg); }
+  .mix-donut .mix-donut-num { font-family: 'DM Sans', sans-serif; font-size: 7px; font-weight: 600; fill: var(--ink); text-anchor: middle; transform: rotate(90deg); transform-origin: 21px 21px; }
+  .mix-donut .mix-donut-label { font-family: 'JetBrains Mono', monospace; font-size: 2.5px; fill: var(--muted); text-anchor: middle; letter-spacing: .1em; transform: rotate(90deg); transform-origin: 21px 21px; }
+  .mix-donut circle { transition: stroke-dasharray .6s cubic-bezier(0.4, 0, 0.2, 1); }
+
+  .mix-legend { list-style: none; padding: 0; margin: 0; flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+  .mix-legend li { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--ink-2); }
+  .mix-legend .mix-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+  .mix-legend .mix-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .mix-legend .mix-count { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); font-weight: 500; }
+
+  /* Slot Bars */
+  .slot-bars { display: flex; flex-direction: column; gap: 12px; }
+  .slot-bar { display: flex; align-items: center; gap: 10px; }
+  .slot-bar-label { font-size: 12px; color: var(--ink-2); min-width: 90px; }
+  .slot-bar-track { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; position: relative; }
+  .slot-bar-fill { height: 100%; background: var(--accent); border-radius: 4px; transition: width .6s cubic-bezier(0.4, 0, 0.2, 1); }
+  .slot-bar-fill.morning { background: #f59e0b; }
+  .slot-bar-fill.noon { background: var(--accent); }
+  .slot-bar-fill.evening { background: #6366f1; }
+  .slot-bar-count { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-2); font-weight: 500; min-width: 32px; text-align: right; }
+
+  /* Recommendations */
+  .recommendations { background: var(--accent-light); border-color: var(--accent-soft); }
+  .recs-list { display: flex; flex-direction: column; gap: 10px; }
+  .rec-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 12px; background: white; border: 1px solid var(--accent-soft); border-radius: var(--radius); }
+  .rec-icon { width: 32px; height: 32px; border-radius: 50%; background: var(--accent-light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px; }
+  .rec-content { flex: 1; min-width: 0; }
+  .rec-title { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+  .rec-desc { font-size: 12px; color: var(--ink-2); line-height: 1.5; }
+  .rec-action { background: var(--ink); color: white; border: none; padding: 8px 14px; border-radius: var(--radius); font-size: 12px; font-weight: 500; cursor: pointer; flex-shrink: 0; align-self: center; min-height: 36px; transition: background .15s ease; }
+  .rec-action:hover { background: var(--ink-2); }
+  .recs-empty { text-align: center; color: var(--accent-dark); font-size: 13px; padding: 20px 12px; line-height: 1.5; }
+  .recs-empty strong { font-weight: 600; }
+
   .day-column { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; min-height: 180px; display: flex; flex-direction: column; }
   .day-header { background: var(--surface-2); padding: 10px 12px; border-bottom: 1px solid var(--border); text-align: center; }
   .day-header .day-name { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
@@ -691,6 +741,52 @@
         <button class="btn btn-accent" id="startTransferBtn" style="width:auto; margin:0; padding:12px 18px; font-size:14px; min-height:44px;">📤 An Meta Business übertragen</button>
         <button class="btn btn-dark" id="exportCsvBtn">⬇ CSV-Export</button>
         <button class="btn btn-danger" id="clearWeekBtn">🗑</button>
+      </div>
+    </div>
+
+    <!-- DIAGNOSE-DASHBOARD -->
+    <div class="dashboard" id="dashboard" style="display:none;">
+      <div class="dashboard-header">
+        <div>
+          <div class="dashboard-title">📊 Content-Diagnose</div>
+          <div class="dashboard-sub" id="dashboardSub">Analyse der letzten 60 Tage</div>
+        </div>
+        <select id="dashboardRange" class="ig-input" style="width:auto; padding:8px 32px 8px 12px; font-size:12px;">
+          <option value="30">30 Tage</option>
+          <option value="60" selected>60 Tage</option>
+          <option value="90">90 Tage</option>
+          <option value="all">Alle</option>
+        </select>
+      </div>
+
+      <div class="dashboard-grid">
+        <!-- Content-Mix -->
+        <div class="dashboard-card">
+          <div class="dashboard-card-title">Content-Mix</div>
+          <div class="mix-row">
+            <div class="mix-donut-wrap">
+              <svg id="mixDonut" viewBox="0 0 42 42" class="mix-donut">
+                <circle cx="21" cy="21" r="15.915" fill="none" stroke="#e7e5e4" stroke-width="6"/>
+                <g id="mixDonutSegments"></g>
+                <text x="21" y="20" class="mix-donut-num" id="mixDonutTotal">0</text>
+                <text x="21" y="26" class="mix-donut-label">Posts</text>
+              </svg>
+            </div>
+            <ul class="mix-legend" id="mixLegend"></ul>
+          </div>
+        </div>
+
+        <!-- Slot-Verteilung -->
+        <div class="dashboard-card">
+          <div class="dashboard-card-title">Tageszeit-Verteilung</div>
+          <div class="slot-bars" id="slotBars"></div>
+        </div>
+      </div>
+
+      <!-- Empfehlungen -->
+      <div class="dashboard-card recommendations" id="dashboardRecs">
+        <div class="dashboard-card-title">💡 Diese Themen fehlen dir</div>
+        <div class="recs-list" id="recsList"></div>
       </div>
     </div>
 
@@ -1360,6 +1456,9 @@ function renderWeekPlan() {
   $('statScheduled').textContent = posts.filter(p => p.status === 'scheduled').length;
   $('statPublished').textContent = posts.filter(p => p.status === 'published').length;
 
+  // Render dashboard
+  renderDashboard(posts);
+
   DAY_ORDER.forEach(day => {
     const dayPosts = posts.filter(p => p.day === day).sort((a,b) => (a.scheduledTime || '').localeCompare(b.scheduledTime || ''));
     const col = document.createElement('div');
@@ -1391,6 +1490,303 @@ function renderWeekPlan() {
     }
   });
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   DASHBOARD — Diagnose-Ansicht
+   ═══════════════════════════════════════════════════════════════ */
+
+const CATEGORY_COLORS = {
+  FOOD:      '#dc2626',  // rot
+  EVENT:     '#7c3aed',  // violett
+  AMBIENTE:  '#0891b2',  // cyan
+  TEAM:      '#ea580c',  // orange
+  SAISONAL:  '#15803d',  // grün (accent)
+  GETRAENKE: '#a16207',  // bernstein
+  ANGEBOT:   '#be123c',  // pink
+  SONNTAG:   '#4f46e5'   // indigo
+};
+
+const CATEGORY_LABELS = {
+  FOOD: 'Food', EVENT: 'Event', AMBIENTE: 'Ambiente', TEAM: 'Team',
+  SAISONAL: 'Saisonal', GETRAENKE: 'Getränke', ANGEBOT: 'Angebot', SONNTAG: 'Sonntag'
+};
+
+const ALL_CATEGORIES = Object.keys(CATEGORY_LABELS);
+
+function getDashboardPosts(posts, range) {
+  if (range === 'all') return posts;
+  const days = parseInt(range);
+  const cutoff = Date.now() - days * 24 * 60 * 60 * 1000;
+  return posts.filter(p => {
+    const t = new Date(p.createdAt).getTime();
+    return !isNaN(t) && t >= cutoff;
+  });
+}
+
+function renderDashboard(posts) {
+  const dashboard = $('dashboard');
+
+  // Hide dashboard if too few posts to be meaningful
+  if (posts.length < 3) {
+    dashboard.style.display = 'none';
+    return;
+  }
+  dashboard.style.display = 'block';
+
+  const range = $('dashboardRange').value;
+  const filteredPosts = getDashboardPosts(posts, range);
+  const total = filteredPosts.length;
+
+  // Sub-text
+  const rangeLabel = range === 'all' ? 'alle Posts' : `letzte ${range} Tage`;
+  $('dashboardSub').textContent = `Analyse · ${rangeLabel} · ${total} ${total === 1 ? 'Post' : 'Posts'}`;
+
+  if (total === 0) {
+    $('mixDonutSegments').innerHTML = '';
+    $('mixDonutTotal').textContent = '0';
+    $('mixLegend').innerHTML = '<li style="color:var(--muted); font-style:italic;">Keine Posts in diesem Zeitraum</li>';
+    $('slotBars').innerHTML = '<div style="color:var(--muted); font-size:12px; font-style:italic;">Keine Daten</div>';
+    $('recsList').innerHTML = '<div class="recs-empty">Wähle einen größeren Zeitraum oder erstelle erst ein paar Posts.</div>';
+    return;
+  }
+
+  // 1. Content-Mix (donut + legend)
+  renderContentMix(filteredPosts);
+
+  // 2. Slot-Verteilung (bars)
+  renderSlotBars(filteredPosts);
+
+  // 3. Recommendations (gap analysis)
+  renderRecommendations(filteredPosts, posts, range);
+}
+
+function renderContentMix(posts) {
+  // Count per category
+  const counts = {};
+  ALL_CATEGORIES.forEach(c => counts[c] = 0);
+  posts.forEach(p => {
+    if (counts[p.category] !== undefined) counts[p.category]++;
+  });
+
+  const total = posts.length;
+  $('mixDonutTotal').textContent = total;
+
+  // Build donut segments — circumference of r=15.915 is 100, so percentages map to dasharray directly
+  const sortedCats = ALL_CATEGORIES
+    .map(cat => ({ cat, count: counts[cat], pct: (counts[cat] / total) * 100 }))
+    .filter(x => x.count > 0)
+    .sort((a, b) => b.count - a.count);
+
+  const segments = $('mixDonutSegments');
+  segments.innerHTML = '';
+
+  let offset = 25; // start at top (12 o'clock position)
+  sortedCats.forEach(({ cat, pct }) => {
+    if (pct < 0.5) return; // skip negligible
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', '21');
+    circle.setAttribute('cy', '21');
+    circle.setAttribute('r', '15.915');
+    circle.setAttribute('fill', 'none');
+    circle.setAttribute('stroke', CATEGORY_COLORS[cat]);
+    circle.setAttribute('stroke-width', '6');
+    circle.setAttribute('stroke-dasharray', `${pct} ${100 - pct}`);
+    circle.setAttribute('stroke-dashoffset', `${offset}`);
+    segments.appendChild(circle);
+    offset = (offset - pct + 100) % 100;
+  });
+
+  // Legend
+  const legend = $('mixLegend');
+  legend.innerHTML = '';
+  sortedCats.forEach(({ cat, count, pct }) => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <span class="mix-dot" style="background:${CATEGORY_COLORS[cat]};"></span>
+      <span class="mix-name">${CATEGORY_LABELS[cat]}</span>
+      <span class="mix-count">${count} · ${Math.round(pct)}%</span>
+    `;
+    legend.appendChild(li);
+  });
+
+  // Show categories with 0 posts in muted form (helpful for "what's missing" view)
+  ALL_CATEGORIES.forEach(cat => {
+    if (counts[cat] === 0) {
+      const li = document.createElement('li');
+      li.style.opacity = '0.5';
+      li.innerHTML = `
+        <span class="mix-dot" style="background:${CATEGORY_COLORS[cat]}; opacity:0.3;"></span>
+        <span class="mix-name">${CATEGORY_LABELS[cat]}</span>
+        <span class="mix-count">0</span>
+      `;
+      legend.appendChild(li);
+    }
+  });
+}
+
+function renderSlotBars(posts) {
+  const slotCounts = { morning: 0, noon: 0, evening: 0 };
+  posts.forEach(p => {
+    if (slotCounts[p.slot] !== undefined) slotCounts[p.slot]++;
+  });
+  const max = Math.max(...Object.values(slotCounts), 1);
+  const total = posts.length;
+
+  const bars = $('slotBars');
+  bars.innerHTML = '';
+
+  ['morning', 'noon', 'evening'].forEach(slot => {
+    const count = slotCounts[slot];
+    const pct = (count / max) * 100;
+    const totalPct = total > 0 ? Math.round((count / total) * 100) : 0;
+    const bar = document.createElement('div');
+    bar.className = 'slot-bar';
+    bar.innerHTML = `
+      <div class="slot-bar-label">${SLOT_LABELS[slot]}</div>
+      <div class="slot-bar-track">
+        <div class="slot-bar-fill ${slot}" style="width:${pct}%;"></div>
+      </div>
+      <div class="slot-bar-count">${count} · ${totalPct}%</div>
+    `;
+    bars.appendChild(bar);
+  });
+}
+
+function renderRecommendations(filteredPosts, allPosts, range) {
+  const list = $('recsList');
+  list.innerHTML = '';
+  const recs = [];
+
+  const total = filteredPosts.length;
+
+  // Check 1: Categories with 0 posts in range
+  const counts = {};
+  ALL_CATEGORIES.forEach(c => counts[c] = 0);
+  filteredPosts.forEach(p => { if (counts[p.category] !== undefined) counts[p.category]++; });
+
+  const missing = ALL_CATEGORIES.filter(c => counts[c] === 0);
+
+  // Check 2: Categories that dominate (>50%)
+  const dominant = ALL_CATEGORIES.find(c => counts[c] / total > 0.5 && total >= 6);
+
+  // Check 3: Slot imbalance
+  const slotCounts = { morning: 0, noon: 0, evening: 0 };
+  filteredPosts.forEach(p => { if (slotCounts[p.slot] !== undefined) slotCounts[p.slot]++; });
+  const dominantSlot = Object.keys(slotCounts).find(s => slotCounts[s] / total > 0.7 && total >= 6);
+
+  // Check 4: Days since last post per category (last 14 days threshold)
+  const now = Date.now();
+  const lastPostByCategory = {};
+  ALL_CATEGORIES.forEach(c => {
+    const catPosts = allPosts.filter(p => p.category === c).sort((a,b) =>
+      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+    if (catPosts.length > 0) {
+      const days = Math.floor((now - new Date(catPosts[0].createdAt).getTime()) / (1000 * 60 * 60 * 24));
+      lastPostByCategory[c] = days;
+    } else {
+      lastPostByCategory[c] = Infinity;
+    }
+  });
+
+  // Build recommendations (priority order)
+
+  // High-priority: completely missing categories (especially Team, Saisonal, Ambiente — the "personality" ones)
+  const personalityCats = ['TEAM', 'AMBIENTE', 'SAISONAL'];
+  personalityCats.forEach(cat => {
+    if (counts[cat] === 0 && total >= 5) {
+      recs.push({
+        icon: cat === 'TEAM' ? '👤' : cat === 'AMBIENTE' ? '🪑' : '🌱',
+        title: `${CATEGORY_LABELS[cat]}-Posts fehlen komplett`,
+        desc: cat === 'TEAM'
+          ? 'Menschen hinter den Kulissen wirken stark — ein Foto vom Koch, Sommelier oder Service-Team baut Vertrauen.'
+          : cat === 'AMBIENTE'
+          ? 'Atmosphäre verkauft. Ein gut beleuchtetes Bild vom Gastraum, Kamin oder der Terrasse macht Lust zu kommen.'
+          : 'Saisonale Posts (Spargel, Wild, Kürbis) bringen Frische und zeigen Bezug zur Region.',
+        category: cat
+      });
+    }
+  });
+
+  // Medium-priority: long-time-no-see categories (>30 days)
+  ALL_CATEGORIES.forEach(cat => {
+    if (counts[cat] > 0) return; // skipped above if missing in range
+    const days = lastPostByCategory[cat];
+    if (days > 30 && days < Infinity && counts[cat] === 0) {
+      // Already handled above for personality cats
+      if (personalityCats.includes(cat)) return;
+      recs.push({
+        icon: '📅',
+        title: `${CATEGORY_LABELS[cat]}: seit ${days} Tagen nicht mehr`,
+        desc: `Der letzte ${CATEGORY_LABELS[cat]}-Post ist eine Weile her — Zeit für was Neues in dieser Kategorie.`,
+        category: cat
+      });
+    }
+  });
+
+  // Dominance warning
+  if (dominant) {
+    const dominantPct = Math.round((counts[dominant] / total) * 100);
+    recs.push({
+      icon: '⚖️',
+      title: `${CATEGORY_LABELS[dominant]} dominiert mit ${dominantPct}%`,
+      desc: 'Dein Feed zeigt fast nur eine Kategorie. Mehr Vielfalt wirkt lebendiger und erreicht unterschiedliche Interessen.',
+      category: null
+    });
+  }
+
+  // Slot imbalance
+  if (dominantSlot) {
+    const slotPct = Math.round((slotCounts[dominantSlot] / total) * 100);
+    const otherSlots = ['morning', 'noon', 'evening'].filter(s => s !== dominantSlot);
+    recs.push({
+      icon: '🕐',
+      title: `${slotPct}% deiner Posts sind ${SLOT_LABELS[dominantSlot]}`,
+      desc: `Auch ${SLOT_LABELS[otherSlots[0]]} und ${SLOT_LABELS[otherSlots[1]]} bedienen — andere Tageszeiten erreichen andere Zielgruppen.`,
+      category: null
+    });
+  }
+
+  // If everything looks balanced
+  if (recs.length === 0) {
+    list.innerHTML = '<div class="recs-empty"><strong>Sieht gut aus.</strong><br/>Dein Content-Mix ist ausgewogen, alle Kategorien werden bedient.</div>';
+    return;
+  }
+
+  // Limit to 4 recommendations to avoid overload
+  recs.slice(0, 4).forEach(rec => {
+    const item = document.createElement('div');
+    item.className = 'rec-item';
+    item.innerHTML = `
+      <div class="rec-icon">${rec.icon}</div>
+      <div class="rec-content">
+        <div class="rec-title">${escapeHtml(rec.title)}</div>
+        <div class="rec-desc">${escapeHtml(rec.desc)}</div>
+      </div>
+      ${rec.category ? `<button class="rec-action" data-cat="${rec.category}">→ Idee</button>` : ''}
+    `;
+    list.appendChild(item);
+  });
+
+  // Wire up action buttons
+  list.querySelectorAll('.rec-action').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cat = btn.dataset.cat;
+      // Switch to generator with this category preselected
+      state.category = cat;
+      document.querySelectorAll('#categoryChips .chip').forEach(c => {
+        c.classList.toggle('active', c.dataset.value === cat);
+      });
+      switchView('generator');
+      showSuccess(`✓ Kategorie "${CATEGORY_LABELS[cat]}" gewählt. Foto hochladen und generieren!`);
+    });
+  });
+}
+
+// Range selector
+$('dashboardRange').addEventListener('change', () => {
+  renderDashboard(loadPosts());
+});
 
 let modalCurrentPostId = null;
 
